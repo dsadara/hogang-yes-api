@@ -1,4 +1,4 @@
-package com.dsadara.aptApp;
+package com.dsadara.aptApp.main;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
