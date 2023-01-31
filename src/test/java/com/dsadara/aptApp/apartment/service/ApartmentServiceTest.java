@@ -1,15 +1,18 @@
 package com.dsadara.aptApp.apartment.service;
 
 import com.dsadara.aptApp.apartment.dto.ApartmentDto;
+import com.dsadara.aptApp.apartment.dto.ApartmentInfo;
 import com.dsadara.aptApp.apartment.dto.CreateApartment;
 import com.dsadara.aptApp.apartment.entity.Apartment;
 import com.dsadara.aptApp.apartment.exception.ApartmentException;
+import com.dsadara.aptApp.apartment.repository.ApartmentRepository;
 import com.dsadara.aptApp.common.type.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -21,6 +24,7 @@ import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ActiveProfiles("dev")
 @SpringBootTest
 @Transactional
 public class ApartmentServiceTest {
@@ -127,11 +131,11 @@ public class ApartmentServiceTest {
     void getApartmentDetailSuccess() {
         //given
         //when
-        Apartment apartment = apartmentService.getApartmentDetail("aptcode1");
+        ApartmentInfo apartmentInfo = apartmentService.getApartmentDetail("aptcode1");
 
         //then
-        assertEquals(apartment.getName(), "apt1");
-        assertEquals(apartment.getDrmAddress(), "도로명주소1");
+        assertEquals(apartmentInfo.getName(), "apt1");
+        assertEquals(apartmentInfo.getDrmAddress(), "도로명주소1");
     }
 
     @Test
@@ -168,5 +172,16 @@ public class ApartmentServiceTest {
 
         //then
         assertEquals(ErrorCode.APARTMENT_ALREADY_EXIST, exception.getErrorCode());
+    }
+
+    @Test
+    @DisplayName("테스트시 data.sql도 저장하는지 확인")
+    void checkIfSqlFileSaved(@Autowired ApartmentRepository apartmentRepository) {
+        // given
+        // when
+        Apartment apartment = apartmentRepository.findByAptCode("아파트코드1")
+                .orElseThrow(() -> new RuntimeException("아파트 없다!"));
+        // then
+        assertEquals(apartment.getName(), "아파트1");
     }
 }

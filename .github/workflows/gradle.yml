@@ -32,7 +32,7 @@ jobs:
     # application.properties 생성 후 덮어쓰기
     - uses: actions/checkout@v3
     - run: touch ./src/main/resources/application.properties
-    - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
+    - run: echo "${{ secrets.APPLICATION_PROD_PROPERTIES }}" > ./src/main/resources/application-prod.properties
     - run: cat ./src/main/resources/application.properties
       
     # gradlew 권한 설정
