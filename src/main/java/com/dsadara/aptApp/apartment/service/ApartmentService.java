@@ -1,6 +1,7 @@
 package com.dsadara.aptApp.apartment.service;
 
 import com.dsadara.aptApp.apartment.dto.ApartmentDto;
+import com.dsadara.aptApp.apartment.dto.ApartmentInfo;
 import com.dsadara.aptApp.apartment.dto.CreateApartment;
 import com.dsadara.aptApp.apartment.entity.Apartment;
 import com.dsadara.aptApp.apartment.exception.ApartmentException;
@@ -108,8 +109,10 @@ public class ApartmentService {
     }
 
     @Transactional
-    public Apartment getApartmentDetail(String aptCode) {
-        return apartmentRepository.findByAptCode(aptCode)
-                .orElseThrow(() -> new ApartmentException(APARTMENT_NOT_FOUND));
+    public ApartmentInfo getApartmentDetail(String aptCode) {
+        return ApartmentInfo.fromEntity(
+                apartmentRepository.findByAptCode(aptCode)
+                        .orElseThrow(() -> new ApartmentException(APARTMENT_NOT_FOUND))
+        );
     }
 }

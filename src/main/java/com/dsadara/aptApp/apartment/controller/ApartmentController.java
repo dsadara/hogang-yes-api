@@ -69,7 +69,7 @@ public class ApartmentController {
     public ApartmentInfo getApartmentDetail(
             @RequestParam String aptCode
     ) {
-        return ApartmentInfo.fromEntity(apartmentService.getApartmentDetail(aptCode));
+        return apartmentService.getApartmentDetail(aptCode);
     }
 }
 
