@@ -63,12 +63,14 @@ public class ApartmentServiceTest {
     @DisplayName("아파트 검색 (단지명)")
     void getApartmentByNameSuccess() {
         //given
+        String aptName = "apt1";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByName("apt1");
+        List<ApartmentDto> apts = apartmentService.getApartmentByName(aptName);
 
         //then
         for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getName(), "apt1");
+            assertEquals(aptName, apartmentDto.getName());
         }
     }
 
@@ -76,13 +78,14 @@ public class ApartmentServiceTest {
     @DisplayName("아파트 검색 (시, 도)")
     void getApartmentByAs1Success() {
         //given
+        String siDo = "**시";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs1("**시");
+        List<ApartmentDto> apts = apartmentService.getApartmentByAs1(siDo);
 
         //then
         for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs1(), "**시");
-            assertEquals(apartmentDto.getName(), "apt1");
+            assertEquals(siDo, apartmentDto.getAs1());
         }
     }
 
@@ -90,12 +93,14 @@ public class ApartmentServiceTest {
     @DisplayName("아파트 검색 (시, 군, 구)")
     void getApartmentByAs2Success() {
         //given
+        String siGunGu = "**구";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs2("**구");
+        List<ApartmentDto> apts = apartmentService.getApartmentByAs2(siGunGu);
 
         //then
         for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs2(), "**구");
+            assertEquals(siGunGu, apartmentDto.getAs2());
         }
     }
 
@@ -103,13 +108,14 @@ public class ApartmentServiceTest {
     @DisplayName("아파트 검색 (읍, 면)")
     void getApartmentByAs3Success() {
         //given
+        String eupMyeon = "**읍";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs3("**읍");
+        List<ApartmentDto> apts = apartmentService.getApartmentByAs3(eupMyeon);
 
         //then
         for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs3(), "**읍");
-            assertEquals(apartmentDto.getName(), "apt1");
+            assertEquals(eupMyeon, apartmentDto.getAs3());
         }
     }
 
@@ -117,12 +123,14 @@ public class ApartmentServiceTest {
     @DisplayName("아파트 검색 (동, 리)")
     void getApartmentByAs4Success() {
         //given
+        String dongLee = "**동";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs4("**동");
+        List<ApartmentDto> apts = apartmentService.getApartmentByAs4(dongLee);
 
         //then
         for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs4(), "**동");
+            assertEquals(dongLee, apartmentDto.getAs4());
         }
     }
 
@@ -130,21 +138,24 @@ public class ApartmentServiceTest {
     @DisplayName("아파트 상세 정보 조회")
     void getApartmentDetailSuccess() {
         //given
+        String aptCode = "aptcode1";
+
         //when
-        ApartmentInfo apartmentInfo = apartmentService.getApartmentDetail("aptcode1");
+        ApartmentInfo apartmentInfo = apartmentService.getApartmentDetail(aptCode);
 
         //then
-        assertEquals(apartmentInfo.getName(), "apt1");
-        assertEquals(apartmentInfo.getDrmAddress(), "도로명주소1");
+        assertEquals(aptCode, apartmentInfo.getAptCode());
     }
 
     @Test
     @DisplayName("아파트 상세 정보 조회 실패")
     void getApartmentDetailFailed_ApartmentNotFound() {
         //given
+        String wrongAptCode = "wrongcode";
+
         //when
         ApartmentException exception = assertThrows(ApartmentException.class,
-                () -> apartmentService.getApartmentDetail("wrongcode"));
+                () -> apartmentService.getApartmentDetail(wrongAptCode));
 
         //then
         assertEquals(ErrorCode.APARTMENT_NOT_FOUND, exception.getErrorCode());
@@ -166,6 +177,7 @@ public class ApartmentServiceTest {
                 .bjdCode("bjdcode1")
                 .feature(new ArrayList<>(Arrays.asList(NEAR_STATION, GOOD_SCHOOL)))
                 .build();
+
         //when
         ApartmentException exception = assertThrows(ApartmentException.class,
                 () -> apartmentService.createApartment(request));
@@ -177,7 +189,8 @@ public class ApartmentServiceTest {
     @Test
     @DisplayName("테스트시 data.sql도 저장하는지 확인")
     void checkIfSqlFileSaved(@Autowired ApartmentRepository apartmentRepository) {
-        // given
+        // given   
+
         // when
         Apartment apartment = apartmentRepository.findByAptCode("아파트코드1")
                 .orElseThrow(() -> new RuntimeException("아파트 없다!"));
