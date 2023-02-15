@@ -41,7 +41,7 @@ public class ApartmentServiceMockTest {
     @InjectMocks
     private ApartmentService apartmentService;
 
-    Apartment apartmentSample;
+    private Apartment apartmentSample;
 
     @BeforeEach
     void beforeEach() {
@@ -66,8 +66,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트저장")
-    void createApartmentSuccess() {
+    @DisplayName("성공-createApartment()")
+    void createApartment_Success() {
         //given
         given(apartmentRepository.existsByAptCode(anyString()))
                 .willReturn(Boolean.FALSE);
@@ -109,8 +109,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트이름검색")
-    void getApartmentByNameSuccess() {
+    @DisplayName("성공-getApartmentByName()")
+    void getApartmentByName_Success() {
         //given
         given(apartmentRepository.findByName(anyString()))
                 .willReturn(Collections.singletonList(apartmentSample));
@@ -129,8 +129,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트시도검색")
-    void getApartmentByAs1Success() {
+    @DisplayName("성공-getApartmentByAs1()")
+    void getApartmentByAs1_Success() {
         //given
         given(apartmentRepository.findByAs1(anyString()))
                 .willReturn(Collections.singletonList(apartmentSample));
@@ -149,8 +149,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트시군구검색")
-    void getApartmentByAs2Success() {
+    @DisplayName("성공-getApartmentByAs2()")
+    void getApartmentByAs2_Success() {
         //given
         given(apartmentRepository.findByAs2(anyString()))
                 .willReturn(Collections.singletonList(apartmentSample));
@@ -169,8 +169,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트읍면검색")
-    void getApartmentByAs3Success() {
+    @DisplayName("성공-getApartmentByAs3()")
+    void getApartmentByAs3_Success() {
         //given
         given(apartmentRepository.findByAs3(anyString()))
                 .willReturn(Collections.singletonList(apartmentSample));
@@ -189,8 +189,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트동리검색")
-    void getApartmentByAs4Success() {
+    @DisplayName("성공-getApartmentByAs4()")
+    void getApartmentByAs4_Success() {
         //given
         given(apartmentRepository.findByAs4(anyString()))
                 .willReturn(Collections.singletonList(apartmentSample));
@@ -209,8 +209,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트특징검색")
-    void getApartmentByFeatureSuccess() {
+    @DisplayName("성공-getApartmentByFeature()")
+    void getApartmentByFeature_Success() {
         //given
         given(apartmentRepository.findByFeature(any(ApartmentFeature.class)))
                 .willReturn(Collections.singletonList(apartmentSample));
@@ -229,8 +229,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-아파트상세조회")
-    void getApartmentDetailSuccess() {
+    @DisplayName("성공-getApartmentDetail()")
+    void getApartmentDetail_Success() {
         //given
         given(apartmentRepository.findByAptCode(anyString()))
                 .willReturn(Optional.of(apartmentSample));
@@ -259,8 +259,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("실패-아파트상세조회")
-    void getApartmentDetailFail() {
+    @DisplayName("실패-getApartmentDetail()")
+    void getApartmentDetail_Fail() {
         //given
         given(apartmentRepository.findByAptCode(anyString()))
                 .willThrow(new ApartmentException(APARTMENT_NOT_FOUND));
@@ -277,8 +277,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("실패-아파트저장-중복코드존재")
-    void createApartmentFail_duplicateAptCode() {
+    @DisplayName("실패-createApartment()-중복코드존재")
+    void createApartment_Fail_duplicateAptCode() {
         //given
         given(apartmentRepository.existsByAptCode(anyString()))
                 .willThrow(new ApartmentException(APARTMENT_ALREADY_EXIST));
@@ -298,8 +298,8 @@ public class ApartmentServiceMockTest {
     }
 
     @Test
-    @DisplayName("실패-아파트저장-중복이름존재")
-    void createApartmentFail_duplicateName() {
+    @DisplayName("실패-createApartment()-중복이름존재")
+    void createApartment_Fail_duplicateName() {
         //given
         given(apartmentRepository.existsByName(anyString()))
                 .willThrow(new ApartmentException(APARTMENT_ALREADY_EXIST));

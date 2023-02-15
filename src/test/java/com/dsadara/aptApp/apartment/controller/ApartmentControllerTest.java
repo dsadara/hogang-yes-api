@@ -45,8 +45,8 @@ public class ApartmentControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("아파트 저장 성공")
-    void successCreateApartment() throws Exception {
+    @DisplayName("성공-아파트 저장")
+    void createApartment_Success() throws Exception {
         //given
         given(apartmentService.createApartment(any(CreateApartment.Request.class)))
                 .willReturn(ApartmentDto.builder()
@@ -94,8 +94,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 이름 검색 성공")
-    void successGetApartmentByName() throws Exception {
+    @DisplayName("성공-아파트 이름 검색")
+    void getApartmentByName_Success() throws Exception {
         //given
         List<ApartmentDto> apartmentDtos =
                 Collections.singletonList(
@@ -118,6 +118,7 @@ public class ApartmentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].aptCode").value("sampleCode"))
+                .andExpect(jsonPath("$[0].name").value("아파트1"))
                 .andExpect(jsonPath("$[0].as1").value("**시"))
                 .andExpect(jsonPath("$[0].as2").value("**구"))
                 .andExpect(jsonPath("$[0].as3").value("**읍"))
@@ -127,8 +128,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 시도별 검색 성공")
-    void successGetApartmentByAs1() throws Exception {
+    @DisplayName("성공-아파트 시,도별 검색")
+    void getApartmentByAs1_Success() throws Exception {
         //given
         List<ApartmentDto> apartmentDtos =
                 Arrays.asList(
@@ -160,6 +161,7 @@ public class ApartmentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$[0].name").value("아파트1"))
                 .andExpect(jsonPath("$[0].as1").value("**시"))
                 .andExpect(jsonPath("$[0].as2").value("**구"))
                 .andExpect(jsonPath("$[0].as3").value("**읍"))
@@ -167,6 +169,7 @@ public class ApartmentControllerTest {
                 .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
                 .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
                 .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$[1].name").value("아파트2"))
                 .andExpect(jsonPath("$[1].as1").value("**시"))
                 .andExpect(jsonPath("$[1].as2").value("**구"))
                 .andExpect(jsonPath("$[1].as3").value("**읍"))
@@ -176,8 +179,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 시군구별 검색 성공")
-    void successGetApartmentByAs2() throws Exception {
+    @DisplayName("성공-아파트 시,군,구별 검색")
+    void getApartmentByAs2_Success() throws Exception {
         //given
         List<ApartmentDto> apartmentDtos =
                 Arrays.asList(
@@ -209,6 +212,7 @@ public class ApartmentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$[0].name").value("아파트1"))
                 .andExpect(jsonPath("$[0].as1").value("**시"))
                 .andExpect(jsonPath("$[0].as2").value("**구"))
                 .andExpect(jsonPath("$[0].as3").value("**읍"))
@@ -216,6 +220,7 @@ public class ApartmentControllerTest {
                 .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
                 .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
                 .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$[1].name").value("아파트2"))
                 .andExpect(jsonPath("$[1].as1").value("**시"))
                 .andExpect(jsonPath("$[1].as2").value("**구"))
                 .andExpect(jsonPath("$[1].as3").value("**읍"))
@@ -225,8 +230,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 읍면별 검색 성공")
-    void successGetApartmentByAs3() throws Exception {
+    @DisplayName("성공-아파트 읍,면별 검색")
+    void getApartmentByAs3_Success() throws Exception {
         //given
         List<ApartmentDto> apartmentDtos =
                 Arrays.asList(
@@ -258,6 +263,7 @@ public class ApartmentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$[0].name").value("아파트1"))
                 .andExpect(jsonPath("$[0].as1").value("**시"))
                 .andExpect(jsonPath("$[0].as2").value("**구"))
                 .andExpect(jsonPath("$[0].as3").value("**읍"))
@@ -265,6 +271,7 @@ public class ApartmentControllerTest {
                 .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
                 .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
                 .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$[1].name").value("아파트2"))
                 .andExpect(jsonPath("$[1].as1").value("**시"))
                 .andExpect(jsonPath("$[1].as2").value("**구"))
                 .andExpect(jsonPath("$[1].as3").value("**읍"))
@@ -274,8 +281,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 동리별 검색 성공")
-    void successGetApartmentByAs4() throws Exception {
+    @DisplayName("성공-아파트 동,리별 검색")
+    void getApartmentByAs4_Success() throws Exception {
         //given
         List<ApartmentDto> apartmentDtos =
                 Arrays.asList(
@@ -307,6 +314,7 @@ public class ApartmentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$[0].name").value("아파트1"))
                 .andExpect(jsonPath("$[0].as1").value("**시"))
                 .andExpect(jsonPath("$[0].as2").value("**구"))
                 .andExpect(jsonPath("$[0].as3").value("**읍"))
@@ -314,6 +322,7 @@ public class ApartmentControllerTest {
                 .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
                 .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
                 .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$[1].name").value("아파트2"))
                 .andExpect(jsonPath("$[1].as1").value("**시"))
                 .andExpect(jsonPath("$[1].as2").value("**구"))
                 .andExpect(jsonPath("$[1].as3").value("**읍"))
@@ -323,8 +332,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 특징별 검색 성공")
-    void successGetApartmentByFeature() throws Exception {
+    @DisplayName("성공-아파트 특징별 검색")
+    void getApartmentByFeature_Success() throws Exception {
         //given
         List<ApartmentDto> apartmentDtos =
                 Arrays.asList(
@@ -356,6 +365,7 @@ public class ApartmentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$[0].name").value("아파트1"))
                 .andExpect(jsonPath("$[0].as1").value("**시"))
                 .andExpect(jsonPath("$[0].as2").value("**구"))
                 .andExpect(jsonPath("$[0].as3").value("**읍"))
@@ -363,6 +373,7 @@ public class ApartmentControllerTest {
                 .andExpect(jsonPath("$[0].feature[0]").value(NEAR_STATION.name()))
                 .andExpect(jsonPath("$[0].feature[1]").value(GOOD_SCHOOL.name()))
                 .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$[1].name").value("아파트2"))
                 .andExpect(jsonPath("$[1].as1").value("**시"))
                 .andExpect(jsonPath("$[1].as2").value("**구"))
                 .andExpect(jsonPath("$[1].as3").value("**읍"))
@@ -372,8 +383,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 상세 조회 성공")
-    void successGetApartmentDetail() throws Exception {
+    @DisplayName("성공-아파트 상세 조회")
+    void getApartmentDetail_Success() throws Exception {
         //given
         given(apartmentService.getApartmentDetail(anyString()))
                 .willReturn(ApartmentInfo.builder()
@@ -414,8 +425,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 저장 실패 - 중복 아파트 존재")
-    void failCreateApartment() throws Exception {
+    @DisplayName("실패-아파트 저장-중복 아파트 존재")
+    void createApartment_Fail() throws Exception {
         //given
         given(apartmentService.createApartment(any(CreateApartment.Request.class)))
                 .willThrow(new ApartmentException(APARTMENT_ALREADY_EXIST));
@@ -450,8 +461,8 @@ public class ApartmentControllerTest {
     }
 
     @Test
-    @DisplayName("아파트 상세 조회 실패 - 존재하지 않는 아파트")
-    void failGetApartmentDetail() throws Exception {
+    @DisplayName("실패-아파트 상세 조회-존재하지 않는 아파트")
+    void getApartmentDetail_Fail() throws Exception {
         //given
         given(apartmentService.getApartmentDetail(anyString()))
                 .willThrow(new ApartmentException(APARTMENT_NOT_FOUND));
@@ -470,8 +481,8 @@ public class ApartmentControllerTest {
 
 
     @Test
-    @DisplayName("아파트 검색 실패 - 존재하지 않는 특징")
-    void failGetApartmentByFeature() throws Exception {
+    @DisplayName("실패-아파트 특징 검색-존재하지 않는 특징")
+    void getApartmentByFeature_Fail() throws Exception {
         //given
         //when
         //then

@@ -29,7 +29,7 @@ public class ApartmentRepositoryTest {
     private ApartmentRepository apartmentRepository;
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     @BeforeEach
     void beforeEach() {
@@ -63,7 +63,7 @@ public class ApartmentRepositoryTest {
 
     @Test
     @DisplayName("성공-findByName()")
-    void findByNameSuccess() {
+    void findByName_Success() {
         //given
         String aptName = "apt1";
 
@@ -76,7 +76,7 @@ public class ApartmentRepositoryTest {
 
     @Test
     @DisplayName("성공-findByAs1()")
-    void findByAs1Success() {
+    void findByAs1_Success() {
         //given
         String siDo = "**시";
 
@@ -89,7 +89,7 @@ public class ApartmentRepositoryTest {
 
     @Test
     @DisplayName("성공-findByAs2()")
-    void findByAs2Success() {
+    void findByAs2_Success() {
         //given
         String siGunGu = "**구";
 
@@ -103,7 +103,7 @@ public class ApartmentRepositoryTest {
 
     @Test
     @DisplayName("성공-findByAs3()")
-    void findByAs3Success() {
+    void findByAs3_Success() {
         //given
         String eupMyeon = "**읍";
 
@@ -116,7 +116,7 @@ public class ApartmentRepositoryTest {
 
     @Test
     @DisplayName("성공-findByAs4()")
-    void findByAs4Success() {
+    void findByAs4_Success() {
         //given
         String dongLee = "**동";
 
@@ -130,8 +130,8 @@ public class ApartmentRepositoryTest {
 
 
     @Test
-    @DisplayName("성공-findByFeature")
-    void findByFeatureSuccess() {
+    @DisplayName("성공-findByFeature()")
+    void findByFeature_Success() {
         // mysql 네이티브 쿼리를 사용한 테스트이므로 mysql 사용시에만 테스트하기 (local 프로파일)
         if (!env.acceptsProfiles(Profiles.of("local"))) {
             return;
@@ -148,8 +148,8 @@ public class ApartmentRepositoryTest {
     }
 
     @Test
-    @DisplayName("성공-findByAptCode")
-    void findByAptCodeSuccess() {
+    @DisplayName("성공-findByAptCode()")
+    void findByAptCode_Success() {
         //given
         String aptCode = "aptcode1";
 
@@ -162,8 +162,8 @@ public class ApartmentRepositoryTest {
     }
 
     @Test
-    @DisplayName("성공-existByName")
-    void existByNameSuccess() {
+    @DisplayName("성공-existByName()")
+    void existByName_Success() {
         //given
         String aptName = "apt1";
 
@@ -175,8 +175,8 @@ public class ApartmentRepositoryTest {
     }
 
     @Test
-    @DisplayName("성공-existByAptCode")
-    void existByAptCodeSuccess() {
+    @DisplayName("성공-existByAptCode()")
+    void existByAptCode_Success() {
         //given
         String aptCode = "aptcode1";
 
@@ -186,6 +186,5 @@ public class ApartmentRepositoryTest {
         //then
         assertEquals(TRUE, isAptExist);
     }
-
 
 }

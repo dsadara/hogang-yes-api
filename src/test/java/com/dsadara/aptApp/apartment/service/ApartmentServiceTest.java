@@ -19,10 +19,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("dev")
 @SpringBootTest
@@ -31,8 +31,13 @@ public class ApartmentServiceTest {
     @Autowired
     private ApartmentService apartmentService;
 
+    @Autowired
+    private ApartmentRepository apartmentRepository;
+
     @BeforeEach
-    void init() {
+    void beforeEach() {
+        apartmentRepository.deleteAll();
+
         apartmentService.createApartment(CreateApartment.Request.builder()
                 .aptCode("aptcode1")
                 .name("apt1")
@@ -60,8 +65,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 검색 (단지명)")
-    void getApartmentByNameSuccess() {
+    @DisplayName("성공-getApartmentByName()")
+    void getApartmentByName_Success() {
         //given
         String aptName = "apt1";
 
@@ -75,8 +80,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 검색 (시, 도)")
-    void getApartmentByAs1Success() {
+    @DisplayName("성공-getApartmentByAs1()")
+    void getApartmentByAs1_Success() {
         //given
         String siDo = "**시";
 
@@ -90,8 +95,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 검색 (시, 군, 구)")
-    void getApartmentByAs2Success() {
+    @DisplayName("성공-getApartmentByAs2()")
+    void getApartmentByAs2_Success() {
         //given
         String siGunGu = "**구";
 
@@ -105,8 +110,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 검색 (읍, 면)")
-    void getApartmentByAs3Success() {
+    @DisplayName("성공-getApartmentByAs3()")
+    void getApartmentByAs3_Success() {
         //given
         String eupMyeon = "**읍";
 
@@ -120,8 +125,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 검색 (동, 리)")
-    void getApartmentByAs4Success() {
+    @DisplayName("성공-getApartmentByAs4()")
+    void getApartmentByAs4_Success() {
         //given
         String dongLee = "**동";
 
@@ -135,8 +140,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 상세 정보 조회")
-    void getApartmentDetailSuccess() {
+    @DisplayName("성공-getApartmentDetail()")
+    void getApartmentDetail_Success() {
         //given
         String aptCode = "aptcode1";
 
@@ -148,8 +153,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 상세 정보 조회 실패")
-    void getApartmentDetailFailed_ApartmentNotFound() {
+    @DisplayName("실패-getApartmentDetail()")
+    void getApartmentDetail_Fail_ApartmentNotFound() {
         //given
         String wrongAptCode = "wrongcode";
 
@@ -162,8 +167,8 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 저장 실패")
-    void createApartmentFailed_ApartmentAlreadyExist() {
+    @DisplayName("실패-createApartment()")
+    void createApartment_Fail_ApartmentAlreadyExist() {
         //given
         CreateApartment.Request request = CreateApartment.Request.builder()
                 .aptCode("aptcode1")
@@ -187,14 +192,15 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("테스트시 data.sql도 저장하는지 확인")
-    void checkIfSqlFileSaved(@Autowired ApartmentRepository apartmentRepository) {
-        // given   
+    @DisplayName("테스트시 data.sql 데이터 삭제했는지 확인")
+    void check_IfInitialData_Deleted() {
+        // given
+        String aptCodeFromInitialData = "아파트코드1";
 
         // when
-        Apartment apartment = apartmentRepository.findByAptCode("아파트코드1")
-                .orElseThrow(() -> new RuntimeException("아파트 없다!"));
+        Optional<Apartment> apartmentOptional = apartmentRepository.findByAptCode(aptCodeFromInitialData);
+
         // then
-        assertEquals(apartment.getName(), "아파트1");
+        assertFalse(apartmentOptional.isPresent());
     }
 }
