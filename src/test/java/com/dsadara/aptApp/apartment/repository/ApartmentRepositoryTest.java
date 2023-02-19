@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
 import static java.lang.Boolean.TRUE;
@@ -68,10 +70,11 @@ public class ApartmentRepositoryTest {
         String aptName = "apt1";
 
         //when
-        List<Apartment> apartmentList = apartmentRepository.findByName(aptName);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Apartment> pageList = apartmentRepository.findByName(aptName, pageable);
 
         //then
-        assertEquals(aptName, apartmentList.get(0).getName());
+        assertEquals(aptName, pageList.getContent().get(0).getName());
     }
 
     @Test
@@ -81,10 +84,11 @@ public class ApartmentRepositoryTest {
         String siDo = "**시";
 
         //when
-        List<Apartment> apartments = apartmentRepository.findByAs1(siDo);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Apartment> pageList = apartmentRepository.findByAs1(siDo, pageable);
 
         //then
-        assertEquals(siDo, apartments.get(0).getAs1());
+        assertEquals(siDo, pageList.getContent().get(0).getAs1());
     }
 
     @Test
@@ -94,11 +98,12 @@ public class ApartmentRepositoryTest {
         String siGunGu = "**구";
 
         //when
-        List<Apartment> apartments = apartmentRepository.findByAs2(siGunGu);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Apartment> pageList = apartmentRepository.findByAs2(siGunGu, pageable);
 
         //then
-        assertEquals(siGunGu, apartments.get(0).getAs2());
-        assertEquals(siGunGu, apartments.get(1).getAs2());
+        assertEquals(siGunGu, pageList.getContent().get(0).getAs2());
+        assertEquals(siGunGu, pageList.getContent().get(1).getAs2());
     }
 
     @Test
@@ -108,10 +113,11 @@ public class ApartmentRepositoryTest {
         String eupMyeon = "**읍";
 
         //when
-        List<Apartment> apartments = apartmentRepository.findByAs3(eupMyeon);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Apartment> pageList = apartmentRepository.findByAs3(eupMyeon, pageable);
 
         //then
-        assertEquals(eupMyeon, apartments.get(0).getAs3());
+        assertEquals(eupMyeon, pageList.getContent().get(0).getAs3());
     }
 
     @Test
@@ -121,19 +127,20 @@ public class ApartmentRepositoryTest {
         String dongLee = "**동";
 
         //when
-        List<Apartment> apartments = apartmentRepository.findByAs4(dongLee);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Apartment> pageList = apartmentRepository.findByAs4(dongLee, pageable);
 
         //then
-        assertEquals(dongLee, apartments.get(0).getAs4());
-        assertEquals(dongLee, apartments.get(1).getAs4());
+        assertEquals(dongLee, pageList.getContent().get(0).getAs4());
+        assertEquals(dongLee, pageList.getContent().get(1).getAs4());
     }
 
 
     @Test
     @DisplayName("성공-findByFeature()")
     void findByFeature_Success() {
-        // mysql 네이티브 쿼리를 사용한 테스트이므로 mysql 사용시에만 테스트하기 (local 프로파일)
-        if (!env.acceptsProfiles(Profiles.of("local"))) {
+        // mysql 네이티브 쿼리를 사용한 테스트이므로 dev 프로파일(h2) 사용시 테스트하지 않기
+        if (env.acceptsProfiles(Profiles.of("dev"))) {
             return;
         }
 
@@ -141,10 +148,11 @@ public class ApartmentRepositoryTest {
         ApartmentFeature apartmentFeature = GOOD_SCHOOL;
 
         //when
-        List<Apartment> apartmentList = apartmentRepository.findByFeature(apartmentFeature);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Apartment> pageList = apartmentRepository.findByFeature(apartmentFeature, pageable);
 
         //then
-        assertEquals(apartmentFeature, apartmentList.get(0).getFeature().get(1));
+        assertEquals(apartmentFeature, pageList.getContent().get(0).getFeature().get(1));
     }
 
     @Test

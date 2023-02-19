@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -109,22 +112,23 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
                                 .build()
                 );
-        given(apartmentService.getApartmentByName(anyString()))
-                .willReturn(apartmentDtos);
+        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
+        given(apartmentService.getApartmentByName(anyString(), any(Pageable.class)))
+                .willReturn(pageResponse);
 
         //when
         //then
         mockMvc.perform(get("/apt?name=아파트1"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].aptCode").value("sampleCode"))
-                .andExpect(jsonPath("$[0].name").value("아파트1"))
-                .andExpect(jsonPath("$[0].as1").value("**시"))
-                .andExpect(jsonPath("$[0].as2").value("**구"))
-                .andExpect(jsonPath("$[0].as3").value("**읍"))
-                .andExpect(jsonPath("$[0].as4").value("**동"))
-                .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode"))
+                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
+                .andExpect(jsonPath("$.content[0].as1").value("**시"))
+                .andExpect(jsonPath("$.content[0].as2").value("**구"))
+                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[0].as4").value("**동"))
+                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
+                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()));
     }
 
     @Test
@@ -152,30 +156,31 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        given(apartmentService.getApartmentByAs1(anyString()))
-                .willReturn(apartmentDtos);
+        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
+        given(apartmentService.getApartmentByAs1(anyString(), any(Pageable.class)))
+                .willReturn(pageResponse);
 
         //when
         //then
         mockMvc.perform(get("/apt?as1=**시"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$[0].name").value("아파트1"))
-                .andExpect(jsonPath("$[0].as1").value("**시"))
-                .andExpect(jsonPath("$[0].as2").value("**구"))
-                .andExpect(jsonPath("$[0].as3").value("**읍"))
-                .andExpect(jsonPath("$[0].as4").value("**동"))
-                .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$[1].name").value("아파트2"))
-                .andExpect(jsonPath("$[1].as1").value("**시"))
-                .andExpect(jsonPath("$[1].as2").value("**구"))
-                .andExpect(jsonPath("$[1].as3").value("**읍"))
-                .andExpect(jsonPath("$[1].as4").value("**동"))
-                .andExpect(jsonPath("$[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
+                .andExpect(jsonPath("$.content[0].as1").value("**시"))
+                .andExpect(jsonPath("$.content[0].as2").value("**구"))
+                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[0].as4").value("**동"))
+                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
+                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
+                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
+                .andExpect(jsonPath("$.content[1].as1").value("**시"))
+                .andExpect(jsonPath("$.content[1].as2").value("**구"))
+                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[1].as4").value("**동"))
+                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
+                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
     }
 
     @Test
@@ -203,30 +208,31 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        given(apartmentService.getApartmentByAs2(anyString()))
-                .willReturn(apartmentDtos);
+        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
+        given(apartmentService.getApartmentByAs2(anyString(), any(Pageable.class)))
+                .willReturn(pageResponse);
 
         //when
         //then
         mockMvc.perform(get("/apt?as2=**구"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$[0].name").value("아파트1"))
-                .andExpect(jsonPath("$[0].as1").value("**시"))
-                .andExpect(jsonPath("$[0].as2").value("**구"))
-                .andExpect(jsonPath("$[0].as3").value("**읍"))
-                .andExpect(jsonPath("$[0].as4").value("**동"))
-                .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$[1].name").value("아파트2"))
-                .andExpect(jsonPath("$[1].as1").value("**시"))
-                .andExpect(jsonPath("$[1].as2").value("**구"))
-                .andExpect(jsonPath("$[1].as3").value("**읍"))
-                .andExpect(jsonPath("$[1].as4").value("**동"))
-                .andExpect(jsonPath("$[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
+                .andExpect(jsonPath("$.content[0].as1").value("**시"))
+                .andExpect(jsonPath("$.content[0].as2").value("**구"))
+                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[0].as4").value("**동"))
+                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
+                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
+                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
+                .andExpect(jsonPath("$.content[1].as1").value("**시"))
+                .andExpect(jsonPath("$.content[1].as2").value("**구"))
+                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[1].as4").value("**동"))
+                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
+                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
     }
 
     @Test
@@ -254,30 +260,31 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        given(apartmentService.getApartmentByAs3(anyString()))
-                .willReturn(apartmentDtos);
+        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
+        given(apartmentService.getApartmentByAs3(anyString(), any(Pageable.class)))
+                .willReturn(pageResponse);
 
         //when
         //then
         mockMvc.perform(get("/apt?as3=**읍"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$[0].name").value("아파트1"))
-                .andExpect(jsonPath("$[0].as1").value("**시"))
-                .andExpect(jsonPath("$[0].as2").value("**구"))
-                .andExpect(jsonPath("$[0].as3").value("**읍"))
-                .andExpect(jsonPath("$[0].as4").value("**동"))
-                .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$[1].name").value("아파트2"))
-                .andExpect(jsonPath("$[1].as1").value("**시"))
-                .andExpect(jsonPath("$[1].as2").value("**구"))
-                .andExpect(jsonPath("$[1].as3").value("**읍"))
-                .andExpect(jsonPath("$[1].as4").value("**동"))
-                .andExpect(jsonPath("$[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
+                .andExpect(jsonPath("$.content[0].as1").value("**시"))
+                .andExpect(jsonPath("$.content[0].as2").value("**구"))
+                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[0].as4").value("**동"))
+                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
+                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
+                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
+                .andExpect(jsonPath("$.content[1].as1").value("**시"))
+                .andExpect(jsonPath("$.content[1].as2").value("**구"))
+                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[1].as4").value("**동"))
+                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
+                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
     }
 
     @Test
@@ -305,30 +312,31 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        given(apartmentService.getApartmentByAs4(anyString()))
-                .willReturn(apartmentDtos);
+        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
+        given(apartmentService.getApartmentByAs4(anyString(), any(Pageable.class)))
+                .willReturn(pageResponse);
 
         //when
         //then
         mockMvc.perform(get("/apt?as4=**동"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$[0].name").value("아파트1"))
-                .andExpect(jsonPath("$[0].as1").value("**시"))
-                .andExpect(jsonPath("$[0].as2").value("**구"))
-                .andExpect(jsonPath("$[0].as3").value("**읍"))
-                .andExpect(jsonPath("$[0].as4").value("**동"))
-                .andExpect(jsonPath("$[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$[1].name").value("아파트2"))
-                .andExpect(jsonPath("$[1].as1").value("**시"))
-                .andExpect(jsonPath("$[1].as2").value("**구"))
-                .andExpect(jsonPath("$[1].as3").value("**읍"))
-                .andExpect(jsonPath("$[1].as4").value("**동"))
-                .andExpect(jsonPath("$[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
+                .andExpect(jsonPath("$.content[0].as1").value("**시"))
+                .andExpect(jsonPath("$.content[0].as2").value("**구"))
+                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[0].as4").value("**동"))
+                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
+                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
+                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
+                .andExpect(jsonPath("$.content[1].as1").value("**시"))
+                .andExpect(jsonPath("$.content[1].as2").value("**구"))
+                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[1].as4").value("**동"))
+                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
+                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
     }
 
     @Test
@@ -356,30 +364,31 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(NEAR_STATION, COUPANG_ROCKET))
                                 .build()
                 );
-        given(apartmentService.getApartmentByFeature(any(ApartmentFeature.class)))
-                .willReturn(apartmentDtos);
+        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
+        given(apartmentService.getApartmentByFeature(any(ApartmentFeature.class), any(Pageable.class)))
+                .willReturn(pageResponse);
 
         //when
         //then
         mockMvc.perform(get("/apt?feature=NEAR_STATION"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$[0].name").value("아파트1"))
-                .andExpect(jsonPath("$[0].as1").value("**시"))
-                .andExpect(jsonPath("$[0].as2").value("**구"))
-                .andExpect(jsonPath("$[0].as3").value("**읍"))
-                .andExpect(jsonPath("$[0].as4").value("**동"))
-                .andExpect(jsonPath("$[0].feature[0]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$[0].feature[1]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$[1].name").value("아파트2"))
-                .andExpect(jsonPath("$[1].as1").value("**시"))
-                .andExpect(jsonPath("$[1].as2").value("**구"))
-                .andExpect(jsonPath("$[1].as3").value("**읍"))
-                .andExpect(jsonPath("$[1].as4").value("**동"))
-                .andExpect(jsonPath("$[1].feature[0]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$[1].feature[1]").value(COUPANG_ROCKET.name()));
+                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
+                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
+                .andExpect(jsonPath("$.content[0].as1").value("**시"))
+                .andExpect(jsonPath("$.content[0].as2").value("**구"))
+                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[0].as4").value("**동"))
+                .andExpect(jsonPath("$.content[0].feature[0]").value(NEAR_STATION.name()))
+                .andExpect(jsonPath("$.content[0].feature[1]").value(GOOD_SCHOOL.name()))
+                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
+                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
+                .andExpect(jsonPath("$.content[1].as1").value("**시"))
+                .andExpect(jsonPath("$.content[1].as2").value("**구"))
+                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
+                .andExpect(jsonPath("$.content[1].as4").value("**동"))
+                .andExpect(jsonPath("$.content[1].feature[0]").value(NEAR_STATION.name()))
+                .andExpect(jsonPath("$.content[1].feature[1]").value(COUPANG_ROCKET.name()));
     }
 
     @Test

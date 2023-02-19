@@ -12,13 +12,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
@@ -71,12 +73,11 @@ public class ApartmentServiceTest {
         String aptName = "apt1";
 
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByName(aptName);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByName(aptName, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(aptName, apartmentDto.getName());
-        }
+        assertEquals(aptName, aptPages.getContent().get(0).getName());
     }
 
     @Test
@@ -86,12 +87,11 @@ public class ApartmentServiceTest {
         String siDo = "**시";
 
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs1(siDo);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs1(siDo, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(siDo, apartmentDto.getAs1());
-        }
+        assertEquals(siDo, aptPages.getContent().get(0).getAs1());
     }
 
     @Test
@@ -101,12 +101,11 @@ public class ApartmentServiceTest {
         String siGunGu = "**구";
 
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs2(siGunGu);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs2(siGunGu, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(siGunGu, apartmentDto.getAs2());
-        }
+        assertEquals(siGunGu, aptPages.getContent().get(0).getAs2());
     }
 
     @Test
@@ -116,12 +115,11 @@ public class ApartmentServiceTest {
         String eupMyeon = "**읍";
 
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs3(eupMyeon);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs3(eupMyeon, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(eupMyeon, apartmentDto.getAs3());
-        }
+        assertEquals(eupMyeon, aptPages.getContent().get(0).getAs3());
     }
 
     @Test
@@ -131,12 +129,11 @@ public class ApartmentServiceTest {
         String dongLee = "**동";
 
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs4(dongLee);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs4(dongLee, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(dongLee, apartmentDto.getAs4());
-        }
+        assertEquals(dongLee, aptPages.getContent().get(0).getAs4());
     }
 
     @Test

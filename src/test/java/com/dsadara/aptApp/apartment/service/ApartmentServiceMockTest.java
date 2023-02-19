@@ -14,11 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static com.dsadara.aptApp.apartment.type.ApartmentFeature.GOOD_SCHOOL;
@@ -112,120 +115,132 @@ public class ApartmentServiceMockTest {
     @DisplayName("성공-getApartmentByName()")
     void getApartmentByName_Success() {
         //given
-        given(apartmentRepository.findByName(anyString()))
-                .willReturn(Collections.singletonList(apartmentSample));
+        given(apartmentRepository.findByName(anyString(), any(Pageable.class)))
+                .willReturn(new PageImpl<>(Collections.singletonList(apartmentSample)));
+
         //when
-        List<ApartmentDto> apartmentDtos = apartmentService.getApartmentByName("아파트1");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> apartmentDtoPages = apartmentService.getApartmentByName("아파트1", pageable);
 
         //then
-        verify(apartmentRepository, times(1)).findByName(anyString());
-        assertEquals(apartmentSample.getAptCode(), apartmentDtos.get(0).getAptCode());
-        assertEquals(apartmentSample.getName(), apartmentDtos.get(0).getName());
-        assertEquals(apartmentSample.getAs1(), apartmentDtos.get(0).getAs1());
-        assertEquals(apartmentSample.getAs2(), apartmentDtos.get(0).getAs2());
-        assertEquals(apartmentSample.getAs3(), apartmentDtos.get(0).getAs3());
-        assertEquals(apartmentSample.getAs4(), apartmentDtos.get(0).getAs4());
-        assertEquals(apartmentSample.getFeature(), apartmentDtos.get(0).getFeature());
+        verify(apartmentRepository, times(1)).findByName(anyString(), any(Pageable.class));
+        assertEquals(apartmentSample.getAptCode(), apartmentDtoPages.getContent().get(0).getAptCode());
+        assertEquals(apartmentSample.getName(), apartmentDtoPages.getContent().get(0).getName());
+        assertEquals(apartmentSample.getAs1(), apartmentDtoPages.getContent().get(0).getAs1());
+        assertEquals(apartmentSample.getAs2(), apartmentDtoPages.getContent().get(0).getAs2());
+        assertEquals(apartmentSample.getAs3(), apartmentDtoPages.getContent().get(0).getAs3());
+        assertEquals(apartmentSample.getAs4(), apartmentDtoPages.getContent().get(0).getAs4());
+        assertEquals(apartmentSample.getFeature(), apartmentDtoPages.getContent().get(0).getFeature());
     }
 
     @Test
     @DisplayName("성공-getApartmentByAs1()")
     void getApartmentByAs1_Success() {
         //given
-        given(apartmentRepository.findByAs1(anyString()))
-                .willReturn(Collections.singletonList(apartmentSample));
+        given(apartmentRepository.findByAs1(anyString(), any(Pageable.class)))
+                .willReturn(new PageImpl<>(Collections.singletonList(apartmentSample)));
+
         //when
-        List<ApartmentDto> apartmentDtos = apartmentService.getApartmentByAs1("**시");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> apartmentDtoPages = apartmentService.getApartmentByAs1("**시", pageable);
 
         //then
-        verify(apartmentRepository, times(1)).findByAs1(anyString());
-        assertEquals(apartmentSample.getAptCode(), apartmentDtos.get(0).getAptCode());
-        assertEquals(apartmentSample.getName(), apartmentDtos.get(0).getName());
-        assertEquals(apartmentSample.getAs1(), apartmentDtos.get(0).getAs1());
-        assertEquals(apartmentSample.getAs2(), apartmentDtos.get(0).getAs2());
-        assertEquals(apartmentSample.getAs3(), apartmentDtos.get(0).getAs3());
-        assertEquals(apartmentSample.getAs4(), apartmentDtos.get(0).getAs4());
-        assertEquals(apartmentSample.getFeature(), apartmentDtos.get(0).getFeature());
+        verify(apartmentRepository, times(1)).findByAs1(anyString(), any(Pageable.class));
+        assertEquals(apartmentSample.getAptCode(), apartmentDtoPages.getContent().get(0).getAptCode());
+        assertEquals(apartmentSample.getName(), apartmentDtoPages.getContent().get(0).getName());
+        assertEquals(apartmentSample.getAs1(), apartmentDtoPages.getContent().get(0).getAs1());
+        assertEquals(apartmentSample.getAs2(), apartmentDtoPages.getContent().get(0).getAs2());
+        assertEquals(apartmentSample.getAs3(), apartmentDtoPages.getContent().get(0).getAs3());
+        assertEquals(apartmentSample.getAs4(), apartmentDtoPages.getContent().get(0).getAs4());
+        assertEquals(apartmentSample.getFeature(), apartmentDtoPages.getContent().get(0).getFeature());
     }
 
     @Test
     @DisplayName("성공-getApartmentByAs2()")
     void getApartmentByAs2_Success() {
         //given
-        given(apartmentRepository.findByAs2(anyString()))
-                .willReturn(Collections.singletonList(apartmentSample));
+        given(apartmentRepository.findByAs2(anyString(), any(Pageable.class)))
+                .willReturn(new PageImpl<>(Collections.singletonList(apartmentSample)));
+
         //when
-        List<ApartmentDto> apartmentDtos = apartmentService.getApartmentByAs2("**구");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> apartmentDtoPages = apartmentService.getApartmentByAs2("**구", pageable);
 
         //then
-        verify(apartmentRepository, times(1)).findByAs2(anyString());
-        assertEquals(apartmentSample.getAptCode(), apartmentDtos.get(0).getAptCode());
-        assertEquals(apartmentSample.getName(), apartmentDtos.get(0).getName());
-        assertEquals(apartmentSample.getAs1(), apartmentDtos.get(0).getAs1());
-        assertEquals(apartmentSample.getAs2(), apartmentDtos.get(0).getAs2());
-        assertEquals(apartmentSample.getAs3(), apartmentDtos.get(0).getAs3());
-        assertEquals(apartmentSample.getAs4(), apartmentDtos.get(0).getAs4());
-        assertEquals(apartmentSample.getFeature(), apartmentDtos.get(0).getFeature());
+        verify(apartmentRepository, times(1)).findByAs2(anyString(), any(Pageable.class));
+        assertEquals(apartmentSample.getAptCode(), apartmentDtoPages.getContent().get(0).getAptCode());
+        assertEquals(apartmentSample.getName(), apartmentDtoPages.getContent().get(0).getName());
+        assertEquals(apartmentSample.getAs1(), apartmentDtoPages.getContent().get(0).getAs1());
+        assertEquals(apartmentSample.getAs2(), apartmentDtoPages.getContent().get(0).getAs2());
+        assertEquals(apartmentSample.getAs3(), apartmentDtoPages.getContent().get(0).getAs3());
+        assertEquals(apartmentSample.getAs4(), apartmentDtoPages.getContent().get(0).getAs4());
+        assertEquals(apartmentSample.getFeature(), apartmentDtoPages.getContent().get(0).getFeature());
     }
 
     @Test
     @DisplayName("성공-getApartmentByAs3()")
     void getApartmentByAs3_Success() {
         //given
-        given(apartmentRepository.findByAs3(anyString()))
-                .willReturn(Collections.singletonList(apartmentSample));
+        given(apartmentRepository.findByAs3(anyString(), any(Pageable.class)))
+                .willReturn(new PageImpl<>(Collections.singletonList(apartmentSample)));
+
         //when
-        List<ApartmentDto> apartmentDtos = apartmentService.getApartmentByAs3("**읍");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> apartmentDtoPages = apartmentService.getApartmentByAs3("**읍", pageable);
 
         //then
-        verify(apartmentRepository, times(1)).findByAs3(anyString());
-        assertEquals(apartmentSample.getAptCode(), apartmentDtos.get(0).getAptCode());
-        assertEquals(apartmentSample.getName(), apartmentDtos.get(0).getName());
-        assertEquals(apartmentSample.getAs1(), apartmentDtos.get(0).getAs1());
-        assertEquals(apartmentSample.getAs2(), apartmentDtos.get(0).getAs2());
-        assertEquals(apartmentSample.getAs3(), apartmentDtos.get(0).getAs3());
-        assertEquals(apartmentSample.getAs4(), apartmentDtos.get(0).getAs4());
-        assertEquals(apartmentSample.getFeature(), apartmentDtos.get(0).getFeature());
+        verify(apartmentRepository, times(1)).findByAs3(anyString(), any(Pageable.class));
+        assertEquals(apartmentSample.getAptCode(), apartmentDtoPages.getContent().get(0).getAptCode());
+        assertEquals(apartmentSample.getName(), apartmentDtoPages.getContent().get(0).getName());
+        assertEquals(apartmentSample.getAs1(), apartmentDtoPages.getContent().get(0).getAs1());
+        assertEquals(apartmentSample.getAs2(), apartmentDtoPages.getContent().get(0).getAs2());
+        assertEquals(apartmentSample.getAs3(), apartmentDtoPages.getContent().get(0).getAs3());
+        assertEquals(apartmentSample.getAs4(), apartmentDtoPages.getContent().get(0).getAs4());
+        assertEquals(apartmentSample.getFeature(), apartmentDtoPages.getContent().get(0).getFeature());
     }
 
     @Test
     @DisplayName("성공-getApartmentByAs4()")
     void getApartmentByAs4_Success() {
         //given
-        given(apartmentRepository.findByAs4(anyString()))
-                .willReturn(Collections.singletonList(apartmentSample));
+        given(apartmentRepository.findByAs4(anyString(), any(Pageable.class)))
+                .willReturn(new PageImpl<>(Collections.singletonList(apartmentSample)));
+
         //when
-        List<ApartmentDto> apartmentDtos = apartmentService.getApartmentByAs4("**동");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> apartmentDtoPages = apartmentService.getApartmentByAs4("**동", pageable);
 
         //then
-        verify(apartmentRepository, times(1)).findByAs4(anyString());
-        assertEquals(apartmentSample.getAptCode(), apartmentDtos.get(0).getAptCode());
-        assertEquals(apartmentSample.getName(), apartmentDtos.get(0).getName());
-        assertEquals(apartmentSample.getAs1(), apartmentDtos.get(0).getAs1());
-        assertEquals(apartmentSample.getAs2(), apartmentDtos.get(0).getAs2());
-        assertEquals(apartmentSample.getAs3(), apartmentDtos.get(0).getAs3());
-        assertEquals(apartmentSample.getAs4(), apartmentDtos.get(0).getAs4());
-        assertEquals(apartmentSample.getFeature(), apartmentDtos.get(0).getFeature());
+        verify(apartmentRepository, times(1)).findByAs4(anyString(), any(Pageable.class));
+        assertEquals(apartmentSample.getAptCode(), apartmentDtoPages.getContent().get(0).getAptCode());
+        assertEquals(apartmentSample.getName(), apartmentDtoPages.getContent().get(0).getName());
+        assertEquals(apartmentSample.getAs1(), apartmentDtoPages.getContent().get(0).getAs1());
+        assertEquals(apartmentSample.getAs2(), apartmentDtoPages.getContent().get(0).getAs2());
+        assertEquals(apartmentSample.getAs3(), apartmentDtoPages.getContent().get(0).getAs3());
+        assertEquals(apartmentSample.getAs4(), apartmentDtoPages.getContent().get(0).getAs4());
+        assertEquals(apartmentSample.getFeature(), apartmentDtoPages.getContent().get(0).getFeature());
     }
 
     @Test
     @DisplayName("성공-getApartmentByFeature()")
     void getApartmentByFeature_Success() {
         //given
-        given(apartmentRepository.findByFeature(any(ApartmentFeature.class)))
-                .willReturn(Collections.singletonList(apartmentSample));
+        given(apartmentRepository.findByFeature(any(ApartmentFeature.class), any(Pageable.class)))
+                .willReturn(new PageImpl<>(Collections.singletonList(apartmentSample)));
+
         //when
-        List<ApartmentDto> apartmentDtos = apartmentService.getApartmentByFeature(GOOD_SCHOOL);
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> apartmentDtoPages = apartmentService.getApartmentByFeature(GOOD_SCHOOL, pageable);
 
         //then
-        verify(apartmentRepository, times(1)).findByFeature(any(ApartmentFeature.class));
-        assertEquals(apartmentSample.getAptCode(), apartmentDtos.get(0).getAptCode());
-        assertEquals(apartmentSample.getName(), apartmentDtos.get(0).getName());
-        assertEquals(apartmentSample.getAs1(), apartmentDtos.get(0).getAs1());
-        assertEquals(apartmentSample.getAs2(), apartmentDtos.get(0).getAs2());
-        assertEquals(apartmentSample.getAs3(), apartmentDtos.get(0).getAs3());
-        assertEquals(apartmentSample.getAs4(), apartmentDtos.get(0).getAs4());
-        assertEquals(apartmentSample.getFeature(), apartmentDtos.get(0).getFeature());
+        verify(apartmentRepository, times(1)).findByFeature(any(ApartmentFeature.class), any(Pageable.class));
+        assertEquals(apartmentSample.getAptCode(), apartmentDtoPages.getContent().get(0).getAptCode());
+        assertEquals(apartmentSample.getName(), apartmentDtoPages.getContent().get(0).getName());
+        assertEquals(apartmentSample.getAs1(), apartmentDtoPages.getContent().get(0).getAs1());
+        assertEquals(apartmentSample.getAs2(), apartmentDtoPages.getContent().get(0).getAs2());
+        assertEquals(apartmentSample.getAs3(), apartmentDtoPages.getContent().get(0).getAs3());
+        assertEquals(apartmentSample.getAs4(), apartmentDtoPages.getContent().get(0).getAs4());
+        assertEquals(apartmentSample.getFeature(), apartmentDtoPages.getContent().get(0).getFeature());
     }
 
     @Test

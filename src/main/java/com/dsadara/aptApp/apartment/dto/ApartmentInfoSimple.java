@@ -22,7 +22,7 @@ public class ApartmentInfoSimple {
 
     private List<ApartmentFeature> feature;   // 특징
 
-    public static ApartmentInfoSimple fromEntity(ApartmentDto apartmentDto) {
+    public static ApartmentInfoSimple fromDto(ApartmentDto apartmentDto) {
         return ApartmentInfoSimple.builder()
                 .aptCode(apartmentDto.getAptCode())
                 .name(apartmentDto.getName())

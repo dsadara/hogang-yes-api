@@ -8,11 +8,11 @@ import com.dsadara.aptApp.apartment.exception.ApartmentException;
 import com.dsadara.aptApp.apartment.repository.ApartmentRepository;
 import com.dsadara.aptApp.apartment.type.ApartmentFeature;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_ALREADY_EXIST;
 import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_NOT_FOUND;
@@ -61,51 +61,39 @@ public class ApartmentService {
     }
 
     @Transactional
-    public List<ApartmentDto> getApartmentByName(String name) {
-        List<Apartment> apartment = apartmentRepository.findByName(name);
-        return apartment.stream()
-                .map(ApartmentDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<ApartmentDto> getApartmentByName(String name, Pageable pageable) {
+        Page<Apartment> apartment = apartmentRepository.findByName(name, pageable);
+        return apartment.map(ApartmentDto::fromEntity);
     }
 
     @Transactional
-    public List<ApartmentDto> getApartmentByAs1(String as1) {
-        List<Apartment> apartment = apartmentRepository.findByAs1(as1);
-        return apartment.stream()
-                .map(ApartmentDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<ApartmentDto> getApartmentByAs1(String as1, Pageable pageable) {
+        Page<Apartment> apartment = apartmentRepository.findByAs1(as1, pageable);
+        return apartment.map(ApartmentDto::fromEntity);
     }
 
     @Transactional
-    public List<ApartmentDto> getApartmentByAs2(String as2) {
-        List<Apartment> apartment = apartmentRepository.findByAs2(as2);
-        return apartment.stream()
-                .map(ApartmentDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<ApartmentDto> getApartmentByAs2(String as2, Pageable pageable) {
+        Page<Apartment> apartment = apartmentRepository.findByAs2(as2, pageable);
+        return apartment.map(ApartmentDto::fromEntity);
     }
 
     @Transactional
-    public List<ApartmentDto> getApartmentByAs3(String as3) {
-        List<Apartment> apartment = apartmentRepository.findByAs3(as3);
-        return apartment.stream()
-                .map(ApartmentDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<ApartmentDto> getApartmentByAs3(String as3, Pageable pageable) {
+        Page<Apartment> apartment = apartmentRepository.findByAs3(as3, pageable);
+        return apartment.map(ApartmentDto::fromEntity);
     }
 
     @Transactional
-    public List<ApartmentDto> getApartmentByAs4(String as4) {
-        List<Apartment> apartment = apartmentRepository.findByAs4(as4);
-        return apartment.stream()
-                .map(ApartmentDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<ApartmentDto> getApartmentByAs4(String as4, Pageable pageable) {
+        Page<Apartment> apartment = apartmentRepository.findByAs4(as4, pageable);
+        return apartment.map(ApartmentDto::fromEntity);
     }
 
     @Transactional
-    public List<ApartmentDto> getApartmentByFeature(ApartmentFeature feature) {
-        List<Apartment> apartment = apartmentRepository.findByFeature(feature);
-        return apartment.stream()
-                .map(ApartmentDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<ApartmentDto> getApartmentByFeature(ApartmentFeature feature, Pageable pageable) {
+        Page<Apartment> apartment = apartmentRepository.findByFeature(feature, pageable);
+        return apartment.map(ApartmentDto::fromEntity);
     }
 
     @Transactional

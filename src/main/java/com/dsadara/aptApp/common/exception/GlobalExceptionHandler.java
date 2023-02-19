@@ -3,6 +3,7 @@ package com.dsadara.aptApp.common.exception;
 import com.dsadara.aptApp.apartment.exception.ApartmentException;
 import com.dsadara.aptApp.common.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -21,10 +22,18 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(e.getErrorCode(), e.getErrorMessage());
     }
 
-    // 아파트를 Enum 타입인 특징(Feature)로 검색할 때 발생 가능한 에러
+    // 아파트를 없는 특징(Feature)으로 검색할때 발생하는 에러
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         log.error("MethodArgumentTypeMismatchException is occurred.", e);
+
+        return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
+    }
+
+    // dev profile(H2 DB) 사용시 mysql 네이티브 쿼리를 사용하는 API를 호출했을때 발생하는 에러
+    @ExceptionHandler(InvalidDataAccessResourceUsageException.class)
+    public ErrorResponse handleInvalidDataAccessResourceUsageException(InvalidDataAccessResourceUsageException e) {
+        log.error("InvalidDataAccessResourceUsageException is occurred.", e);
 
         return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
     }
