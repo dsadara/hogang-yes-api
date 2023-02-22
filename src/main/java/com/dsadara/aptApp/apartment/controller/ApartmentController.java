@@ -29,40 +29,39 @@ public class ApartmentController {
     // 아파트 검색 API
     @GetMapping("/apt")
     public ResponseEntity<Page<ApartmentInfoSimple>> getApartment(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String as1,
-            @RequestParam(required = false) String as2,
-            @RequestParam(required = false) String as3,
-            @RequestParam(required = false) String as4,
-            @RequestParam(required = false) ApartmentFeature feature,
+            @RequestParam String searchKey,
+            @RequestParam String searchValue,
             final Pageable pageable
     ) {
-        if (name != null) {             // - 단지명 검색
-            return ResponseEntity.ok(
-                    apartmentService.getApartmentByName(name, pageable)
-                            .map(ApartmentInfoSimple::fromDto));
-        } else if (as1 != null) {       //- 시도별 검색
-            return ResponseEntity.ok(
-                    apartmentService.getApartmentByAs1(as1, pageable)
-                            .map(ApartmentInfoSimple::fromDto));
-        } else if (as2 != null) {       //- 시군구 검색
-            return ResponseEntity.ok(
-                    apartmentService.getApartmentByAs2(as2, pageable)
-                            .map(ApartmentInfoSimple::fromDto));
-        } else if (as3 != null) {       //- 읍면 검색
-            return ResponseEntity.ok(
-                    apartmentService.getApartmentByAs3(as3, pageable)
-                            .map(ApartmentInfoSimple::fromDto));
-        } else if (as4 != null) {       //- 동리 검색
-            return ResponseEntity.ok(
-                    apartmentService.getApartmentByAs4(as4, pageable)
-                            .map(ApartmentInfoSimple::fromDto));
-        } else if (feature != null) {   //- 특징 검색
-            return ResponseEntity.ok(
-                    apartmentService.getApartmentByFeature(feature, pageable)
-                            .map(ApartmentInfoSimple::fromDto));
+        switch (searchKey) {
+            case "name":
+                return ResponseEntity.ok(
+                        apartmentService.getApartmentByName(searchValue, pageable)
+                                .map(ApartmentInfoSimple::fromDto));
+            case "as1":
+                return ResponseEntity.ok(
+                        apartmentService.getApartmentByAs1(searchValue, pageable)
+                                .map(ApartmentInfoSimple::fromDto));
+            case "as2":
+                return ResponseEntity.ok(
+                        apartmentService.getApartmentByAs2(searchValue, pageable)
+                                .map(ApartmentInfoSimple::fromDto));
+            case "as3":
+                return ResponseEntity.ok(
+                        apartmentService.getApartmentByAs3(searchValue, pageable)
+                                .map(ApartmentInfoSimple::fromDto));
+            case "as4":
+                return ResponseEntity.ok(
+                        apartmentService.getApartmentByAs4(searchValue, pageable)
+                                .map(ApartmentInfoSimple::fromDto));
+            case "feature":
+                return ResponseEntity.ok(
+                        apartmentService.getApartmentByFeature(
+                                        ApartmentFeature.valueOf(searchValue), pageable)
+                                .map(ApartmentInfoSimple::fromDto));
+            default:
+                return null;
         }
-        return null;
     }
 
     //- 아파트 상세 정보 조회 API

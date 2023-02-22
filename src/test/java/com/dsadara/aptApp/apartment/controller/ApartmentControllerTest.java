@@ -118,7 +118,7 @@ public class ApartmentControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?name=아파트1"))
+        mockMvc.perform(get("/apt?searchKey=name&searchValue=아파트1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode"))
@@ -162,7 +162,7 @@ public class ApartmentControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?as1=**시"))
+        mockMvc.perform(get("/apt?searchKey=as1&searchValue=**시"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
@@ -214,7 +214,7 @@ public class ApartmentControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?as2=**구"))
+        mockMvc.perform(get("/apt?searchKey=as2&searchValue=**구"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
@@ -266,7 +266,7 @@ public class ApartmentControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?as3=**읍"))
+        mockMvc.perform(get("/apt?searchKey=as3&searchValue=**읍"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
@@ -318,7 +318,7 @@ public class ApartmentControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?as4=**동"))
+        mockMvc.perform(get("/apt?searchKey=as4&searchValue=**동"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
@@ -370,7 +370,7 @@ public class ApartmentControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?feature=NEAR_STATION"))
+        mockMvc.perform(get("/apt?searchKey=feature&searchValue=NEAR_STATION"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
@@ -495,7 +495,7 @@ public class ApartmentControllerTest {
         //given
         //when
         //then
-        mockMvc.perform(get("/apt?feature=NEAR_STARBUCKS"))
+        mockMvc.perform(get("/apt?searchKey=feature&searchValue=FEATURE_NOT_EXIST"))
                 .andDo(print())
                 .andExpect(jsonPath("$.errorCode")
                         .value("INVALID_REQUEST"))

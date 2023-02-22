@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import static com.dsadara.aptApp.common.type.ErrorCode.INTERNAL_SERVER_ERROR;
 import static com.dsadara.aptApp.common.type.ErrorCode.INVALID_REQUEST;
@@ -23,9 +22,9 @@ public class GlobalExceptionHandler {
     }
 
     // 아파트를 없는 특징(Feature)으로 검색할때 발생하는 에러
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        log.error("MethodArgumentTypeMismatchException is occurred.", e);
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorResponse handleIllegalArgumentException(IllegalArgumentException e) {
+        log.error("IllegalArgumentException is occurred.", e);
 
         return new ErrorResponse(INVALID_REQUEST, INVALID_REQUEST.getDescription());
     }
