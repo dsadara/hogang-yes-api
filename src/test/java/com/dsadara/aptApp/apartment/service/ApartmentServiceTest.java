@@ -1,34 +1,45 @@
 package com.dsadara.aptApp.apartment.service;
 
 import com.dsadara.aptApp.apartment.dto.ApartmentDto;
+import com.dsadara.aptApp.apartment.dto.ApartmentInfo;
 import com.dsadara.aptApp.apartment.dto.CreateApartment;
 import com.dsadara.aptApp.apartment.entity.Apartment;
 import com.dsadara.aptApp.apartment.exception.ApartmentException;
+import com.dsadara.aptApp.apartment.repository.ApartmentRepository;
 import com.dsadara.aptApp.common.type.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("dev")
 @SpringBootTest
 @Transactional
 public class ApartmentServiceTest {
     @Autowired
     private ApartmentService apartmentService;
 
+    @Autowired
+    private ApartmentRepository apartmentRepository;
+
     @BeforeEach
-    void init() {
+    void beforeEach() {
+        apartmentRepository.deleteAll();
+
         apartmentService.createApartment(CreateApartment.Request.builder()
                 .aptCode("aptcode1")
                 .name("apt1")
@@ -56,99 +67,105 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    @DisplayName("아파트 검색 (단지명)")
-    void getApartmentByNameSuccess() {
+    @DisplayName("성공-getApartmentByName()")
+    void getApartmentByName_Success() {
         //given
+        String aptName = "apt1";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByName("apt1");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByName(aptName, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getName(), "apt1");
-        }
+        assertEquals(aptName, aptPages.getContent().get(0).getName());
     }
 
     @Test
-    @DisplayName("아파트 검색 (시, 도)")
-    void getApartmentByAs1Success() {
+    @DisplayName("성공-getApartmentByAs1()")
+    void getApartmentByAs1_Success() {
         //given
+        String siDo = "**시";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs1("**시");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs1(siDo, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs1(), "**시");
-            assertEquals(apartmentDto.getName(), "apt1");
-        }
+        assertEquals(siDo, aptPages.getContent().get(0).getAs1());
     }
 
     @Test
-    @DisplayName("아파트 검색 (시, 군, 구)")
-    void getApartmentByAs2Success() {
+    @DisplayName("성공-getApartmentByAs2()")
+    void getApartmentByAs2_Success() {
         //given
+        String siGunGu = "**구";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs2("**구");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs2(siGunGu, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs2(), "**구");
-        }
+        assertEquals(siGunGu, aptPages.getContent().get(0).getAs2());
     }
 
     @Test
-    @DisplayName("아파트 검색 (읍, 면)")
-    void getApartmentByAs3Success() {
+    @DisplayName("성공-getApartmentByAs3()")
+    void getApartmentByAs3_Success() {
         //given
+        String eupMyeon = "**읍";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs3("**읍");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs3(eupMyeon, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs3(), "**읍");
-            assertEquals(apartmentDto.getName(), "apt1");
-        }
+        assertEquals(eupMyeon, aptPages.getContent().get(0).getAs3());
     }
 
     @Test
-    @DisplayName("아파트 검색 (동, 리)")
-    void getApartmentByAs4Success() {
+    @DisplayName("성공-getApartmentByAs4()")
+    void getApartmentByAs4_Success() {
         //given
+        String dongLee = "**동";
+
         //when
-        List<ApartmentDto> apts = apartmentService.getApartmentByAs4("**동");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs4(dongLee, pageable);
 
         //then
-        for (ApartmentDto apartmentDto : apts) {
-            assertEquals(apartmentDto.getAs4(), "**동");
-        }
+        assertEquals(dongLee, aptPages.getContent().get(0).getAs4());
     }
 
     @Test
-    @DisplayName("아파트 상세 정보 조회")
-    void getApartmentDetailSuccess() {
+    @DisplayName("성공-getApartmentDetail()")
+    void getApartmentDetail_Success() {
         //given
+        String aptCode = "aptcode1";
+
         //when
-        Apartment apartment = apartmentService.getApartmentDetail("aptcode1");
+        ApartmentInfo apartmentInfo = apartmentService.getApartmentDetail(aptCode);
 
         //then
-        assertEquals(apartment.getName(), "apt1");
-        assertEquals(apartment.getDrmAddress(), "도로명주소1");
+        assertEquals(aptCode, apartmentInfo.getAptCode());
     }
 
     @Test
-    @DisplayName("아파트 상세 정보 조회 실패")
-    void getApartmentDetailFailed_ApartmentNotFound() {
+    @DisplayName("실패-getApartmentDetail()")
+    void getApartmentDetail_Fail_ApartmentNotFound() {
         //given
+        String wrongAptCode = "wrongcode";
+
         //when
         ApartmentException exception = assertThrows(ApartmentException.class,
-                () -> apartmentService.getApartmentDetail("wrongcode"));
+                () -> apartmentService.getApartmentDetail(wrongAptCode));
 
         //then
         assertEquals(ErrorCode.APARTMENT_NOT_FOUND, exception.getErrorCode());
     }
 
     @Test
-    @DisplayName("아파트 저장 실패")
-    void createApartmentFailed_ApartmentAlreadyExist() {
+    @DisplayName("실패-createApartment()")
+    void createApartment_Fail_ApartmentAlreadyExist() {
         //given
         CreateApartment.Request request = CreateApartment.Request.builder()
                 .aptCode("aptcode1")
@@ -162,11 +179,25 @@ public class ApartmentServiceTest {
                 .bjdCode("bjdcode1")
                 .feature(new ArrayList<>(Arrays.asList(NEAR_STATION, GOOD_SCHOOL)))
                 .build();
+
         //when
         ApartmentException exception = assertThrows(ApartmentException.class,
                 () -> apartmentService.createApartment(request));
 
         //then
         assertEquals(ErrorCode.APARTMENT_ALREADY_EXIST, exception.getErrorCode());
+    }
+
+    @Test
+    @DisplayName("테스트시 data.sql 데이터 삭제했는지 확인")
+    void check_IfInitialData_Deleted() {
+        // given
+        String aptCodeFromInitialData = "아파트코드1";
+
+        // when
+        Optional<Apartment> apartmentOptional = apartmentRepository.findByAptCode(aptCodeFromInitialData);
+
+        // then
+        assertFalse(apartmentOptional.isPresent());
     }
 }

@@ -50,6 +50,7 @@ public class ApartmentInfo {
                 .houseNo(apartment.getHouseNo())
                 .parkingSpaceNo(apartment.getParkingSpaceNo())
                 .bjdCode(apartment.getBjdCode())
+                .feature(apartment.getFeature())
                 .build();
     }
 }
