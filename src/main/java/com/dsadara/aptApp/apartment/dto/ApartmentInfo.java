@@ -2,6 +2,7 @@ package com.dsadara.aptApp.apartment.dto;
 
 import com.dsadara.aptApp.apartment.entity.Apartment;
 import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,22 +16,52 @@ import java.util.List;
 public class ApartmentInfo {
     // client와 controller간의 정보를 주고 받는 응답 dto
 
-    private String aptCode;         // 단지코드
-    private Long amountRecent;    // 최근 거래금액
-    private Integer viewWeek;     // 주간 조회수
-    private Integer viewTotal;      // 전체 조회수
-    private String name;            // 단지명
-    private String as1;             // 시, 도
-    private String as2;             // 시, 군, 구
-    private String as3;             // 읍, 면
-    private String as4;             // 동, 리
-    private String drmAddress;          // 도로명주소
-    private LocalDate apprvDate;    // 사용승인일
-    private Integer dongNo;             // 동수
-    private Integer houseNo;            // 세대수
-    private Integer parkingSpaceNo;     // 총 주차대수
-    private String bjdCode;             // 법정동코드
+    @ApiModelProperty(example = "단지코드")
+    private String aptCode;
 
+    @ApiModelProperty(example = "최근 거래금액")
+    private Long amountRecent;
+
+    @ApiModelProperty(example = "주간 조회수")
+    private Integer viewWeek;
+
+    @ApiModelProperty(example = "전체 조회수")
+    private Integer viewTotal;
+
+    @ApiModelProperty(example = "단지명")
+    private String name;
+
+    @ApiModelProperty(example = "시, 도")
+    private String as1;
+
+    @ApiModelProperty(example = "시, 군, 구")
+    private String as2;
+
+    @ApiModelProperty(example = "읍, 면")
+    private String as3;
+
+    @ApiModelProperty(example = "동, 리")
+    private String as4;
+
+    @ApiModelProperty(example = "도로명주소")
+    private String drmAddress;
+
+    @ApiModelProperty(example = "사용승인일")
+    private LocalDate apprvDate;
+
+    @ApiModelProperty(example = "동수")
+    private Integer dongNo;
+
+    @ApiModelProperty(example = "세대수")
+    private Integer houseNo;
+
+    @ApiModelProperty(example = "총 주차대수")
+    private Integer parkingSpaceNo;
+
+    @ApiModelProperty(example = "법정동코드")
+    private String bjdCode;
+
+    @ApiModelProperty(example = "특징")
     private List<ApartmentFeature> feature;   // 특징
 
     public static ApartmentInfo fromEntity(Apartment apartment) {
