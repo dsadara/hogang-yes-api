@@ -14,25 +14,25 @@ import java.util.List;
 public class ApartmentInfoSimple {
     // client와 controller간의 정보를 주고 받는 응답 dto
 
-    @ApiModelProperty(example = "단지코드")
+    @ApiModelProperty(value = "단지코드", example = "아파트코드0")
     private String aptCode;
 
-    @ApiModelProperty(example = "단지명")
+    @ApiModelProperty(value = "단지명", example = "아파트0")
     private String name;
 
-    @ApiModelProperty(example = "시, 도")
+    @ApiModelProperty(value = "시, 도", example = "**시")
     private String as1;
 
-    @ApiModelProperty(example = "시, 군, 구")
+    @ApiModelProperty(value = "시, 군, 구", example = "**구")
     private String as2;
 
-    @ApiModelProperty(example = "읍, 면")
+    @ApiModelProperty(value = "읍, 면", example = "**읍")
     private String as3;
 
-    @ApiModelProperty(example = "동, 리")
+    @ApiModelProperty(value = "동, 리", example = "**동")
     private String as4;
 
-    @ApiModelProperty(example = "특징")
+    @ApiModelProperty(value = "특징", example = "[COUPANG_ROCKET, NEAR_STATION]")
     private List<ApartmentFeature> feature;   // 특징
 
     public static ApartmentInfoSimple fromDto(ApartmentDto apartmentDto) {
