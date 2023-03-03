@@ -96,7 +96,7 @@ Swagger UI로 현재까지 구현한 기능들을 테스트해볼 수 있습니�
 
 ## 5. 데이터베이스 구조
 
-![hogangyes image](https://d2sqqdb3t4xrq5.cloudfront.net/upload/Q2XN8aQvmJ7n4qrHK/UmZhc05Bd3ZMeVJXclEycUVfbWhkdkRLaFBRZ3E5S3Z2YmYucG5n)
+![image](https://user-images.githubusercontent.com/22488593/222758253-8d4a6970-5b98-47db-8bff-d4bdd2f8d716.png)   
 [erd 상세보기](https://www.erdcloud.com/d/mhdvDKhPQgq9Kvvbf)
 
 ## 6. 개발일지
