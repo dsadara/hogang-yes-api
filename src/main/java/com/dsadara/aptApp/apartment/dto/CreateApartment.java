@@ -1,6 +1,7 @@
 package com.dsadara.aptApp.apartment.dto;
 
 import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,20 +15,45 @@ public class CreateApartment {
     @NoArgsConstructor
     @Builder
     public static class Request {
-        private String aptCode;         // 단지코드
-        private String name;            // 단지명
-        private String as1;             // 시, 도
-        private String as2;             // 시, 군, 구
-        private String as3;             // 읍, 면
-        private String as4;             // 동, 리
-        private String drmAddress;          // 도로명주소
+        @ApiModelProperty(value = "단지코드", example = "아파트코드0")
+        private String aptCode;
+
+        @ApiModelProperty(value = "단지명", example = "아파트0")
+        private String name;
+
+        @ApiModelProperty(value = "시, 도", example = "**시")
+        private String as1;
+
+        @ApiModelProperty(value = "시, 군, 구", example = "**구")
+        private String as2;
+
+        @ApiModelProperty(value = "읍, 면", example = "**읍")
+        private String as3;
+
+        @ApiModelProperty(value = "동, 리", example = "**동")
+        private String as4;
+
+        @ApiModelProperty(value = "도로명주소", example = "도로명주소0")
+        private String drmAddress;
+
+        @ApiModelProperty(value = "사용승인일", example = "2001-01-01")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        private LocalDate apprvDate;    // 사용승인일
-        private Integer dongNo;             // 동수
-        private Integer houseNo;            // 세대수
-        private Integer parkingSpaceNo;     // 총 주차대수
-        private String bjdCode;             // 법정동코드
-        private List<ApartmentFeature> feature;   // 특징
+        private LocalDate apprvDate;
+
+        @ApiModelProperty(value = "동수", example = "10")
+        private Integer dongNo;
+
+        @ApiModelProperty(value = "세대수", example = "500")
+        private Integer houseNo;
+
+        @ApiModelProperty(value = "총 주차대수", example = "1000")
+        private Integer parkingSpaceNo;
+
+        @ApiModelProperty(value = "법정동코드", example = "법정동코드0")
+        private String bjdCode;
+
+        @ApiModelProperty(value = "특징", example = "[COUPANG_ROCKET, NEAR_STATION]")
+        private List<ApartmentFeature> feature;
     }
 
     @Getter
@@ -36,14 +62,26 @@ public class CreateApartment {
     @AllArgsConstructor
     @Builder
     public static class Response {
-        private String aptCode;         // 단지코드
-        private String name;            // 단지명
-        private String as1;             // 시, 도
-        private String as2;             // 시, 군, 구
-        private String as3;             // 읍, 면
-        private String as4;             // 동, 리
+        @ApiModelProperty(value = "단지코드", example = "아파트코드0")
+        private String aptCode;
 
-        private List<ApartmentFeature> feature;   // 특징
+        @ApiModelProperty(value = "단지명", example = "아파트0")
+        private String name;
+
+        @ApiModelProperty(value = "시, 도", example = "**시")
+        private String as1;
+
+        @ApiModelProperty(value = "시, 군, 구", example = "**구")
+        private String as2;
+
+        @ApiModelProperty(value = "읍, 면", example = "**읍")
+        private String as3;
+
+        @ApiModelProperty(value = "동, 리", example = "**동")
+        private String as4;
+
+        @ApiModelProperty(value = "특징", example = "[COUPANG_ROCKET, NEAR_STATION]")
+        private List<ApartmentFeature> feature;
 
         public static Response from(ApartmentDto apartmentDto) {
             return Response.builder()
