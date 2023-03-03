@@ -30,4 +30,4 @@ echo "> $JAR_NAME 에 실행권한 추가"
 
 chmod +x $JAR_NAME
 
-nohup java -jar $REPOSITORY/jar/$JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+nohup java -jar -Dspring.profiles.active=prod $REPOSITORY/jar/$JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
