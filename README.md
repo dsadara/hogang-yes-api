@@ -9,7 +9,7 @@
 
 Swagger UI로 현재까지 구현한 기능들을 테스트해볼 수 있습니다.
 
-[Swagger UI 주소](https://ec2-54-180-47-56.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html)
+[Swagger UI 주소](http://ec2-54-180-47-56.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html)
 
 ## 2. 무엇을 중점으로 프로젝트를 진행했나요?
 
