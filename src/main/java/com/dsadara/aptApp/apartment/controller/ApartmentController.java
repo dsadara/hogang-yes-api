@@ -5,6 +5,8 @@ import com.dsadara.aptApp.apartment.dto.ApartmentInfoSimple;
 import com.dsadara.aptApp.apartment.dto.CreateApartment;
 import com.dsadara.aptApp.apartment.service.ApartmentService;
 import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import com.dsadara.aptApp.common.config.SwaggerConfig;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = {SwaggerConfig.APARTMENT_TAG})
 public class ApartmentController {
     private final ApartmentService apartmentService;
 

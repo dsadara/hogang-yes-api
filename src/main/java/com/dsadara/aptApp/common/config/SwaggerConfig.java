@@ -12,6 +12,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -22,6 +23,7 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig {
     TypeResolver typeResolver = new TypeResolver();
+    public static final String APARTMENT_TAG = "apartment";
     @Bean
     public Docket api() {
 
@@ -33,7 +35,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.dsadara.aptApp"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .tags(new Tag(APARTMENT_TAG, "apartment api"));
     }
 
     private ApiInfo apiInfo() {
