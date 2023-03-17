@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 @Getter
@@ -27,9 +25,5 @@ public class TransactionReal extends BaseEntity {
     private String bjdCode;                 // 법정동코드
 
     @ManyToOne
-    @JoinColumn(name="ID_APT")
-    private Apartment apartment;            // 아파트ID
-    @OneToOne
-    @JoinColumn(name="ID_TRANSACTION")
-    private Transaction transaction;        // 매물ID
+    private Apartment aptId;
 }
