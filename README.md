@@ -7,7 +7,8 @@
 
 Swagger UI로 구현한 기능들을 테스트해볼 수 있습니다.
 
-[Swagger UI 주소](http://ec2-54-180-47-56.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html)
+~~[Swagger UI 주소](http://ec2-54-180-47-56.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html)~~   
+-> Aws 계정의 프리티어 기간 만료로 개방을 잠시 중단합니다.
 
 ## 2. 무엇을 중점으로 프로젝트를 진행했나요?
 
