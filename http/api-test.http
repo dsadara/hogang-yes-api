@@ -1,0 +1,37 @@
+### HogangYes API 테스트
+
+### 메인 페이지
+GET http://localhost:8080
+
+### 아파트 검색: QueryParam: searchKey - name, searchValue - 아파트1
+GET http://localhost:8080/apt?searchKey=name&searchValue=아파트1
+
+### 아파트 검색: QueryParam: searchKey - as1, searchValue - 땡땡시
+GET http://localhost:8080/apt?searchKey=as1&searchValue=땡땡시
+
+### 아파트 검색: QueryParam: searchKey - feature, searchValue - NEAR_STATION
+GET http://localhost:8080/apt?searchKey=feature&searchValue=NEAR_STATION
+
+### 아파트 저장
+POST http://localhost:8080/apt
+Content-Type: application/json
+
+{
+  "aptCode": "아파트코드0",
+  "name": "아파트0",
+  "as1": "**시",
+  "as2": "**구",
+  "as3": "**읍",
+  "as4": "**동",
+  "drmAddress": "도로명주소0",
+  "apprvDate": "2001-01-01",
+  "dongNo": 10,
+  "houseNo": 500,
+  "parkingSpaceNo": 1000,
+  "bjdCode": "법정동코드0",
+  "feature": ["COUPANG_ROCKET", "NEAR_STATION"]
+}
+
+### 아파트 상세 정보 조회: queryParam: aptCode - 아파트코드1
+GET http://localhost:8080/apt/detail?aptCode=아파트코드1
+
