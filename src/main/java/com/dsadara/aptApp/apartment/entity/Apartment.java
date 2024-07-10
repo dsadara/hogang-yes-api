@@ -2,15 +2,17 @@ package com.dsadara.aptApp.apartment.entity;
 
 import com.dsadara.aptApp.apartment.type.ApartmentFeature;
 import com.dsadara.aptApp.common.entity.BaseEntity;
-import com.dsadara.aptApp.member.entity.Member;
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -42,6 +44,4 @@ public class Apartment extends BaseEntity {
     @Column(columnDefinition = "json")
     private List<ApartmentFeature> feature;   // 특징
 
-    @ManyToOne
-    private Member memberId;
 }
