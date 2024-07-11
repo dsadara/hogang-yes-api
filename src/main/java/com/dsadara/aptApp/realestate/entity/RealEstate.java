@@ -1,7 +1,6 @@
-package com.dsadara.aptApp.apartment.entity;
+package com.dsadara.aptApp.realestate.entity;
 
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
-import com.dsadara.aptApp.common.entity.BaseEntity;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,10 +9,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -23,7 +28,11 @@ import java.util.List;
 @Builder
 @Entity
 @TypeDef(name = "json", typeClass = JsonType.class)
-public class Apartment extends BaseEntity {
+public class RealEstate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String aptCode;         // 단지코드
     private Long amountRecent;    // 최근 거래금액
     private Integer viewWeek;     // 주간 조회수
@@ -40,8 +49,11 @@ public class Apartment extends BaseEntity {
     private Integer parkingSpaceNo;     // 총 주차대수
     private String bjdCode;             // 법정동코드
 
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
     @Type(type = "json")
     @Column(columnDefinition = "json")
-    private List<ApartmentFeature> feature;   // 특징
-
+    private List<RealEstateFeature> feature;   // 특징
 }

@@ -1,11 +1,11 @@
-package com.dsadara.aptApp.apartment.type;
+package com.dsadara.aptApp.realestate.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum ApartmentFeature {
+public enum RealEstateFeature {
     NEAR_STATION("역세권"),
     GOOD_SCHOOL("학군지역"),
     NEAR_RIVER("강변"),

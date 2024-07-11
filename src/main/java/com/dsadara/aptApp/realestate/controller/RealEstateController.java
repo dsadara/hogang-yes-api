@@ -1,11 +1,11 @@
-package com.dsadara.aptApp.apartment.controller;
+package com.dsadara.aptApp.realestate.controller;
 
-import com.dsadara.aptApp.apartment.dto.ApartmentInfo;
-import com.dsadara.aptApp.apartment.dto.ApartmentInfoSimple;
-import com.dsadara.aptApp.apartment.dto.CreateApartment;
-import com.dsadara.aptApp.apartment.service.ApartmentService;
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
 import com.dsadara.aptApp.common.config.SwaggerConfig;
+import com.dsadara.aptApp.realestate.dto.CreateRealEstate;
+import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
+import com.dsadara.aptApp.realestate.dto.RealEstateInfoSimple;
+import com.dsadara.aptApp.realestate.service.RealEstateService;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,24 +15,28 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 @Api(tags = {SwaggerConfig.APARTMENT_TAG})
-public class ApartmentController {
-    private final ApartmentService apartmentService;
+public class RealEstateController {
+    private final RealEstateService realEstateService;
 
     @ApiOperation(
             value = "아파트 저장 API",
             notes = "아파트 상세 정보를 받아서 DB에 아파트를 저장합니다. 관리자만 사용 가능")
     @PostMapping("/apt")
-    public CreateApartment.Response createApartment(
+    public CreateRealEstate.Response createApartment(
             @Parameter(description = "아파트 저장 모델", required = true)
-            @RequestBody CreateApartment.Request request
+            @RequestBody CreateRealEstate.Request request
     ) {
-        return CreateApartment.Response.from(
-                apartmentService.createApartment(request)
+        return CreateRealEstate.Response.from(
+                realEstateService.createRealEstate(request)
         );
     }
 
@@ -47,40 +51,39 @@ public class ApartmentController {
                     "5. as4 (동리) \n" + "example: 땡땡동 \n" +
                     "6. feature (특징) \n" + "example: NEAR_STATION, GOOD_SCHOOL, COUPANG_ROCKET\n")
     @GetMapping("/apt")
-    public ResponseEntity<Page<ApartmentInfoSimple>> getApartment(
+    public ResponseEntity<Page<RealEstateInfoSimple>> getRealEstate(
             @Parameter(description = "검색 키", required = true, example = "name")
             @RequestParam String searchKey,
             @Parameter(description = "검색 값", required = true, example = "아파트1")
             @RequestParam String searchValue,
-            @PageableDefault(sort="name", direction = Sort.Direction.ASC)
-            final Pageable pageable
+            @PageableDefault(sort = "name", direction = Sort.Direction.ASC) final Pageable pageable
     ) {
         switch (searchKey) {
             case "name":
                 return ResponseEntity.ok(
-                        apartmentService.getApartmentByName(searchValue, pageable)
-                                .map(ApartmentInfoSimple::fromDto));
+                        realEstateService.getRealEstateByName(searchValue, pageable)
+                                .map(RealEstateInfoSimple::fromDto));
             case "as1":
                 return ResponseEntity.ok(
-                        apartmentService.getApartmentByAs1(searchValue, pageable)
-                                .map(ApartmentInfoSimple::fromDto));
+                        realEstateService.getRealEstateByAs1(searchValue, pageable)
+                                .map(RealEstateInfoSimple::fromDto));
             case "as2":
                 return ResponseEntity.ok(
-                        apartmentService.getApartmentByAs2(searchValue, pageable)
-                                .map(ApartmentInfoSimple::fromDto));
+                        realEstateService.getRealEstateByAs2(searchValue, pageable)
+                                .map(RealEstateInfoSimple::fromDto));
             case "as3":
                 return ResponseEntity.ok(
-                        apartmentService.getApartmentByAs3(searchValue, pageable)
-                                .map(ApartmentInfoSimple::fromDto));
+                        realEstateService.getRealEstateByAs3(searchValue, pageable)
+                                .map(RealEstateInfoSimple::fromDto));
             case "as4":
                 return ResponseEntity.ok(
-                        apartmentService.getApartmentByAs4(searchValue, pageable)
-                                .map(ApartmentInfoSimple::fromDto));
+                        realEstateService.getRealEstateByAs4(searchValue, pageable)
+                                .map(RealEstateInfoSimple::fromDto));
             case "feature":
                 return ResponseEntity.ok(
-                        apartmentService.getApartmentByFeature(
-                                        ApartmentFeature.valueOf(searchValue), pageable)
-                                .map(ApartmentInfoSimple::fromDto));
+                        realEstateService.getRealEstateByFeature(
+                                        RealEstateFeature.valueOf(searchValue), pageable)
+                                .map(RealEstateInfoSimple::fromDto));
             default:
                 return null;
         }
@@ -92,11 +95,11 @@ public class ApartmentController {
             notes = "아파트 코드를 받아서 아파트의 상세 정보를 조회합니다.\n" +
                     "아파트 검색 후 조회할 때 사용합니다.")
     @GetMapping("/apt/detail")
-    public ApartmentInfo getApartmentDetail(
+    public RealEstateInfo getRealEstateDetail(
             @Parameter(description = "아파트 코드", required = true, example = "아파트코드1")
             @RequestParam String aptCode
     ) {
-        return apartmentService.getApartmentDetail(aptCode);
+        return realEstateService.getRealEstateDetail(aptCode);
     }
 }
 

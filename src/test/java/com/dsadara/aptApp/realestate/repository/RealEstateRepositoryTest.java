@@ -1,7 +1,7 @@
-package com.dsadara.aptApp.apartment.repository;
+package com.dsadara.aptApp.realestate.repository;
 
-import com.dsadara.aptApp.apartment.entity.Apartment;
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import com.dsadara.aptApp.realestate.entity.RealEstate;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,25 +19,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
+import static com.dsadara.aptApp.realestate.type.RealEstateFeature.*;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("dev")
 @SpringBootTest
 @Transactional
-public class ApartmentRepositoryTest {
+public class RealEstateRepositoryTest {
     @Autowired
-    private ApartmentRepository apartmentRepository;
+    private RealEstateRepository realEstateRepository;
 
     @Autowired
     private Environment env;
 
     @BeforeEach
     void beforeEach() {
-        apartmentRepository.deleteAll();
+        realEstateRepository.deleteAll();
 
-        apartmentRepository.save(Apartment.builder()
+        realEstateRepository.save(RealEstate.builder()
                 .aptCode("aptcode1")
                 .name("apt1")
                 .as1("**시").as2("**구").as3("**읍").as4("**동")
@@ -50,7 +50,7 @@ public class ApartmentRepositoryTest {
                 .feature(new ArrayList<>(Arrays.asList(NEAR_STATION, GOOD_SCHOOL)))
                 .build());
 
-        apartmentRepository.save(Apartment.builder()
+        realEstateRepository.save(RealEstate.builder()
                 .aptCode("aptcode2")
                 .name("apt2")
                 .as1("##시").as2("**구").as3("##읍").as4("**동")
@@ -71,7 +71,7 @@ public class ApartmentRepositoryTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Apartment> pageList = apartmentRepository.findByName(aptName, pageable);
+        Page<RealEstate> pageList = realEstateRepository.findByName(aptName, pageable);
 
         //then
         assertEquals(aptName, pageList.getContent().get(0).getName());
@@ -85,7 +85,7 @@ public class ApartmentRepositoryTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Apartment> pageList = apartmentRepository.findByAs1(siDo, pageable);
+        Page<RealEstate> pageList = realEstateRepository.findByAs1(siDo, pageable);
 
         //then
         assertEquals(siDo, pageList.getContent().get(0).getAs1());
@@ -99,7 +99,7 @@ public class ApartmentRepositoryTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Apartment> pageList = apartmentRepository.findByAs2(siGunGu, pageable);
+        Page<RealEstate> pageList = realEstateRepository.findByAs2(siGunGu, pageable);
 
         //then
         assertEquals(siGunGu, pageList.getContent().get(0).getAs2());
@@ -114,7 +114,7 @@ public class ApartmentRepositoryTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Apartment> pageList = apartmentRepository.findByAs3(eupMyeon, pageable);
+        Page<RealEstate> pageList = realEstateRepository.findByAs3(eupMyeon, pageable);
 
         //then
         assertEquals(eupMyeon, pageList.getContent().get(0).getAs3());
@@ -128,7 +128,7 @@ public class ApartmentRepositoryTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Apartment> pageList = apartmentRepository.findByAs4(dongLee, pageable);
+        Page<RealEstate> pageList = realEstateRepository.findByAs4(dongLee, pageable);
 
         //then
         assertEquals(dongLee, pageList.getContent().get(0).getAs4());
@@ -145,14 +145,14 @@ public class ApartmentRepositoryTest {
         }
 
         //given
-        ApartmentFeature apartmentFeature = GOOD_SCHOOL;
+        RealEstateFeature realEstateFeature = GOOD_SCHOOL;
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<Apartment> pageList = apartmentRepository.findByFeature(apartmentFeature, pageable);
+        Page<RealEstate> pageList = realEstateRepository.findByFeature(realEstateFeature, pageable);
 
         //then
-        assertEquals(apartmentFeature, pageList.getContent().get(0).getFeature().get(1));
+        assertEquals(realEstateFeature, pageList.getContent().get(0).getFeature().get(1));
     }
 
     @Test
@@ -162,11 +162,11 @@ public class ApartmentRepositoryTest {
         String aptCode = "aptcode1";
 
         //when
-        Apartment apartment = apartmentRepository.findByAptCode(aptCode)
+        RealEstate realEstate = realEstateRepository.findByAptCode(aptCode)
                 .orElseThrow(() -> new RuntimeException("findByAptCode() 테스트 실패"));
 
         //then
-        assertEquals(aptCode, apartment.getAptCode());
+        assertEquals(aptCode, realEstate.getAptCode());
     }
 
     @Test
@@ -176,7 +176,7 @@ public class ApartmentRepositoryTest {
         String aptName = "apt1";
 
         //when
-        Boolean isAptExist = apartmentRepository.existsByName(aptName);
+        Boolean isAptExist = realEstateRepository.existsByName(aptName);
 
         //then
         assertEquals(TRUE, isAptExist);
@@ -189,7 +189,7 @@ public class ApartmentRepositoryTest {
         String aptCode = "aptcode1";
 
         //when
-        Boolean isAptExist = apartmentRepository.existsByAptCode(aptCode);
+        Boolean isAptExist = realEstateRepository.existsByAptCode(aptCode);
 
         //then
         assertEquals(TRUE, isAptExist);

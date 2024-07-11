@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    // Apartment
+    // RealEstate
     APARTMENT_NOT_FOUND("아파트가 없습니다"),
     APARTMENT_ALREADY_EXIST("이미 아파트가 존재합니다"),
 

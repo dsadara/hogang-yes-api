@@ -1,9 +1,13 @@
-package com.dsadara.aptApp.apartment.dto;
+package com.dsadara.aptApp.realestate.dto;
 
-import com.dsadara.aptApp.apartment.entity.Apartment;
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import com.dsadara.aptApp.realestate.entity.RealEstate;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ApartmentInfo {
+public class RealEstateInfo {
     // client와 controller간의 정보를 주고 받는 응답 dto
 
     @ApiModelProperty(value = "단지코드", example = "sampleCode")
@@ -62,26 +66,26 @@ public class ApartmentInfo {
     private String bjdCode;
 
     @ApiModelProperty(value = "특징", example = "[NEAR_STATION, GOOD_SCHOOL, NEAR_RIVER]")
-    private List<ApartmentFeature> feature;   // 특징
+    private List<RealEstateFeature> feature;   // 특징
 
-    public static ApartmentInfo fromEntity(Apartment apartment) {
-        return ApartmentInfo.builder()
-                .aptCode(apartment.getAptCode())
-                .amountRecent(apartment.getAmountRecent())
-                .viewWeek(apartment.getViewWeek())
-                .viewTotal(apartment.getViewTotal())
-                .name(apartment.getName())
-                .as1(apartment.getAs1())
-                .as2(apartment.getAs2())
-                .as3(apartment.getAs3())
-                .as4(apartment.getAs4())
-                .drmAddress(apartment.getDrmAddress())
-                .apprvDate(apartment.getApprvDate())
-                .dongNo(apartment.getDongNo())
-                .houseNo(apartment.getHouseNo())
-                .parkingSpaceNo(apartment.getParkingSpaceNo())
-                .bjdCode(apartment.getBjdCode())
-                .feature(apartment.getFeature())
+    public static RealEstateInfo fromEntity(RealEstate realEstate) {
+        return RealEstateInfo.builder()
+                .aptCode(realEstate.getAptCode())
+                .amountRecent(realEstate.getAmountRecent())
+                .viewWeek(realEstate.getViewWeek())
+                .viewTotal(realEstate.getViewTotal())
+                .name(realEstate.getName())
+                .as1(realEstate.getAs1())
+                .as2(realEstate.getAs2())
+                .as3(realEstate.getAs3())
+                .as4(realEstate.getAs4())
+                .drmAddress(realEstate.getDrmAddress())
+                .apprvDate(realEstate.getApprvDate())
+                .dongNo(realEstate.getDongNo())
+                .houseNo(realEstate.getHouseNo())
+                .parkingSpaceNo(realEstate.getParkingSpaceNo())
+                .bjdCode(realEstate.getBjdCode())
+                .feature(realEstate.getFeature())
                 .build();
     }
 }

@@ -1,12 +1,12 @@
-package com.dsadara.aptApp.apartment.service;
+package com.dsadara.aptApp.realestate.service;
 
-import com.dsadara.aptApp.apartment.dto.ApartmentDto;
-import com.dsadara.aptApp.apartment.dto.ApartmentInfo;
-import com.dsadara.aptApp.apartment.dto.CreateApartment;
-import com.dsadara.aptApp.apartment.entity.Apartment;
-import com.dsadara.aptApp.apartment.exception.ApartmentException;
-import com.dsadara.aptApp.apartment.repository.ApartmentRepository;
 import com.dsadara.aptApp.common.type.ErrorCode;
+import com.dsadara.aptApp.realestate.dto.CreateRealEstate;
+import com.dsadara.aptApp.realestate.dto.RealEstateDto;
+import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
+import com.dsadara.aptApp.realestate.entity.RealEstate;
+import com.dsadara.aptApp.realestate.exception.RealEstateException;
+import com.dsadara.aptApp.realestate.repository.RealEstateRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,24 +23,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
+import static com.dsadara.aptApp.realestate.type.RealEstateFeature.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("dev")
 @SpringBootTest
 @Transactional
-public class ApartmentServiceTest {
+public class RealEstateServiceTest {
     @Autowired
-    private ApartmentService apartmentService;
+    private RealEstateService realEstateService;
 
     @Autowired
-    private ApartmentRepository apartmentRepository;
+    private RealEstateRepository realEstateRepository;
 
     @BeforeEach
     void beforeEach() {
-        apartmentRepository.deleteAll();
+        realEstateRepository.deleteAll();
 
-        apartmentService.createApartment(CreateApartment.Request.builder()
+        realEstateService.createRealEstate(CreateRealEstate.Request.builder()
                 .aptCode("aptcode1")
                 .name("apt1")
                 .as1("**시").as2("**구").as3("**읍").as4("**동")
@@ -53,7 +53,7 @@ public class ApartmentServiceTest {
                 .feature(new ArrayList<>(Arrays.asList(NEAR_STATION, GOOD_SCHOOL)))
                 .build());
 
-        apartmentService.createApartment(CreateApartment.Request.builder()
+        realEstateService.createRealEstate(CreateRealEstate.Request.builder()
                 .aptCode("aptcode2")
                 .name("apt2")
                 .as1("##시").as2("**구").as3("##읍").as4("**동")
@@ -74,7 +74,7 @@ public class ApartmentServiceTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<ApartmentDto> aptPages = apartmentService.getApartmentByName(aptName, pageable);
+        Page<RealEstateDto> aptPages = realEstateService.getRealEstateByName(aptName, pageable);
 
         //then
         assertEquals(aptName, aptPages.getContent().get(0).getName());
@@ -88,7 +88,7 @@ public class ApartmentServiceTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs1(siDo, pageable);
+        Page<RealEstateDto> aptPages = realEstateService.getRealEstateByAs1(siDo, pageable);
 
         //then
         assertEquals(siDo, aptPages.getContent().get(0).getAs1());
@@ -102,7 +102,7 @@ public class ApartmentServiceTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs2(siGunGu, pageable);
+        Page<RealEstateDto> aptPages = realEstateService.getRealEstateByAs2(siGunGu, pageable);
 
         //then
         assertEquals(siGunGu, aptPages.getContent().get(0).getAs2());
@@ -116,7 +116,7 @@ public class ApartmentServiceTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs3(eupMyeon, pageable);
+        Page<RealEstateDto> aptPages = realEstateService.getRealEstateByAs3(eupMyeon, pageable);
 
         //then
         assertEquals(eupMyeon, aptPages.getContent().get(0).getAs3());
@@ -130,7 +130,7 @@ public class ApartmentServiceTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<ApartmentDto> aptPages = apartmentService.getApartmentByAs4(dongLee, pageable);
+        Page<RealEstateDto> aptPages = realEstateService.getRealEstateByAs4(dongLee, pageable);
 
         //then
         assertEquals(dongLee, aptPages.getContent().get(0).getAs4());
@@ -143,10 +143,10 @@ public class ApartmentServiceTest {
         String aptCode = "aptcode1";
 
         //when
-        ApartmentInfo apartmentInfo = apartmentService.getApartmentDetail(aptCode);
+        RealEstateInfo realEstateInfo = realEstateService.getRealEstateDetail(aptCode);
 
         //then
-        assertEquals(aptCode, apartmentInfo.getAptCode());
+        assertEquals(aptCode, realEstateInfo.getAptCode());
     }
 
     @Test
@@ -156,8 +156,8 @@ public class ApartmentServiceTest {
         String wrongAptCode = "wrongcode";
 
         //when
-        ApartmentException exception = assertThrows(ApartmentException.class,
-                () -> apartmentService.getApartmentDetail(wrongAptCode));
+        RealEstateException exception = assertThrows(RealEstateException.class,
+                () -> realEstateService.getRealEstateDetail(wrongAptCode));
 
         //then
         assertEquals(ErrorCode.APARTMENT_NOT_FOUND, exception.getErrorCode());
@@ -167,7 +167,7 @@ public class ApartmentServiceTest {
     @DisplayName("실패-createApartment()")
     void createApartment_Fail_ApartmentAlreadyExist() {
         //given
-        CreateApartment.Request request = CreateApartment.Request.builder()
+        CreateRealEstate.Request request = CreateRealEstate.Request.builder()
                 .aptCode("aptcode1")
                 .name("apt1")
                 .as1("**시").as2("**구").as3("**읍").as4("**동")
@@ -181,8 +181,8 @@ public class ApartmentServiceTest {
                 .build();
 
         //when
-        ApartmentException exception = assertThrows(ApartmentException.class,
-                () -> apartmentService.createApartment(request));
+        RealEstateException exception = assertThrows(RealEstateException.class,
+                () -> realEstateService.createRealEstate(request));
 
         //then
         assertEquals(ErrorCode.APARTMENT_ALREADY_EXIST, exception.getErrorCode());
@@ -195,7 +195,7 @@ public class ApartmentServiceTest {
         String aptCodeFromInitialData = "아파트코드1";
 
         // when
-        Optional<Apartment> apartmentOptional = apartmentRepository.findByAptCode(aptCodeFromInitialData);
+        Optional<RealEstate> apartmentOptional = realEstateRepository.findByAptCode(aptCodeFromInitialData);
 
         // then
         assertFalse(apartmentOptional.isPresent());

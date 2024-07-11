@@ -1,11 +1,11 @@
-package com.dsadara.aptApp.apartment.controller;
+package com.dsadara.aptApp.realestate.controller;
 
-import com.dsadara.aptApp.apartment.dto.ApartmentDto;
-import com.dsadara.aptApp.apartment.dto.ApartmentInfo;
-import com.dsadara.aptApp.apartment.dto.CreateApartment;
-import com.dsadara.aptApp.apartment.exception.ApartmentException;
-import com.dsadara.aptApp.apartment.service.ApartmentService;
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import com.dsadara.aptApp.realestate.dto.CreateRealEstate;
+import com.dsadara.aptApp.realestate.dto.RealEstateDto;
+import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
+import com.dsadara.aptApp.realestate.exception.RealEstateException;
+import com.dsadara.aptApp.realestate.service.RealEstateService;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,9 +23,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.dsadara.aptApp.apartment.type.ApartmentFeature.*;
 import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_ALREADY_EXIST;
 import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_NOT_FOUND;
+import static com.dsadara.aptApp.realestate.type.RealEstateFeature.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -35,11 +35,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ApartmentController.class)
-public class ApartmentControllerTest {
+@WebMvcTest(RealEstateController.class)
+public class RealEstateControllerTest {
 
     @MockBean
-    private ApartmentService apartmentService;
+    private RealEstateService realEstateService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,8 +51,8 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 저장")
     void createApartment_Success() throws Exception {
         //given
-        given(apartmentService.createApartment(any(CreateApartment.Request.class)))
-                .willReturn(ApartmentDto.builder()
+        given(realEstateService.createRealEstate(any(CreateRealEstate.Request.class)))
+                .willReturn(RealEstateDto.builder()
                         .aptCode("sampleCode")
                         .name("아파트1")
                         .as1("**시")
@@ -67,7 +67,7 @@ public class ApartmentControllerTest {
         mockMvc.perform(post("/apt")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                CreateApartment.Request.builder()
+                                CreateRealEstate.Request.builder()
                                         .aptCode("sampleCode")
                                         .name("아파트1")
                                         .as1("**시")
@@ -100,9 +100,9 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 이름 검색")
     void getApartmentByName_Success() throws Exception {
         //given
-        List<ApartmentDto> apartmentDtos =
+        List<RealEstateDto> realEstateDtos =
                 Collections.singletonList(
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode")
                                 .name("아파트1")
                                 .as1("**시")
@@ -112,8 +112,8 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
                                 .build()
                 );
-        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
-        given(apartmentService.getApartmentByName(anyString(), any(Pageable.class)))
+        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
+        given(realEstateService.getRealEstateByName(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
@@ -135,9 +135,9 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 시,도별 검색")
     void getApartmentByAs1_Success() throws Exception {
         //given
-        List<ApartmentDto> apartmentDtos =
+        List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode1")
                                 .name("아파트1")
                                 .as1("**시")
@@ -146,7 +146,7 @@ public class ApartmentControllerTest {
                                 .as4("**동")
                                 .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
                                 .build(),
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode2")
                                 .name("아파트2")
                                 .as1("**시")
@@ -156,8 +156,8 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
-        given(apartmentService.getApartmentByAs1(anyString(), any(Pageable.class)))
+        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
+        given(realEstateService.getRealEstateByAs1(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
@@ -187,9 +187,9 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 시,군,구별 검색")
     void getApartmentByAs2_Success() throws Exception {
         //given
-        List<ApartmentDto> apartmentDtos =
+        List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode1")
                                 .name("아파트1")
                                 .as1("**시")
@@ -198,7 +198,7 @@ public class ApartmentControllerTest {
                                 .as4("**동")
                                 .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
                                 .build(),
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode2")
                                 .name("아파트2")
                                 .as1("**시")
@@ -208,8 +208,8 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
-        given(apartmentService.getApartmentByAs2(anyString(), any(Pageable.class)))
+        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
+        given(realEstateService.getRealEstateByAs2(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
@@ -239,9 +239,9 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 읍,면별 검색")
     void getApartmentByAs3_Success() throws Exception {
         //given
-        List<ApartmentDto> apartmentDtos =
+        List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode1")
                                 .name("아파트1")
                                 .as1("**시")
@@ -250,7 +250,7 @@ public class ApartmentControllerTest {
                                 .as4("**동")
                                 .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
                                 .build(),
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode2")
                                 .name("아파트2")
                                 .as1("**시")
@@ -260,8 +260,8 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
-        given(apartmentService.getApartmentByAs3(anyString(), any(Pageable.class)))
+        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
+        given(realEstateService.getRealEstateByAs3(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
@@ -291,9 +291,9 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 동,리별 검색")
     void getApartmentByAs4_Success() throws Exception {
         //given
-        List<ApartmentDto> apartmentDtos =
+        List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode1")
                                 .name("아파트1")
                                 .as1("**시")
@@ -302,7 +302,7 @@ public class ApartmentControllerTest {
                                 .as4("**동")
                                 .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
                                 .build(),
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode2")
                                 .name("아파트2")
                                 .as1("**시")
@@ -312,8 +312,8 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
                                 .build()
                 );
-        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
-        given(apartmentService.getApartmentByAs4(anyString(), any(Pageable.class)))
+        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
+        given(realEstateService.getRealEstateByAs4(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
@@ -343,9 +343,9 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 특징별 검색")
     void getApartmentByFeature_Success() throws Exception {
         //given
-        List<ApartmentDto> apartmentDtos =
+        List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode1")
                                 .name("아파트1")
                                 .as1("**시")
@@ -354,7 +354,7 @@ public class ApartmentControllerTest {
                                 .as4("**동")
                                 .feature(Arrays.asList(NEAR_STATION, GOOD_SCHOOL))
                                 .build(),
-                        ApartmentDto.builder()
+                        RealEstateDto.builder()
                                 .aptCode("sampleCode2")
                                 .name("아파트2")
                                 .as1("**시")
@@ -364,8 +364,8 @@ public class ApartmentControllerTest {
                                 .feature(Arrays.asList(NEAR_STATION, COUPANG_ROCKET))
                                 .build()
                 );
-        Page<ApartmentDto> pageResponse = new PageImpl<>(apartmentDtos);
-        given(apartmentService.getApartmentByFeature(any(ApartmentFeature.class), any(Pageable.class)))
+        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
+        given(realEstateService.getRealEstateByFeature(any(RealEstateFeature.class), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
@@ -395,8 +395,8 @@ public class ApartmentControllerTest {
     @DisplayName("성공-아파트 상세 조회")
     void getApartmentDetail_Success() throws Exception {
         //given
-        given(apartmentService.getApartmentDetail(anyString()))
-                .willReturn(ApartmentInfo.builder()
+        given(realEstateService.getRealEstateDetail(anyString()))
+                .willReturn(RealEstateInfo.builder()
                         .aptCode("sampleCode")
                         .name("아파트1")
                         .as1("**시")
@@ -437,15 +437,15 @@ public class ApartmentControllerTest {
     @DisplayName("실패-아파트 저장-중복 아파트 존재")
     void createApartment_Fail() throws Exception {
         //given
-        given(apartmentService.createApartment(any(CreateApartment.Request.class)))
-                .willThrow(new ApartmentException(APARTMENT_ALREADY_EXIST));
+        given(realEstateService.createRealEstate(any(CreateRealEstate.Request.class)))
+                .willThrow(new RealEstateException(APARTMENT_ALREADY_EXIST));
 
         //when
         //then
         mockMvc.perform(post("/apt")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                CreateApartment.Request.builder()
+                                CreateRealEstate.Request.builder()
                                         .aptCode("sampleCode")
                                         .name("아파트1")
                                         .as1("**시")
@@ -473,8 +473,8 @@ public class ApartmentControllerTest {
     @DisplayName("실패-아파트 상세 조회-존재하지 않는 아파트")
     void getApartmentDetail_Fail() throws Exception {
         //given
-        given(apartmentService.getApartmentDetail(anyString()))
-                .willThrow(new ApartmentException(APARTMENT_NOT_FOUND));
+        given(realEstateService.getRealEstateDetail(anyString()))
+                .willThrow(new RealEstateException(APARTMENT_NOT_FOUND));
 
         //when
         //then

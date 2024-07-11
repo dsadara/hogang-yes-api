@@ -1,8 +1,12 @@
-package com.dsadara.aptApp.apartment.dto;
+package com.dsadara.aptApp.realestate.dto;
 
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -11,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ApartmentInfoSimple {
+public class RealEstateInfoSimple {
     // client와 controller간의 정보를 주고 받는 응답 dto
 
     @ApiModelProperty(value = "단지코드", example = "아파트코드0")
@@ -33,17 +37,17 @@ public class ApartmentInfoSimple {
     private String as4;
 
     @ApiModelProperty(value = "특징", example = "[COUPANG_ROCKET, NEAR_STATION]")
-    private List<ApartmentFeature> feature;   // 특징
+    private List<RealEstateFeature> feature;   // 특징
 
-    public static ApartmentInfoSimple fromDto(ApartmentDto apartmentDto) {
-        return ApartmentInfoSimple.builder()
-                .aptCode(apartmentDto.getAptCode())
-                .name(apartmentDto.getName())
-                .as1(apartmentDto.getAs1())
-                .as2(apartmentDto.getAs2())
-                .as3(apartmentDto.getAs3())
-                .as4(apartmentDto.getAs4())
-                .feature(apartmentDto.getFeature())
+    public static RealEstateInfoSimple fromDto(RealEstateDto realEstateDto) {
+        return RealEstateInfoSimple.builder()
+                .aptCode(realEstateDto.getAptCode())
+                .name(realEstateDto.getName())
+                .as1(realEstateDto.getAs1())
+                .as2(realEstateDto.getAs2())
+                .as3(realEstateDto.getAs3())
+                .as4(realEstateDto.getAs4())
+                .feature(realEstateDto.getFeature())
                 .build();
     }
 }

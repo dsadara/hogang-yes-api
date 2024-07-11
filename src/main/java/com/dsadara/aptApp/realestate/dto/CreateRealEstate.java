@@ -1,14 +1,18 @@
-package com.dsadara.aptApp.apartment.dto;
+package com.dsadara.aptApp.realestate.dto;
 
-import com.dsadara.aptApp.apartment.type.ApartmentFeature;
+import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class CreateApartment {
+public class CreateRealEstate {
     @Getter
     @Setter
     @AllArgsConstructor
@@ -53,7 +57,7 @@ public class CreateApartment {
         private String bjdCode;
 
         @ApiModelProperty(value = "특징", example = "[COUPANG_ROCKET, NEAR_STATION]")
-        private List<ApartmentFeature> feature;
+        private List<RealEstateFeature> feature;
     }
 
     @Getter
@@ -81,17 +85,17 @@ public class CreateApartment {
         private String as4;
 
         @ApiModelProperty(value = "특징", example = "[COUPANG_ROCKET, NEAR_STATION]")
-        private List<ApartmentFeature> feature;
+        private List<RealEstateFeature> feature;
 
-        public static Response from(ApartmentDto apartmentDto) {
+        public static Response from(RealEstateDto realEstateDto) {
             return Response.builder()
-                    .aptCode(apartmentDto.getAptCode())
-                    .name(apartmentDto.getName())
-                    .as1(apartmentDto.getAs1())
-                    .as2(apartmentDto.getAs2())
-                    .as3(apartmentDto.getAs3())
-                    .as4(apartmentDto.getAs4())
-                    .feature(apartmentDto.getFeature())
+                    .aptCode(realEstateDto.getAptCode())
+                    .name(realEstateDto.getName())
+                    .as1(realEstateDto.getAs1())
+                    .as2(realEstateDto.getAs2())
+                    .as3(realEstateDto.getAs3())
+                    .as4(realEstateDto.getAs4())
+                    .feature(realEstateDto.getFeature())
                     .build();
         }
     }

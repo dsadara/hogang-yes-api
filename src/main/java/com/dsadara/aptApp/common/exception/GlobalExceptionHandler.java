@@ -1,7 +1,7 @@
 package com.dsadara.aptApp.common.exception;
 
-import com.dsadara.aptApp.apartment.exception.ApartmentException;
 import com.dsadara.aptApp.common.dto.ErrorResponse;
+import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,8 +14,8 @@ import static com.dsadara.aptApp.common.type.ErrorCode.INVALID_REQUEST;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ApartmentException.class)
-    public ErrorResponse handleApartmentException(ApartmentException e) {
+    @ExceptionHandler(RealEstateException.class)
+    public ErrorResponse handleApartmentException(RealEstateException e) {
         log.error("{} is occuurred.", e.getErrorCode());
 
         return new ErrorResponse(e.getErrorCode(), e.getErrorMessage());
