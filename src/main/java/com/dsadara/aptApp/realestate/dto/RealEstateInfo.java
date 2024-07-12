@@ -1,6 +1,5 @@
 package com.dsadara.aptApp.realestate.dto;
 
-import com.dsadara.aptApp.realestate.entity.RealEstate;
 import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -68,24 +67,24 @@ public class RealEstateInfo {
     @ApiModelProperty(value = "특징", example = "[NEAR_STATION, GOOD_SCHOOL, NEAR_RIVER]")
     private List<RealEstateFeature> feature;   // 특징
 
-    public static RealEstateInfo fromEntity(RealEstate realEstate) {
-        return RealEstateInfo.builder()
-                .aptCode(realEstate.getAptCode())
-                .amountRecent(realEstate.getAmountRecent())
-                .viewWeek(realEstate.getViewWeek())
-                .viewTotal(realEstate.getViewTotal())
-                .name(realEstate.getName())
-                .as1(realEstate.getAs1())
-                .as2(realEstate.getAs2())
-                .as3(realEstate.getAs3())
-                .as4(realEstate.getAs4())
-                .drmAddress(realEstate.getDrmAddress())
-                .apprvDate(realEstate.getApprvDate())
-                .dongNo(realEstate.getDongNo())
-                .houseNo(realEstate.getHouseNo())
-                .parkingSpaceNo(realEstate.getParkingSpaceNo())
-                .bjdCode(realEstate.getBjdCode())
-                .feature(realEstate.getFeature())
-                .build();
-    }
+//    public static RealEstateInfo fromEntity(RealEstate realEstate) {
+//        return RealEstateInfo.builder()
+//                .aptCode(realEstate.getAptCode())
+//                .amountRecent(realEstate.getAmountRecent())
+//                .viewWeek(realEstate.getViewWeek())
+//                .viewTotal(realEstate.getViewTotal())
+//                .name(realEstate.getName())
+//                .as1(realEstate.getAs1())
+//                .as2(realEstate.getAs2())
+//                .as3(realEstate.getAs3())
+//                .as4(realEstate.getAs4())
+//                .drmAddress(realEstate.getDrmAddress())
+//                .apprvDate(realEstate.getApprvDate())
+//                .dongNo(realEstate.getDongNo())
+//                .houseNo(realEstate.getHouseNo())
+//                .parkingSpaceNo(realEstate.getParkingSpaceNo())
+//                .bjdCode(realEstate.getBjdCode())
+//                .feature(realEstate.getFeature())
+//                .build();
+//    }
 }

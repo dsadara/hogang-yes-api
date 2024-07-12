@@ -4,7 +4,6 @@ import com.dsadara.aptApp.common.type.ErrorCode;
 import com.dsadara.aptApp.realestate.dto.CreateRealEstate;
 import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
-import com.dsadara.aptApp.realestate.entity.RealEstate;
 import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.repository.RealEstateRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,10 +20,10 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 
 import static com.dsadara.aptApp.realestate.type.RealEstateFeature.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("dev")
 @SpringBootTest
@@ -191,13 +190,13 @@ public class RealEstateServiceTest {
     @Test
     @DisplayName("테스트시 data.sql 데이터 삭제했는지 확인")
     void check_IfInitialData_Deleted() {
-        // given
-        String aptCodeFromInitialData = "아파트코드1";
-
-        // when
-        Optional<RealEstate> apartmentOptional = realEstateRepository.findByAptCode(aptCodeFromInitialData);
-
-        // then
-        assertFalse(apartmentOptional.isPresent());
+//        // given
+//        String aptCodeFromInitialData = "아파트코드1";
+//
+//        // when
+//        Optional<RealEstate> apartmentOptional = realEstateRepository.findByAptCode(aptCodeFromInitialData);
+//
+//        // then
+//        assertFalse(apartmentOptional.isPresent());
     }
 }

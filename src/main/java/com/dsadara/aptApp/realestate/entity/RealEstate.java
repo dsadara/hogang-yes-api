@@ -1,59 +1,56 @@
 package com.dsadara.aptApp.realestate.entity;
 
-import com.dsadara.aptApp.realestate.type.RealEstateFeature;
-import com.vladmihalcea.hibernate.type.json.JsonType;
+import com.dsadara.aptApp.realestate.type.RealEstateType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Entity
-@TypeDef(name = "json", typeClass = JsonType.class)
+@AllArgsConstructor
+@NoArgsConstructor
 public class RealEstate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    private String aptCode;         // 단지코드
-    private Long amountRecent;    // 최근 거래금액
-    private Integer viewWeek;     // 주간 조회수
-    private Integer viewTotal;      // 전체 조회수
-    private String name;            // 단지명
-    private String as1;             // 시, 도
-    private String as2;             // 시, 군, 구
-    private String as3;             // 읍, 면
-    private String as4;             // 동, 리
-    private String drmAddress;          // 도로명주소
-    private LocalDate apprvDate;    // 사용승인일
-    private Integer dongNo;             // 동수
-    private Integer houseNo;            // 세대수
-    private Integer parkingSpaceNo;     // 총 주차대수
-    private String bjdCode;             // 법정동코드
-
-    @CreatedDate
+    @Comment("건축년도")
+    private Short constructYear;
+    @Comment("계약년")
+    private Short contractYear;
+    @Comment("계약일")
+    private Short contractDay;
+    @Comment("층")
+    private String floor;
+    @Comment("전용면적, 계약면적")
+    private String jeonYongArea;
+    @Comment("법정동")
+    private String beopJeongDong;
+    @Comment("계약월")
+    private Short contractMonth;
+    @Comment("이름")
+    private String name;
+    @Comment("지번")
+    private String parcelNumber;
+    @Comment("부동산 종류")
+    @Enumerated(EnumType.STRING)
+    private RealEstateType realEstateType;
+    @Comment("지역코드")
+    private String beopJeongDongCode;
+    @CreationTimestamp
     private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-    @Type(type = "json")
-    @Column(columnDefinition = "json")
-    private List<RealEstateFeature> feature;   // 특징
 }

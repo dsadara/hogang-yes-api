@@ -1,6 +1,5 @@
 package com.dsadara.aptApp.realestate.dto;
 
-import com.dsadara.aptApp.realestate.entity.RealEstate;
 import com.dsadara.aptApp.realestate.type.RealEstateFeature;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,15 +24,15 @@ public class RealEstateDto {
 
     private List<RealEstateFeature> feature;   // 특징
 
-    public static RealEstateDto fromEntity(RealEstate realEstate) {
-        return RealEstateDto.builder()
-                .aptCode(realEstate.getAptCode())
-                .name(realEstate.getName())
-                .as1(realEstate.getAs1())
-                .as2(realEstate.getAs2())
-                .as3(realEstate.getAs3())
-                .as4(realEstate.getAs4())
-                .feature(realEstate.getFeature())
-                .build();
-    }
+//    public static RealEstateDto fromEntity(RealEstate realEstate) {
+//        return RealEstateDto.builder()
+//                .aptCode(realEstate.getAptCode())
+//                .name(realEstate.getName())
+//                .as1(realEstate.getAs1())
+//                .as2(realEstate.getAs2())
+//                .as3(realEstate.getAs3())
+//                .as4(realEstate.getAs4())
+//                .feature(realEstate.getFeature())
+//                .build();
+//    }
 }
