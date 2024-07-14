@@ -43,49 +43,6 @@ public class RealEstateServiceMockTest {
     }
 
     @Test
-    @DisplayName("성공-createApartment()")
-    void createApartment_Success() {
-//        //given
-//        given(realEstateRepository.existsByAptCode(anyString()))
-//                .willReturn(Boolean.FALSE);
-//
-//        given(realEstateRepository.existsByName(anyString()))
-//                .willReturn(Boolean.FALSE);
-//
-//        given(realEstateRepository.save(any(RealEstate.class)))
-//                .willReturn(realEstateSample);
-//
-//        //when
-//        RealEstateDto realEstateDto = realEstateService.createRealEstate(
-//                CreateRealEstate.Request.builder()
-//                        .aptCode("sampleCode")
-//                        .name("아파트1")
-//                        .as1("**시")
-//                        .as2("**구")
-//                        .as3("**읍")
-//                        .as4("**동")
-//                        .drmAddress("도로명주소1")
-//                        .apprvDate(LocalDate.of(2001, 1, 1))
-//                        .dongNo(10)
-//                        .houseNo(500)
-//                        .parkingSpaceNo(1000)
-//                        .bjdCode("sampleBjdCode")
-//                        .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
-//                        .build());
-//
-//        //then
-//        verify(realEstateRepository, times(1)).existsByName(anyString());
-//        verify(realEstateRepository, times(1)).existsByAptCode(anyString());
-//        assertEquals(realEstateSample.getAptCode(), realEstateDto.getAptCode());
-//        assertEquals(realEstateSample.getName(), realEstateDto.getName());
-//        assertEquals(realEstateSample.getAs1(), realEstateDto.getAs1());
-//        assertEquals(realEstateSample.getAs2(), realEstateDto.getAs2());
-//        assertEquals(realEstateSample.getAs3(), realEstateDto.getAs3());
-//        assertEquals(realEstateSample.getAs4(), realEstateDto.getAs4());
-//        assertEquals(realEstateSample.getFeature(), realEstateDto.getFeature());
-    }
-
-    @Test
     @DisplayName("성공-getApartmentByName()")
     void getApartmentByName_Success() {
 //        //given
@@ -262,48 +219,6 @@ public class RealEstateServiceMockTest {
 //        verify(realEstateRepository, times(1)).findByAptCode(anyString());
 //        assertEquals(APARTMENT_NOT_FOUND, exception.getErrorCode());
 //        assertEquals("아파트가 없습니다", exception.getErrorMessage());
-
     }
 
-    @Test
-    @DisplayName("실패-createApartment()-중복코드존재")
-    void createApartment_Fail_duplicateAptCode() {
-//        //given
-//        given(realEstateRepository.existsByAptCode(anyString()))
-//                .willThrow(new RealEstateException(APARTMENT_ALREADY_EXIST));
-//
-//        //when
-//        RealEstateException exception = assertThrows(RealEstateException.class,
-//                () -> realEstateService.createRealEstate(
-//                        CreateRealEstate.Request.builder()
-//                                .aptCode("duplicateAptCode")
-//                                .build()
-//                ));
-//
-//        //then
-//        verify(realEstateRepository, times(1)).existsByAptCode(anyString());
-//        assertEquals(APARTMENT_ALREADY_EXIST, exception.getErrorCode());
-//        assertEquals("이미 아파트가 존재합니다", exception.getErrorMessage());
-    }
-
-    @Test
-    @DisplayName("실패-createApartment()-중복이름존재")
-    void createApartment_Fail_duplicateName() {
-//        //given
-//        given(realEstateRepository.existsByName(anyString()))
-//                .willThrow(new RealEstateException(APARTMENT_ALREADY_EXIST));
-//
-//        //when
-//        RealEstateException exception = assertThrows(RealEstateException.class,
-//                () -> realEstateService.createRealEstate(
-//                        CreateRealEstate.Request.builder()
-//                                .name("duplicateName")
-//                                .build()
-//                ));
-//
-//        //then
-//        verify(realEstateRepository, times(1)).existsByName(anyString());
-//        assertEquals(APARTMENT_ALREADY_EXIST, exception.getErrorCode());
-//        assertEquals("이미 아파트가 존재합니다", exception.getErrorMessage());
-    }
 }

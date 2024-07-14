@@ -1,7 +1,6 @@
 package com.dsadara.aptApp.realestate.controller;
 
 import com.dsadara.aptApp.common.config.SwaggerConfig;
-import com.dsadara.aptApp.realestate.dto.CreateRealEstate;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfoSimple;
 import com.dsadara.aptApp.realestate.service.RealEstateService;
@@ -16,8 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,20 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Api(tags = {SwaggerConfig.APARTMENT_TAG})
 public class RealEstateController {
-    private final RealEstateService realEstateService;
 
-    @ApiOperation(
-            value = "아파트 저장 API",
-            notes = "아파트 상세 정보를 받아서 DB에 아파트를 저장합니다. 관리자만 사용 가능")
-    @PostMapping("/apt")
-    public CreateRealEstate.Response createApartment(
-            @Parameter(description = "아파트 저장 모델", required = true)
-            @RequestBody CreateRealEstate.Request request
-    ) {
-        return CreateRealEstate.Response.from(
-                realEstateService.createRealEstate(request)
-        );
-    }
+    private final RealEstateService realEstateService;
 
     @ApiOperation(
             value = "아파트 검색 API",
@@ -101,6 +86,7 @@ public class RealEstateController {
     ) {
         return realEstateService.getRealEstateDetail(aptCode);
     }
+
 }
 
 

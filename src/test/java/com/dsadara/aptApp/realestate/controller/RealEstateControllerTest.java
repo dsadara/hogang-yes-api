@@ -1,12 +1,10 @@
 package com.dsadara.aptApp.realestate.controller;
 
-import com.dsadara.aptApp.realestate.dto.CreateRealEstate;
 import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.service.RealEstateService;
 import com.dsadara.aptApp.realestate.type.RealEstateFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -23,14 +20,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_ALREADY_EXIST;
 import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_NOT_FOUND;
 import static com.dsadara.aptApp.realestate.type.RealEstateFeature.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,58 +38,6 @@ public class RealEstateControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Test
-    @DisplayName("성공-아파트 저장")
-    void createApartment_Success() throws Exception {
-        //given
-        given(realEstateService.createRealEstate(any(CreateRealEstate.Request.class)))
-                .willReturn(RealEstateDto.builder()
-                        .aptCode("sampleCode")
-                        .name("아파트1")
-                        .as1("**시")
-                        .as2("**구")
-                        .as3("**읍")
-                        .as4("**동")
-                        .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
-                        .build());
-
-        //when
-        //then
-        mockMvc.perform(post("/apt")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(
-                                CreateRealEstate.Request.builder()
-                                        .aptCode("sampleCode")
-                                        .name("아파트1")
-                                        .as1("**시")
-                                        .as2("**구")
-                                        .as3("**읍")
-                                        .as4("**동")
-                                        .drmAddress("도로명주소1")
-                                        .apprvDate(LocalDate.of(2001, 1, 1))
-                                        .dongNo(10)
-                                        .houseNo(500)
-                                        .parkingSpaceNo(1000)
-                                        .bjdCode("sampleBjdCode")
-                                        .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
-                                        .build()
-                        )))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.aptCode").value("sampleCode"))
-                .andExpect(jsonPath("$.name").value("아파트1"))
-                .andExpect(jsonPath("$.as1").value("**시"))
-                .andExpect(jsonPath("$.as2").value("**구"))
-                .andExpect(jsonPath("$.as3").value("**읍"))
-                .andExpect(jsonPath("$.as4").value("**동"))
-                .andExpect(jsonPath("$.feature").isArray())
-                .andExpect(jsonPath("$.feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.feature[1]").value(NEAR_STATION.name()))
-                .andDo(print());
-    }
 
     @Test
     @DisplayName("성공-아파트 이름 검색")
@@ -434,42 +377,6 @@ public class RealEstateControllerTest {
     }
 
     @Test
-    @DisplayName("실패-아파트 저장-중복 아파트 존재")
-    void createApartment_Fail() throws Exception {
-        //given
-        given(realEstateService.createRealEstate(any(CreateRealEstate.Request.class)))
-                .willThrow(new RealEstateException(APARTMENT_ALREADY_EXIST));
-
-        //when
-        //then
-        mockMvc.perform(post("/apt")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(
-                                CreateRealEstate.Request.builder()
-                                        .aptCode("sampleCode")
-                                        .name("아파트1")
-                                        .as1("**시")
-                                        .as2("**구")
-                                        .as3("**읍")
-                                        .as4("**동")
-                                        .drmAddress("도로명주소1")
-                                        .apprvDate(LocalDate.of(2001, 1, 1))
-                                        .dongNo(10)
-                                        .houseNo(500)
-                                        .parkingSpaceNo(1000)
-                                        .bjdCode("sampleBjdCode")
-                                        .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
-                                        .build()
-                        )))
-                .andDo(print())
-                .andExpect(jsonPath("$.errorCode")
-                        .value("APARTMENT_ALREADY_EXIST"))
-                .andExpect(jsonPath("$.errorMessage")
-                        .value("이미 아파트가 존재합니다"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     @DisplayName("실패-아파트 상세 조회-존재하지 않는 아파트")
     void getApartmentDetail_Fail() throws Exception {
         //given
@@ -503,4 +410,5 @@ public class RealEstateControllerTest {
                         .value("잘못된 요청입니다."))
                 .andExpect(status().isOk());
     }
+
 }
