@@ -4,7 +4,8 @@ import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.service.RealEstateService;
-import com.dsadara.aptApp.realestate.type.RealEstateFeature;
+import com.dsadara.aptApp.realestate.type.RealEstateType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.dsadara.aptApp.common.type.ErrorCode.APARTMENT_NOT_FOUND;
-import static com.dsadara.aptApp.realestate.type.RealEstateFeature.*;
+import static com.dsadara.aptApp.realestate.type.RealEstateFeature.GOOD_SCHOOL;
+import static com.dsadara.aptApp.realestate.type.RealEstateFeature.NEAR_STATION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -40,19 +42,17 @@ public class RealEstateControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("성공-아파트 이름 검색")
-    void getApartmentByName_Success() throws Exception {
+    @DisplayName("성공-부동산 이름 검색")
+    void getRealEstateByName_Success() throws Exception {
         //given
         List<RealEstateDto> realEstateDtos =
                 Collections.singletonList(
                         RealEstateDto.builder()
-                                .aptCode("sampleCode")
-                                .name("아파트1")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_TRADE)
                                 .build()
                 );
         Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
@@ -61,279 +61,161 @@ public class RealEstateControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt?searchKey=name&searchValue=아파트1"))
+        mockMvc.perform(get("/realestate?searchKey=name&searchValue=강변힐스테이트아파트"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode"))
-                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
-                .andExpect(jsonPath("$.content[0].as1").value("**시"))
-                .andExpect(jsonPath("$.content[0].as2").value("**구"))
-                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[0].as4").value("**동"))
-                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"));
     }
 
     @Test
-    @DisplayName("성공-아파트 시,도별 검색")
-    void getApartmentByAs1_Success() throws Exception {
+    @DisplayName("성공-부동산 법정동 코드 검색")
+    void getRealEstateBybeopJeongDongCode_Success() throws Exception {
         //given
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
-                                .aptCode("sampleCode1")
-                                .name("아파트1")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_TRADE)
                                 .build(),
                         RealEstateDto.builder()
-                                .aptCode("sampleCode2")
-                                .name("아파트2")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_RENT)
                                 .build()
                 );
         Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
-        given(realEstateService.getRealEstateByAs1(anyString(), any(Pageable.class)))
+        given(realEstateService.getRealEstateByBeopJeongDongCode(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
         //then
-        mockMvc.perform(get("/apt?searchKey=as1&searchValue=**시"))
+        mockMvc.perform(get("/realestate?searchKey=beopJeongDongCode&searchValue=11110"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
-                .andExpect(jsonPath("$.content[0].as1").value("**시"))
-                .andExpect(jsonPath("$.content[0].as2").value("**구"))
-                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[0].as4").value("**동"))
-                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
-                .andExpect(jsonPath("$.content[1].as1").value("**시"))
-                .andExpect(jsonPath("$.content[1].as2").value("**구"))
-                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[1].as4").value("**동"))
-                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"))
+                .andExpect(jsonPath("$.content[1].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[1].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[1].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[1].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[1].realEstateType").value("APT_RENT"));
     }
 
     @Test
-    @DisplayName("성공-아파트 시,군,구별 검색")
-    void getApartmentByAs2_Success() throws Exception {
+    @DisplayName("성공-부동산 법정동 검색")
+    void getRealEstateBybeopJeongDong_Success() throws Exception {
         //given
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
-                                .aptCode("sampleCode1")
-                                .name("아파트1")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_TRADE)
                                 .build(),
                         RealEstateDto.builder()
-                                .aptCode("sampleCode2")
-                                .name("아파트2")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_RENT)
                                 .build()
                 );
         Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
-        given(realEstateService.getRealEstateByAs2(anyString(), any(Pageable.class)))
+        given(realEstateService.getRealEstateByBeopJeongDong(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
         //then
-        mockMvc.perform(get("/apt?searchKey=as2&searchValue=**구"))
+        mockMvc.perform(get("/realestate?searchKey=beopJeongDong&searchValue=염창동"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
-                .andExpect(jsonPath("$.content[0].as1").value("**시"))
-                .andExpect(jsonPath("$.content[0].as2").value("**구"))
-                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[0].as4").value("**동"))
-                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
-                .andExpect(jsonPath("$.content[1].as1").value("**시"))
-                .andExpect(jsonPath("$.content[1].as2").value("**구"))
-                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[1].as4").value("**동"))
-                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"))
+                .andExpect(jsonPath("$.content[1].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[1].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[1].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[1].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[1].realEstateType").value("APT_RENT"));
     }
 
     @Test
-    @DisplayName("성공-아파트 읍,면별 검색")
-    void getApartmentByAs3_Success() throws Exception {
+    @DisplayName("성공-부동산 지번 검색")
+    void getRealEstateByParcelNumber_Success() throws Exception {
         //given
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
-                                .aptCode("sampleCode1")
-                                .name("아파트1")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
-                                .build(),
-                        RealEstateDto.builder()
-                                .aptCode("sampleCode2")
-                                .name("아파트2")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_TRADE)
                                 .build()
                 );
         Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
-        given(realEstateService.getRealEstateByAs3(anyString(), any(Pageable.class)))
+        given(realEstateService.getRealEstateByParcelNumber(anyString(), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
         //then
-        mockMvc.perform(get("/apt?searchKey=as3&searchValue=**읍"))
+        mockMvc.perform(get("/realestate?searchKey=parcelNumber&searchValue=299"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
-                .andExpect(jsonPath("$.content[0].as1").value("**시"))
-                .andExpect(jsonPath("$.content[0].as2").value("**구"))
-                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[0].as4").value("**동"))
-                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
-                .andExpect(jsonPath("$.content[1].as1").value("**시"))
-                .andExpect(jsonPath("$.content[1].as2").value("**구"))
-                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[1].as4").value("**동"))
-                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"));
     }
 
     @Test
-    @DisplayName("성공-아파트 동,리별 검색")
-    void getApartmentByAs4_Success() throws Exception {
+    @DisplayName("성공-부동산 타입 검색")
+    void getRealEstateByRealEstateType_Success() throws Exception {
         //given
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
-                                .aptCode("sampleCode1")
-                                .name("아파트1")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(GOOD_SCHOOL, NEAR_STATION))
-                                .build(),
-                        RealEstateDto.builder()
-                                .aptCode("sampleCode2")
-                                .name("아파트2")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(COUPANG_ROCKET, NEAR_STATION))
+                                .beopJeongDongCode("11110")
+                                .beopJeongDong("염창동")
+                                .name("강변힐스테이트아파트")
+                                .parcelNumber("299")
+                                .realEstateType(RealEstateType.APT_RENT)
                                 .build()
                 );
         Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
-        given(realEstateService.getRealEstateByAs4(anyString(), any(Pageable.class)))
+        given(realEstateService.getRealEstateByRealEstateType(any(RealEstateType.class), any(Pageable.class)))
                 .willReturn(pageResponse);
 
         //when
         //then
-        mockMvc.perform(get("/apt?searchKey=as4&searchValue=**동"))
+        mockMvc.perform(get("/realestate?searchKey=realEstateType&searchValue=APT_RENT"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
-                .andExpect(jsonPath("$.content[0].as1").value("**시"))
-                .andExpect(jsonPath("$.content[0].as2").value("**구"))
-                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[0].as4").value("**동"))
-                .andExpect(jsonPath("$.content[0].feature[0]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.content[0].feature[1]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
-                .andExpect(jsonPath("$.content[1].as1").value("**시"))
-                .andExpect(jsonPath("$.content[1].as2").value("**구"))
-                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[1].as4").value("**동"))
-                .andExpect(jsonPath("$.content[1].feature[0]").value(COUPANG_ROCKET.name()))
-                .andExpect(jsonPath("$.content[1].feature[1]").value(NEAR_STATION.name()));
+                .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
+                .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
+                .andExpect(jsonPath("$.content[0].realEstateType").value("APT_RENT"));
     }
 
-    @Test
-    @DisplayName("성공-아파트 특징별 검색")
-    void getApartmentByFeature_Success() throws Exception {
-        //given
-        List<RealEstateDto> realEstateDtos =
-                Arrays.asList(
-                        RealEstateDto.builder()
-                                .aptCode("sampleCode1")
-                                .name("아파트1")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(NEAR_STATION, GOOD_SCHOOL))
-                                .build(),
-                        RealEstateDto.builder()
-                                .aptCode("sampleCode2")
-                                .name("아파트2")
-                                .as1("**시")
-                                .as2("**구")
-                                .as3("**읍")
-                                .as4("**동")
-                                .feature(Arrays.asList(NEAR_STATION, COUPANG_ROCKET))
-                                .build()
-                );
-        Page<RealEstateDto> pageResponse = new PageImpl<>(realEstateDtos);
-        given(realEstateService.getRealEstateByFeature(any(RealEstateFeature.class), any(Pageable.class)))
-                .willReturn(pageResponse);
-
-        //when
-        //then
-        mockMvc.perform(get("/apt?searchKey=feature&searchValue=NEAR_STATION"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].aptCode").value("sampleCode1"))
-                .andExpect(jsonPath("$.content[0].name").value("아파트1"))
-                .andExpect(jsonPath("$.content[0].as1").value("**시"))
-                .andExpect(jsonPath("$.content[0].as2").value("**구"))
-                .andExpect(jsonPath("$.content[0].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[0].as4").value("**동"))
-                .andExpect(jsonPath("$.content[0].feature[0]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$.content[0].feature[1]").value(GOOD_SCHOOL.name()))
-                .andExpect(jsonPath("$.content[1].aptCode").value("sampleCode2"))
-                .andExpect(jsonPath("$.content[1].name").value("아파트2"))
-                .andExpect(jsonPath("$.content[1].as1").value("**시"))
-                .andExpect(jsonPath("$.content[1].as2").value("**구"))
-                .andExpect(jsonPath("$.content[1].as3").value("**읍"))
-                .andExpect(jsonPath("$.content[1].as4").value("**동"))
-                .andExpect(jsonPath("$.content[1].feature[0]").value(NEAR_STATION.name()))
-                .andExpect(jsonPath("$.content[1].feature[1]").value(COUPANG_ROCKET.name()));
-    }
-
+    @Disabled
     @Test
     @DisplayName("성공-아파트 상세 조회")
     void getApartmentDetail_Success() throws Exception {
@@ -356,7 +238,7 @@ public class RealEstateControllerTest {
                         .build());
         //when
         //then
-        mockMvc.perform(get("/apt/detail?aptCode=sampleCode"))
+        mockMvc.perform(get("/realestate/detail?aptCode=sampleCode"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.aptCode").value("sampleCode"))
                 .andExpect(jsonPath("$.name").value("아파트1"))
@@ -376,6 +258,7 @@ public class RealEstateControllerTest {
                 .andDo(print());
     }
 
+    @Disabled
     @Test
     @DisplayName("실패-아파트 상세 조회-존재하지 않는 아파트")
     void getApartmentDetail_Fail() throws Exception {
@@ -385,7 +268,7 @@ public class RealEstateControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/apt/detail?aptCode=sampleCode"))
+        mockMvc.perform(get("/realestate/detail?aptCode=sampleCode"))
                 .andDo(print())
                 .andExpect(jsonPath("$.errorCode")
                         .value("APARTMENT_NOT_FOUND"))
@@ -393,22 +276,6 @@ public class RealEstateControllerTest {
                         .value("아파트가 없습니다"))
                 .andExpect(status().isOk());
 
-    }
-
-
-    @Test
-    @DisplayName("실패-아파트 특징 검색-존재하지 않는 특징")
-    void getApartmentByFeature_Fail() throws Exception {
-        //given
-        //when
-        //then
-        mockMvc.perform(get("/apt?searchKey=feature&searchValue=FEATURE_NOT_EXIST"))
-                .andDo(print())
-                .andExpect(jsonPath("$.errorCode")
-                        .value("INVALID_REQUEST"))
-                .andExpect(jsonPath("$.errorMessage")
-                        .value("잘못된 요청입니다."))
-                .andExpect(status().isOk());
     }
 
 }

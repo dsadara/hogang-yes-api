@@ -4,7 +4,7 @@ import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.entity.RealEstate;
 import com.dsadara.aptApp.realestate.repository.RealEstateRepository;
-import com.dsadara.aptApp.realestate.type.RealEstateFeature;
+import com.dsadara.aptApp.realestate.type.RealEstateType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,44 +21,32 @@ public class RealEstateService {
 
     @Transactional
     public Page<RealEstateDto> getRealEstateByName(String name, Pageable pageable) {
-        Page<RealEstate> apartment = realEstateRepository.findByName(name, pageable);
-//        return apartment.map(RealEstateDto::fromEntity);
-        return null;
+        Page<RealEstate> realEstatePage = realEstateRepository.findByName(name, pageable);
+        return realEstatePage.map(RealEstateDto::fromEntity);
     }
 
     @Transactional
-    public Page<RealEstateDto> getRealEstateByAs1(String as1, Pageable pageable) {
-//        Page<RealEstate> apartment = realEstateRepository.findByAs1(as1, pageable);
-//        return apartment.map(RealEstateDto::fromEntity);
-        return null;
+    public Page<RealEstateDto> getRealEstateByBeopJeongDongCode(String beopJeongDongCode, Pageable pageable) {
+        Page<RealEstate> realEstatePage = realEstateRepository.findBybeopJeongDongCode(beopJeongDongCode, pageable);
+        return realEstatePage.map(RealEstateDto::fromEntity);
     }
 
     @Transactional
-    public Page<RealEstateDto> getRealEstateByAs2(String as2, Pageable pageable) {
-//        Page<RealEstate> apartment = realEstateRepository.findByAs2(as2, pageable);
-//        return apartment.map(RealEstateDto::fromEntity);
-        return null;
+    public Page<RealEstateDto> getRealEstateByBeopJeongDong(String beopJeongDong, Pageable pageable) {
+        Page<RealEstate> realEstatePage = realEstateRepository.findByBeopJeongDong(beopJeongDong, pageable);
+        return realEstatePage.map(RealEstateDto::fromEntity);
     }
 
     @Transactional
-    public Page<RealEstateDto> getRealEstateByAs3(String as3, Pageable pageable) {
-//        Page<RealEstate> apartment = realEstateRepository.findByAs3(as3, pageable);
-//        return apartment.map(RealEstateDto::fromEntity);
-        return null;
+    public Page<RealEstateDto> getRealEstateByParcelNumber(String parcelNumber, Pageable pageable) {
+        Page<RealEstate> realEstatePage = realEstateRepository.findByParcelNumber(parcelNumber, pageable);
+        return realEstatePage.map(RealEstateDto::fromEntity);
     }
 
     @Transactional
-    public Page<RealEstateDto> getRealEstateByAs4(String as4, Pageable pageable) {
-//        Page<RealEstate> apartment = realEstateRepository.findByAs4(as4, pageable);
-//        return apartment.map(RealEstateDto::fromEntity);
-        return null;
-    }
-
-    @Transactional
-    public Page<RealEstateDto> getRealEstateByFeature(RealEstateFeature feature, Pageable pageable) {
-//        Page<RealEstate> apartment = realEstateRepository.findByFeature(feature, pageable);
-//        return apartment.map(RealEstateDto::fromEntity);
-        return null;
+    public Page<RealEstateDto> getRealEstateByRealEstateType(RealEstateType realEstateType, Pageable pageable) {
+        Page<RealEstate> realEstatePage = realEstateRepository.findByRealEstateType(realEstateType, pageable);
+        return realEstatePage.map(RealEstateDto::fromEntity);
     }
 
     @Transactional
