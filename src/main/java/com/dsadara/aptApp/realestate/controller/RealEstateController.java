@@ -75,12 +75,12 @@ public class RealEstateController {
             value = "아파트 상세 정보 조회 API",
             notes = "아파트 코드를 받아서 아파트의 상세 정보를 조회합니다.\n" +
                     "아파트 검색 후 조회할 때 사용합니다.")
-    @GetMapping("/apt/detail")
+    @GetMapping("/realestate/detail")
     public RealEstateInfo getRealEstateDetail(
-            @Parameter(description = "아파트 코드", required = true, example = "아파트코드1")
-            @RequestParam String aptCode
+            @Parameter(description = "id", required = true, example = "1")
+            @RequestParam String id
     ) {
-        return realEstateService.getRealEstateDetail(aptCode);
+        return realEstateService.getRealEstateDetail(id);
     }
 
 }

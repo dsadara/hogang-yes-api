@@ -12,5 +12,5 @@ GET http://localhost:8080/realestate?searchKey=beopJeongDong&searchValue=염창�
 ### 부동산 검색: QueryParam: searchKey - realEstateType, searchValue - APT_RENT
 GET http://localhost:8080/realestate?searchKey=realEstateType&searchValue=APT_RENT
 
-### 부동산 상세 정보 조회: queryParam: aptCode - 부동산코드1
-GET http://localhost:8080/realestate/detail?aptCode=부동산코드1
+### 부동산 상세 정보 조회: queryParam: id - 1
+GET http://localhost:8080/realestate/detail?id=1

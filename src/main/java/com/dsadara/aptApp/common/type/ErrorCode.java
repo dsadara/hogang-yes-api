@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
     // RealEstate
-    APARTMENT_NOT_FOUND("아파트가 없습니다"),
+    REAL_ESTATE_NOT_FOUND("부동산이 없습니다"),
 
     // Common
     INVALID_REQUEST("잘못된 요청입니다."),

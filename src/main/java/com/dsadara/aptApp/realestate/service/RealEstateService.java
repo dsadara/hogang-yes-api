@@ -3,6 +3,7 @@ package com.dsadara.aptApp.realestate.service;
 import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.entity.RealEstate;
+import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.repository.RealEstateRepository;
 import com.dsadara.aptApp.realestate.type.RealEstateType;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import static com.dsadara.aptApp.common.type.ErrorCode.REAL_ESTATE_NOT_FOUND;
 
 
 @RequiredArgsConstructor
@@ -50,11 +53,10 @@ public class RealEstateService {
     }
 
     @Transactional
-    public RealEstateInfo getRealEstateDetail(String aptCode) {
-//        return RealEstateInfo.fromEntity(
-//                realEstateRepository.findByAptCode(aptCode)
-//                        .orElseThrow(() -> new RealEstateException(APARTMENT_NOT_FOUND))
-//        );
-        return null;
+    public RealEstateInfo getRealEstateDetail(String id) {
+        return RealEstateInfo.fromEntity(
+                realEstateRepository.findById(Integer.valueOf(id))
+                        .orElseThrow(() -> new RealEstateException(REAL_ESTATE_NOT_FOUND))
+        );
     }
 }
