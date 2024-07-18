@@ -23,7 +23,7 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig {
     TypeResolver typeResolver = new TypeResolver();
-    public static final String APARTMENT_TAG = "apartment";
+    public static final String REAL_ESTATE_TAG = "real_estate";
     @Bean
     public Docket api() {
 
@@ -36,15 +36,14 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.dsadara.aptApp"))
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(APARTMENT_TAG, "apartment api"));
+                .tags(new Tag(REAL_ESTATE_TAG, "realestate api"));
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("호갱예스 : ")
-                .description("아파트 정보, 아파트 거래를 할 수 있는 서비스 백엔드 API입니다.\n"
-                        + "아파트 실거래가 서비스인 '호갱노노'를 참고해서 만들었습니다.")
-                .version("1.0")
+                .description("부동산의 실거래 내역을 종류별로 조회할 수 있는 API입니다.\n")
+                .version("1.1")
                 .build();
     }
 

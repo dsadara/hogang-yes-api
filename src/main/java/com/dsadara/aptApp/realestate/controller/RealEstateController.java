@@ -20,26 +20,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@Api(tags = {SwaggerConfig.APARTMENT_TAG})
+@Api(tags = {SwaggerConfig.REAL_ESTATE_TAG})
 public class RealEstateController {
 
     private final RealEstateService realEstateService;
 
-    //    @ApiOperation(
-//            value = "아파트 검색 API",
-//            notes = "search key와 search value를 사용해서 조건 검색을 수행하고 페이징 된 리스트를 반환합니다. \n\n" +
-//                    "search key 종류 \n" +
-//                    "1. name (단지명)\n" + "example: 아파트1, 아파트2, 아파트3 \n" +
-//                    "2. as1 (시도)\n" + "example: 땡땡시 \n" +
-//                    "3. as2 (시군구)\n" + "example: 땡땡구 \n" +
-//                    "4. as3 (읍면) \n" + "example: \n" +
-//                    "5. as4 (동리) \n" + "example: 땡땡동 \n" +
-//                    "6. feature (특징) \n" + "example: NEAR_STATION, GOOD_SCHOOL, COUPANG_ROCKET\n")
+    @ApiOperation(
+            value = "부동산 검색 API",
+            notes = "search key와 search value를 사용해서 조건 검색을 수행하고 페이징 된 리스트를 반환합니다. \n\n" +
+                    "search key 종류 \n" +
+                    "1. name (부동산 이름)\n" + "example: 강변힐스테이트아파트, 염창현대1차아파트, 염창동롯데캐슬아파트 \n" +
+                    "2. beopJeongDongCode (법정동 코드)\n" + "example: 11500 \n" +
+                    "3. beopJeongDong (법정동)\n" + "example: 염창동 \n" +
+                    "4. parcelNumber (지번) \n" + "example: 299\n" +
+                    "5. realEstateType (부동산 타입) \n" + "example: APT_RENT \n")
     @GetMapping("/realestate")
     public ResponseEntity<Page<RealEstateInfoSimple>> getRealEstate(
             @Parameter(description = "검색 키", required = true, example = "name")
             @RequestParam String searchKey,
-            @Parameter(description = "검색 값", required = true, example = "아파트1")
+            @Parameter(description = "검색 값", required = true, example = "강변힐스테이트아파트")
             @RequestParam String searchValue,
             @PageableDefault(sort = "name", direction = Sort.Direction.ASC) final Pageable pageable
     ) {
@@ -70,11 +69,11 @@ public class RealEstateController {
         }
     }
 
-    //- 아파트 상세 정보 조회 API
+    //- 부동산 상세 정보 조회 API
     @ApiOperation(
-            value = "아파트 상세 정보 조회 API",
-            notes = "아파트 코드를 받아서 아파트의 상세 정보를 조회합니다.\n" +
-                    "아파트 검색 후 조회할 때 사용합니다.")
+            value = "부동산 상세 정보 조회 API",
+            notes = "부동산의 식별자인 id를 받아서 부동산의 상세 정보를 조회합니다.\n" +
+                    "부동산 검색 후 조회할 때 사용합니다.")
     @GetMapping("/realestate/detail")
     public RealEstateInfo getRealEstateDetail(
             @Parameter(description = "id", required = true, example = "1")
