@@ -2,6 +2,7 @@ package com.dsadara.aptApp.realestate.controller;
 
 import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
+import com.dsadara.aptApp.realestate.dto.RentInfo;
 import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.service.RealEstateService;
 import com.dsadara.aptApp.realestate.type.RealEstateType;
@@ -15,11 +16,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static com.dsadara.aptApp.common.type.ErrorCode.REAL_ESTATE_NOT_FOUND;
+import static com.dsadara.aptApp.common.type.ErrorCode.RENT_NOT_FOUND;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -261,7 +264,56 @@ public class RealEstateControllerTest {
                 .andExpect(jsonPath("$.errorCode")
                         .value("REAL_ESTATE_NOT_FOUND"))
                 .andExpect(jsonPath("$.errorMessage")
-                        .value("부동산이 없습니다"))
+                        .value("부동산 데이터가 없습니다."))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DisplayName("성공-아파트 전월세 상세정보 조회")
+    void getRentDetail_Success() throws Exception {
+        //given
+        given(realEstateService.getRentDetail(anyString()))
+                .willReturn(RentInfo.builder()
+                        .requestRenewalRight("사용")
+                        .contractType("갱신")
+                        .contractPeriod("23.08~25.08")
+                        .deposit(new BigDecimal(10000))
+                        .depositBefore(new BigDecimal(9000))
+                        .monthlyRent(new BigDecimal(200))
+                        .monthlyRentBefore(new BigDecimal(185))
+                        .siGunGu(null)
+                        .build());
+        //when
+        //then
+        mockMvc.perform(get("/realestate/rent?id=2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.requestRenewalRight").value("사용"))
+                .andExpect(jsonPath("$.contractType").value("갱신"))
+                .andExpect(jsonPath("$.contractPeriod").value("23.08~25.08"))
+                .andExpect(jsonPath("$.deposit").value(new BigDecimal(10000)))
+                .andExpect(jsonPath("$.depositBefore").value(new BigDecimal(9000)))
+                .andExpect(jsonPath("$.monthlyRent").value(new BigDecimal(200)))
+                .andExpect(jsonPath("$.monthlyRentBefore").value(new BigDecimal(185)))
+                .andExpect(jsonPath("$.siGunGu").doesNotExist())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("실패-부동산 전월세 상세 조회-존재하지 않는 데이터")
+    void getRentDetail_Fail() throws Exception {
+        //given
+        given(realEstateService.getRentDetail(anyString()))
+                .willThrow(new RealEstateException(RENT_NOT_FOUND));
+
+        //when
+        //then
+        mockMvc.perform(get("/realestate/rent?id=2"))
+                .andDo(print())
+                .andExpect(jsonPath("$.errorCode")
+                        .value("RENT_NOT_FOUND"))
+                .andExpect(jsonPath("$.errorMessage")
+                        .value("전월세 데이터가 없습니다."))
                 .andExpect(status().isOk());
 
     }

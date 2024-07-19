@@ -3,6 +3,7 @@ package com.dsadara.aptApp.realestate.controller;
 import com.dsadara.aptApp.common.config.SwaggerConfig;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfoSimple;
+import com.dsadara.aptApp.realestate.dto.RentInfo;
 import com.dsadara.aptApp.realestate.service.RealEstateService;
 import com.dsadara.aptApp.realestate.type.RealEstateType;
 import io.swagger.annotations.Api;
@@ -69,7 +70,6 @@ public class RealEstateController {
         }
     }
 
-    //- 부동산 상세 정보 조회 API
     @ApiOperation(
             value = "부동산 상세 정보 조회 API",
             notes = "부동산의 식별자인 id를 받아서 부동산의 상세 정보를 조회합니다.\n" +
@@ -80,6 +80,19 @@ public class RealEstateController {
             @RequestParam String id
     ) {
         return realEstateService.getRealEstateDetail(id);
+    }
+
+    // 부동산 전월세 상세 정보 조회
+    @ApiOperation(
+            value = "부동산 전월세 상세 정보 조회 API",
+            notes = "부동산의 식별자인 id를 통해서 전월세의 상세 정보를 조회합니다."
+    )
+    @GetMapping("/realestate/rent")
+    public RentInfo getRentDetail(
+            @Parameter(description = "id", required = true, example = "1")
+            @RequestParam String id
+    ) {
+        return realEstateService.getRentDetail(id);
     }
 
 }

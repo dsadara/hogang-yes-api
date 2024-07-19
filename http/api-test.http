@@ -14,3 +14,6 @@ GET http://localhost:8080/realestate?searchKey=realEstateType&searchValue=APT_RE
 
 ### 부동산 상세 정보 조회: queryParam: id - 1
 GET http://localhost:8080/realestate/detail?id=1
+
+### 부동산 전월세 상세 정보 조회
+GET http://localhost:8080/realestate/rent?id=2
