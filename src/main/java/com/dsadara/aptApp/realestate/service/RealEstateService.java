@@ -3,10 +3,12 @@ package com.dsadara.aptApp.realestate.service;
 import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.dto.RentInfo;
+import com.dsadara.aptApp.realestate.dto.SaleInfo;
 import com.dsadara.aptApp.realestate.entity.RealEstate;
 import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.repository.RealEstateRepository;
 import com.dsadara.aptApp.realestate.repository.RentRepository;
+import com.dsadara.aptApp.realestate.repository.SaleRepository;
 import com.dsadara.aptApp.realestate.type.RealEstateType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,8 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import static com.dsadara.aptApp.common.type.ErrorCode.REAL_ESTATE_NOT_FOUND;
-import static com.dsadara.aptApp.common.type.ErrorCode.RENT_NOT_FOUND;
+import static com.dsadara.aptApp.common.type.ErrorCode.*;
 
 
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class RealEstateService {
 
     private final RealEstateRepository realEstateRepository;
     private final RentRepository rentRepository;
+    private final SaleRepository saleRepository;
 
     @Transactional
     public Page<RealEstateDto> getRealEstateByName(String name, Pageable pageable) {
@@ -69,6 +71,13 @@ public class RealEstateService {
         return RentInfo.fromEntity(
                 rentRepository.findById(Integer.valueOf(id))
                         .orElseThrow(() -> new RealEstateException(RENT_NOT_FOUND))
+        );
+    }
+
+    public SaleInfo getSaleDetail(String id) {
+        return SaleInfo.fromEntity(
+                saleRepository.findById(Integer.valueOf(id))
+                        .orElseThrow(() -> new RealEstateException(SALE_NOT_FOUND))
         );
     }
 }

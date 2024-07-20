@@ -3,6 +3,7 @@ package com.dsadara.aptApp.realestate.controller;
 import com.dsadara.aptApp.realestate.dto.RealEstateDto;
 import com.dsadara.aptApp.realestate.dto.RealEstateInfo;
 import com.dsadara.aptApp.realestate.dto.RentInfo;
+import com.dsadara.aptApp.realestate.dto.SaleInfo;
 import com.dsadara.aptApp.realestate.exception.RealEstateException;
 import com.dsadara.aptApp.realestate.service.RealEstateService;
 import com.dsadara.aptApp.realestate.type.RealEstateType;
@@ -21,8 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.dsadara.aptApp.common.type.ErrorCode.REAL_ESTATE_NOT_FOUND;
-import static com.dsadara.aptApp.common.type.ErrorCode.RENT_NOT_FOUND;
+import static com.dsadara.aptApp.common.type.ErrorCode.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -314,6 +314,49 @@ public class RealEstateControllerTest {
                         .value("RENT_NOT_FOUND"))
                 .andExpect(jsonPath("$.errorMessage")
                         .value("전월세 데이터가 없습니다."))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DisplayName("성공-아파트 매매 상세정보 조회")
+    void getSaleDetail_Success() throws Exception {
+        //given
+        given(realEstateService.getSaleDetail(anyString()))
+                .willReturn(SaleInfo.builder()
+                        .CancelDealDay("10.02.01")
+                        .CancelDealType("O")
+                        .agentAddress("서울 강서구")
+                        .dealAmount(new BigDecimal(110000))
+                        .dealType("중개거래")
+                        .build());
+        //when
+        //then
+        mockMvc.perform(get("/realestate/sale?id=1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.cancelDealDay").value("10.02.01"))
+                .andExpect(jsonPath("$.cancelDealType").value("O"))
+                .andExpect(jsonPath("$.agentAddress").value("서울 강서구"))
+                .andExpect(jsonPath("$.dealAmount").value(new BigDecimal(110000)))
+                .andExpect(jsonPath("$.dealType").value("중개거래"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("실패-부동산 매매 상세 조회-존재하지 않는 데이터")
+    void getSaleDetail_Fail() throws Exception {
+        //given
+        given(realEstateService.getSaleDetail(anyString()))
+                .willThrow(new RealEstateException(SALE_NOT_FOUND));
+
+        //when
+        //then
+        mockMvc.perform(get("/realestate/sale?id=1"))
+                .andDo(print())
+                .andExpect(jsonPath("$.errorCode")
+                        .value("SALE_NOT_FOUND"))
+                .andExpect(jsonPath("$.errorMessage")
+                        .value("매매 데이터가 없습니다."))
                 .andExpect(status().isOk());
 
     }

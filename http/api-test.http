@@ -17,3 +17,6 @@ GET http://localhost:8080/realestate/detail?id=1
 
 ### 부동산 전월세 상세 정보 조회
 GET http://localhost:8080/realestate/rent?id=2
+
+### 부동산 매매 상세 정보 조회
+GET http://localhost:8080/realestate/sale?id=1
