@@ -2,7 +2,6 @@ package com.dsadara.aptApp.realestate.repository;
 
 import com.dsadara.aptApp.realestate.entity.RealEstate;
 import com.dsadara.aptApp.realestate.type.RealEstateType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,41 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @Transactional
 public class RealEstateRepositoryTest {
+
     @Autowired
     private RealEstateRepository realEstateRepository;
-
-    @BeforeEach
-    void beforeEach() {
-        realEstateRepository.deleteAll();
-
-        realEstateRepository.save(RealEstate.builder()
-                .constructYear(Short.valueOf("2020"))
-                .contractYear(Short.valueOf("2021"))
-                .name("강변힐스테이트아파트")
-                .beopJeongDong("염창동")
-                .contractMonth(Short.valueOf("1"))
-                .contractDay(Short.valueOf("22"))
-                .jeonYongArea("74")
-                .parcelNumber("299")
-                .beopJeongDongCode("11500")
-                .floor("12")
-                .realEstateType(RealEstateType.APT_TRADE)
-                .build());
-
-        realEstateRepository.save(RealEstate.builder()
-                .constructYear(Short.valueOf("2000"))
-                .contractYear(Short.valueOf("2001"))
-                .name("염창현대1차아파트")
-                .beopJeongDong("염창동")
-                .contractMonth(Short.valueOf("12"))
-                .contractDay(Short.valueOf("30"))
-                .jeonYongArea("102")
-                .parcelNumber("288")
-                .beopJeongDongCode("11500")
-                .floor("10")
-                .realEstateType(RealEstateType.APT_RENT)
-                .build());
-    }
 
     @Test
     @DisplayName("성공-findByName()")
@@ -81,7 +48,7 @@ public class RealEstateRepositoryTest {
         Page<RealEstate> pageList = realEstateRepository.findBybeopJeongDongCode(beopJeongDongCode, pageable);
 
         //then
-        assertEquals(2, pageList.getContent().size());
+        assertEquals(3, pageList.getContent().size());
         pageList.getContent().forEach(realEstate -> assertEquals("11500", realEstate.getBeopJeongDongCode()));
     }
 
@@ -96,7 +63,7 @@ public class RealEstateRepositoryTest {
         Page<RealEstate> pageList = realEstateRepository.findByBeopJeongDong(beopJeongDong, pageable);
 
         //then
-        assertEquals(2, pageList.getContent().size());
+        assertEquals(3, pageList.getContent().size());
         pageList.getContent().forEach(realEstate -> assertEquals("염창동", realEstate.getBeopJeongDong()));
     }
 
