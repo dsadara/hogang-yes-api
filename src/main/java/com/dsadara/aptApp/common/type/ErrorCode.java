@@ -6,9 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    // Apartment
-    APARTMENT_NOT_FOUND("아파트가 없습니다"),
-    APARTMENT_ALREADY_EXIST("이미 아파트가 존재합니다"),
+    // RealEstate
+    REAL_ESTATE_NOT_FOUND("부동산 데이터가 없습니다."),
+    RENT_NOT_FOUND("전월세 데이터가 없습니다."),
+    SALE_NOT_FOUND("매매 데이터가 없습니다."),
 
     // Common
     INVALID_REQUEST("잘못된 요청입니다."),
