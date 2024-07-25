@@ -15,6 +15,7 @@ import lombok.Setter;
 @Builder
 public class RealEstateDto {
 
+    private int id;                          // 식별자
     private String beopJeongDongCode;           // 법정동 코드
     private String beopJeongDong;               // 법정동
     private String name;                        // 이름
@@ -23,6 +24,7 @@ public class RealEstateDto {
 
     public static RealEstateDto fromEntity(RealEstate realEstate) {
         return RealEstateDto.builder()
+                .id(realEstate.getId())
                 .beopJeongDongCode(realEstate.getBeopJeongDongCode())
                 .beopJeongDong(realEstate.getBeopJeongDong())
                 .name(realEstate.getName())

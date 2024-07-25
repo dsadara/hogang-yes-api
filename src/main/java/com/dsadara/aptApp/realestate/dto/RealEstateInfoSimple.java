@@ -16,6 +16,9 @@ import lombok.Setter;
 public class RealEstateInfoSimple {
     // client와 controller간의 정보를 주고 받는 응답 dto
 
+    @ApiModelProperty(value = "id", example = "1")
+    private int id;
+
     @ApiModelProperty(value = "이름", example = "염창강변힐스테이트아파트")
     private String name;
 
@@ -33,6 +36,7 @@ public class RealEstateInfoSimple {
 
     public static RealEstateInfoSimple fromDto(RealEstateDto realEstateDto) {
         return RealEstateInfoSimple.builder()
+                .id(realEstateDto.getId())
                 .name(realEstateDto.getName())
                 .beopJeongDongCode(realEstateDto.getBeopJeongDongCode())
                 .beopJeongDong(realEstateDto.getBeopJeongDong())
