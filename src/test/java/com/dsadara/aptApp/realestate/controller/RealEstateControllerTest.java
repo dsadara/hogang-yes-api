@@ -47,6 +47,7 @@ public class RealEstateControllerTest {
         List<RealEstateDto> realEstateDtos =
                 Collections.singletonList(
                         RealEstateDto.builder()
+                                .id(1)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -63,6 +64,7 @@ public class RealEstateControllerTest {
         mockMvc.perform(get("/realestate?searchKey=name&searchValue=강변힐스테이트아파트"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
@@ -77,6 +79,7 @@ public class RealEstateControllerTest {
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
+                                .id(1)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -84,6 +87,7 @@ public class RealEstateControllerTest {
                                 .realEstateType(RealEstateType.APT_TRADE)
                                 .build(),
                         RealEstateDto.builder()
+                                .id(2)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -100,11 +104,13 @@ public class RealEstateControllerTest {
         mockMvc.perform(get("/realestate?searchKey=beopJeongDongCode&searchValue=11110"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"))
+                .andExpect(jsonPath("$.content[1].id").value(2))
                 .andExpect(jsonPath("$.content[1].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[1].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[1].beopJeongDong").value("염창동"))
@@ -119,6 +125,7 @@ public class RealEstateControllerTest {
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
+                                .id(1)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -126,6 +133,7 @@ public class RealEstateControllerTest {
                                 .realEstateType(RealEstateType.APT_TRADE)
                                 .build(),
                         RealEstateDto.builder()
+                                .id(2)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -142,11 +150,13 @@ public class RealEstateControllerTest {
         mockMvc.perform(get("/realestate?searchKey=beopJeongDong&searchValue=염창동"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"))
+                .andExpect(jsonPath("$.content[1].id").value(2))
                 .andExpect(jsonPath("$.content[1].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[1].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[1].beopJeongDong").value("염창동"))
@@ -161,6 +171,7 @@ public class RealEstateControllerTest {
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
+                                .id(1)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -177,6 +188,7 @@ public class RealEstateControllerTest {
         mockMvc.perform(get("/realestate?searchKey=parcelNumber&searchValue=299"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
@@ -191,6 +203,7 @@ public class RealEstateControllerTest {
         List<RealEstateDto> realEstateDtos =
                 Arrays.asList(
                         RealEstateDto.builder()
+                                .id(1)
                                 .beopJeongDongCode("11110")
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
@@ -207,6 +220,7 @@ public class RealEstateControllerTest {
         mockMvc.perform(get("/realestate?searchKey=realEstateType&searchValue=APT_RENT"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))

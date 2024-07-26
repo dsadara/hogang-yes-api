@@ -97,6 +97,7 @@ public class RealEstateServiceMockTest {
 
         //then
         verify(realEstateRepository, times(1)).findByName(anyString(), any(Pageable.class));
+        assertEquals(realEstateSample.getId(), apartmentDtoPages.getContent().get(0).getId());
         assertEquals(realEstateSample.getName(), apartmentDtoPages.getContent().get(0).getName());
         assertEquals(realEstateSample.getBeopJeongDong(), apartmentDtoPages.getContent().get(0).getBeopJeongDong());
         assertEquals(realEstateSample.getBeopJeongDongCode(), apartmentDtoPages.getContent().get(0).getBeopJeongDongCode());
@@ -117,6 +118,7 @@ public class RealEstateServiceMockTest {
 
         //then
         verify(realEstateRepository, times(1)).findBybeopJeongDongCode(anyString(), any(Pageable.class));
+        assertEquals(realEstateSample.getId(), apartmentDtoPages.getContent().get(0).getId());
         assertEquals(realEstateSample.getName(), apartmentDtoPages.getContent().get(0).getName());
         assertEquals(realEstateSample.getBeopJeongDong(), apartmentDtoPages.getContent().get(0).getBeopJeongDong());
         assertEquals(realEstateSample.getBeopJeongDongCode(), apartmentDtoPages.getContent().get(0).getBeopJeongDongCode());
@@ -137,6 +139,7 @@ public class RealEstateServiceMockTest {
 
         //then
         verify(realEstateRepository, times(1)).findByBeopJeongDong(anyString(), any(Pageable.class));
+        assertEquals(realEstateSample.getId(), apartmentDtoPages.getContent().get(0).getId());
         assertEquals(realEstateSample.getName(), apartmentDtoPages.getContent().get(0).getName());
         assertEquals(realEstateSample.getBeopJeongDong(), apartmentDtoPages.getContent().get(0).getBeopJeongDong());
         assertEquals(realEstateSample.getBeopJeongDongCode(), apartmentDtoPages.getContent().get(0).getBeopJeongDongCode());
@@ -157,6 +160,7 @@ public class RealEstateServiceMockTest {
 
         //then
         verify(realEstateRepository, times(1)).findByParcelNumber(anyString(), any(Pageable.class));
+        assertEquals(realEstateSample.getId(), apartmentDtoPages.getContent().get(0).getId());
         assertEquals(realEstateSample.getName(), apartmentDtoPages.getContent().get(0).getName());
         assertEquals(realEstateSample.getBeopJeongDong(), apartmentDtoPages.getContent().get(0).getBeopJeongDong());
         assertEquals(realEstateSample.getBeopJeongDongCode(), apartmentDtoPages.getContent().get(0).getBeopJeongDongCode());
