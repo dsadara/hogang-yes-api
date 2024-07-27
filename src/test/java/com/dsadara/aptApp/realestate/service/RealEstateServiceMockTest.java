@@ -57,7 +57,7 @@ public class RealEstateServiceMockTest {
                 .contractDay(Short.valueOf("22"))
                 .contractMonth(Short.valueOf("1"))
                 .contractYear(Short.valueOf("2011"))
-                .floor("12")
+                .floor(Short.valueOf("12"))
                 .jeonYongArea("74")
                 .name("강변힐스테이트아파트")
                 .parcelNumber("299")
