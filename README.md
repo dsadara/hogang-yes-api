@@ -1,7 +1,7 @@
 # 호갱예스(Hogangyes)
 
 호갱예스는 [호갱노노](https://hogangnono.com/)와 같은 훌륭한 서비스를 만들고자 진행한 프로젝트입니다.   
-[batch-estate-engine](https://github.com/dsadara/batch-estate-engine) 프로젝트에서 생성한 **부동산 실거래 데이터를 API로 제공합니다**.   *[(API 명세서 링크)]()*
+[batch-estate-engine](https://github.com/dsadara/batch-estate-engine) 프로젝트에서 생성한 **부동산 실거래 데이터를 API로 제공합니다**.   *[(API 명세서 링크)](http://3.37.47.2:8080/swagger-ui/index.html)*
 
 ## 무엇을 중점으로 프로젝트를 진행했나요?
 
