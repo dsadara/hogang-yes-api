@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
     Page<RealEstate> findByName(String name, Pageable pageable);
 
-    Page<RealEstate> findBybeopJeongDongCode(String beopJeongDongCode, Pageable pageable);
+    Page<RealEstate> findBybeopJeongDongCode(Integer beopJeongDongCode, Pageable pageable);
 
     Page<RealEstate> findByBeopJeongDong(String beopJeongDong, Pageable pageable);
 

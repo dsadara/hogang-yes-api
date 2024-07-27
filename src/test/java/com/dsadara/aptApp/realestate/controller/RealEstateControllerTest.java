@@ -48,7 +48,7 @@ public class RealEstateControllerTest {
                 Collections.singletonList(
                         RealEstateDto.builder()
                                 .id(1)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -66,7 +66,7 @@ public class RealEstateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"));
@@ -80,7 +80,7 @@ public class RealEstateControllerTest {
                 Arrays.asList(
                         RealEstateDto.builder()
                                 .id(1)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -88,7 +88,7 @@ public class RealEstateControllerTest {
                                 .build(),
                         RealEstateDto.builder()
                                 .id(2)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -106,13 +106,13 @@ public class RealEstateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"))
                 .andExpect(jsonPath("$.content[1].id").value(2))
                 .andExpect(jsonPath("$.content[1].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[1].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[1].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[1].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[1].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[1].realEstateType").value("APT_RENT"));
@@ -126,7 +126,7 @@ public class RealEstateControllerTest {
                 Arrays.asList(
                         RealEstateDto.builder()
                                 .id(1)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -134,7 +134,7 @@ public class RealEstateControllerTest {
                                 .build(),
                         RealEstateDto.builder()
                                 .id(2)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -152,13 +152,13 @@ public class RealEstateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"))
                 .andExpect(jsonPath("$.content[1].id").value(2))
                 .andExpect(jsonPath("$.content[1].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[1].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[1].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[1].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[1].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[1].realEstateType").value("APT_RENT"));
@@ -172,7 +172,7 @@ public class RealEstateControllerTest {
                 Arrays.asList(
                         RealEstateDto.builder()
                                 .id(1)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -190,7 +190,7 @@ public class RealEstateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_TRADE"));
@@ -204,7 +204,7 @@ public class RealEstateControllerTest {
                 Arrays.asList(
                         RealEstateDto.builder()
                                 .id(1)
-                                .beopJeongDongCode("11110")
+                                .beopJeongDongCode(11110)
                                 .beopJeongDong("염창동")
                                 .name("강변힐스테이트아파트")
                                 .parcelNumber("299")
@@ -222,7 +222,7 @@ public class RealEstateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].name").value("강변힐스테이트아파트"))
-                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value("11110"))
+                .andExpect(jsonPath("$.content[0].beopJeongDongCode").value(11110))
                 .andExpect(jsonPath("$.content[0].beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.content[0].parcelNumber").value("299"))
                 .andExpect(jsonPath("$.content[0].realEstateType").value("APT_RENT"));
@@ -243,7 +243,7 @@ public class RealEstateControllerTest {
                         .beopJeongDong("염창동")
                         .name("강변힐스테이트아파트")
                         .parcelNumber("299")
-                        .beopJeongDongCode("11500")
+                        .beopJeongDongCode(11500)
                         .realEstateType(RealEstateType.APT_TRADE)
                         .build());
         //when
@@ -259,7 +259,7 @@ public class RealEstateControllerTest {
                 .andExpect(jsonPath("$.beopJeongDong").value("염창동"))
                 .andExpect(jsonPath("$.name").value("강변힐스테이트아파트"))
                 .andExpect(jsonPath("$.parcelNumber").value("299"))
-                .andExpect(jsonPath("$.beopJeongDongCode").value("11500"))
+                .andExpect(jsonPath("$.beopJeongDongCode").value(11500))
                 .andExpect(jsonPath("$.realEstateType").value(RealEstateType.APT_TRADE.name()))
                 .andDo(print());
     }

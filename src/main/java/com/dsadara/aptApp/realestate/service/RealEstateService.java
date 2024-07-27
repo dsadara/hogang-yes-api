@@ -36,7 +36,7 @@ public class RealEstateService {
 
     @Transactional
     public Page<RealEstateDto> getRealEstateByBeopJeongDongCode(String beopJeongDongCode, Pageable pageable) {
-        Page<RealEstate> realEstatePage = realEstateRepository.findBybeopJeongDongCode(beopJeongDongCode, pageable);
+        Page<RealEstate> realEstatePage = realEstateRepository.findBybeopJeongDongCode(Integer.valueOf(beopJeongDongCode), pageable);
         return realEstatePage.map(RealEstateDto::fromEntity);
     }
 

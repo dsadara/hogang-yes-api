@@ -41,7 +41,7 @@ public class RealEstateRepositoryTest {
     @DisplayName("성공-findBybeopJeongDongCode()")
     void findBybeopJeongDongCode_Success() {
         //given
-        String beopJeongDongCode = "11500";
+        Integer beopJeongDongCode = 11500;
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
@@ -49,7 +49,7 @@ public class RealEstateRepositoryTest {
 
         //then
         assertEquals(3, pageList.getContent().size());
-        pageList.getContent().forEach(realEstate -> assertEquals("11500", realEstate.getBeopJeongDongCode()));
+        pageList.getContent().forEach(realEstate -> assertEquals(11500, realEstate.getBeopJeongDongCode()));
     }
 
     @Test

@@ -36,7 +36,7 @@ public class RealEstateInfo {
     @ApiModelProperty(value = "지번", example = "299")
     private String parcelNumber;
     @ApiModelProperty(value = "법정동 코드", example = "11110")
-    private String beopJeongDongCode;
+    private Integer beopJeongDongCode;
     @ApiModelProperty(value = "부동산 타입", example = "APT_RENT")
     private RealEstateType realEstateType;
 

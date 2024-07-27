@@ -54,7 +54,7 @@ public class RealEstateServiceTest {
         Page<RealEstateDto> realEstatePages = realEstateService.getRealEstateByBeopJeongDongCode(beopJeongDongCode, pageable);
 
         //then
-        assertEquals(beopJeongDongCode, realEstatePages.getContent().get(0).getBeopJeongDongCode());
+        assertEquals(Integer.valueOf(beopJeongDongCode), realEstatePages.getContent().get(0).getBeopJeongDongCode());
     }
 
     @Test

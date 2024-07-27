@@ -16,7 +16,7 @@ import lombok.Setter;
 public class RealEstateDto {
 
     private int id;                          // 식별자
-    private String beopJeongDongCode;           // 법정동 코드
+    private Integer beopJeongDongCode;           // 법정동 코드
     private String beopJeongDong;               // 법정동
     private String name;                        // 이름
     private String parcelNumber;                // 지번

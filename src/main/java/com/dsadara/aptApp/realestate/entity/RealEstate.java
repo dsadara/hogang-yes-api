@@ -49,8 +49,8 @@ public class RealEstate {
     @Comment("부동산 종류")
     @Enumerated(EnumType.STRING)
     private RealEstateType realEstateType;
-    @Comment("지역코드")
-    private String beopJeongDongCode;
+    @Comment("법정동 코드")
+    private Integer beopJeongDongCode;
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

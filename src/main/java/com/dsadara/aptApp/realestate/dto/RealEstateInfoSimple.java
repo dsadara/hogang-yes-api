@@ -23,7 +23,7 @@ public class RealEstateInfoSimple {
     private String name;
 
     @ApiModelProperty(value = "법정동 코드", example = "11110")
-    private String beopJeongDongCode;
+    private Integer beopJeongDongCode;
 
     @ApiModelProperty(value = "법정동", example = "염창동")
     private String beopJeongDong;

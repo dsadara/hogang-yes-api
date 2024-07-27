@@ -52,7 +52,7 @@ public class RealEstateServiceMockTest {
         realEstateSample = RealEstate.builder()
                 .id(1)
                 .beopJeongDong("염창동")
-                .beopJeongDongCode("11500")
+                .beopJeongDongCode(11500)
                 .constructYear(Short.valueOf("2005"))
                 .contractDay(Short.valueOf("22"))
                 .contractMonth(Short.valueOf("1"))
@@ -109,7 +109,7 @@ public class RealEstateServiceMockTest {
     @DisplayName("성공-getRealEstateBybeopJeongDongCode()")
     void getRealEstateBybeopJeongDongCode_Success() {
         //given
-        given(realEstateRepository.findBybeopJeongDongCode(anyString(), any(Pageable.class)))
+        given(realEstateRepository.findBybeopJeongDongCode(anyInt(), any(Pageable.class)))
                 .willReturn(new PageImpl<>(Collections.singletonList(realEstateSample)));
 
         //when
@@ -117,7 +117,7 @@ public class RealEstateServiceMockTest {
         Page<RealEstateDto> apartmentDtoPages = realEstateService.getRealEstateByBeopJeongDongCode("11500", pageable);
 
         //then
-        verify(realEstateRepository, times(1)).findBybeopJeongDongCode(anyString(), any(Pageable.class));
+        verify(realEstateRepository, times(1)).findBybeopJeongDongCode(anyInt(), any(Pageable.class));
         assertEquals(realEstateSample.getId(), apartmentDtoPages.getContent().get(0).getId());
         assertEquals(realEstateSample.getName(), apartmentDtoPages.getContent().get(0).getName());
         assertEquals(realEstateSample.getBeopJeongDong(), apartmentDtoPages.getContent().get(0).getBeopJeongDong());
@@ -176,7 +176,6 @@ public class RealEstateServiceMockTest {
                 .willReturn(Optional.of(realEstateSample));
 
         //when
-        Pageable pageable = PageRequest.of(0, 5);
         RealEstateInfo realEstateDetail = realEstateService.getRealEstateDetail("1");
 
         //then
