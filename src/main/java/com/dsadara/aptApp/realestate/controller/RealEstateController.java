@@ -31,7 +31,7 @@ public class RealEstateController {
             value = "부동산 검색 API",
             notes = "search key와 search value를 사용해서 조건 검색을 수행하고 페이징 된 리스트를 반환합니다. \n\n" +
                     "search key 종류 \n" +
-                    "1. name (부동산 이름)\n" + "example: 강변힐스테이트아파트, 염창현대1차아파트, 염창동롯데캐슬아파트 \n" +
+                    "1. name (부동산 이름)\n" + "example: 강변힐스테이트 \n" +
                     "2. beopJeongDongCode (법정동 코드)\n" + "example: 11500 \n" +
                     "3. beopJeongDong (법정동)\n" + "example: 염창동 \n" +
                     "4. parcelNumber (지번) \n" + "example: 299\n" +
@@ -40,7 +40,7 @@ public class RealEstateController {
     public ResponseEntity<Page<RealEstateInfoSimple>> getRealEstate(
             @Parameter(description = "검색 키", required = true, example = "name")
             @RequestParam String searchKey,
-            @Parameter(description = "검색 값", required = true, example = "강변힐스테이트아파트")
+            @Parameter(description = "검색 값", required = true, example = "강변힐스테이트")
             @RequestParam String searchValue,
             @PageableDefault(sort = "name", direction = Sort.Direction.ASC) final Pageable pageable
     ) {
@@ -77,7 +77,7 @@ public class RealEstateController {
                     "부동산 검색 후 조회할 때 사용합니다.")
     @GetMapping("/realestate/detail")
     public RealEstateInfo getRealEstateDetail(
-            @Parameter(description = "id", required = true, example = "1")
+            @Parameter(description = "id", required = true, example = "1234432")
             @RequestParam String id
     ) {
         return realEstateService.getRealEstateDetail(id);
@@ -89,7 +89,7 @@ public class RealEstateController {
     )
     @GetMapping("/realestate/rent")
     public RentInfo getRentDetail(
-            @Parameter(description = "id", required = true, example = "1")
+            @Parameter(description = "id", required = true, example = "1234432")
             @RequestParam String id
     ) {
         return realEstateService.getRentDetail(id);
@@ -101,24 +101,10 @@ public class RealEstateController {
     )
     @GetMapping("/realestate/sale")
     public SaleInfo getSaleDetail(
-            @Parameter(description = "id", required = true, example = "1")
+            @Parameter(description = "id", required = true, example = "10649088")
             @RequestParam String id
     ) {
         return realEstateService.getSaleDetail(id);
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
