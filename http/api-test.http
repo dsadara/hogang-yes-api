@@ -1,22 +1,23 @@
 ### HogangYes API 테스트
 
 ### 메인 페이지
-GET http://localhost:8080
+GET {{baseUrl}}
 
-### 부동산 검색: QueryParam: searchKey - name, searchValue - 강변힐스테이트아파트
-GET http://localhost:8080/realestate?searchKey=name&searchValue=강변힐스테이트아파트
+### 부동산 검색: QueryParam: searchKey - name, searchValue - 강변힐스테이트
+GET {{baseUrl}}/realestate?searchKey=name&searchValue=강변힐스테이트
+# 20240801 소요시간: 2분 39초
 
 ### 부동산 검색: QueryParam: searchKey - beopJeongDong, searchValue - 염창동
-GET http://localhost:8080/realestate?searchKey=beopJeongDong&searchValue=염창동
+GET {{baseUrl}}/realestate?searchKey=beopJeongDong&searchValue=염창동
 
 ### 부동산 검색: QueryParam: searchKey - realEstateType, searchValue - APT_RENT
-GET http://localhost:8080/realestate?searchKey=realEstateType&searchValue=APT_RENT
+GET {{baseUrl}}/realestate?searchKey=realEstateType&searchValue=APT_RENT
 
-### 부동산 상세 정보 조회: queryParam: id - 1
-GET http://localhost:8080/realestate/detail?id=1
+### 부동산 상세 정보 조회: queryParam: id - 1234432
+GET {{baseUrl}}/realestate/detail?id=1234432
 
-### 부동산 전월세 상세 정보 조회
-GET http://localhost:8080/realestate/rent?id=2
+### 부동산 전월세 상세 정보 조회: queryParam: id - 1234432
+GET {{baseUrl}}/realestate/rent?id=1234432
 
-### 부동산 매매 상세 정보 조회
-GET http://localhost:8080/realestate/sale?id=1
+### 부동산 매매 상세 정보 조회: queryParam: id - 10649088
+GET {{baseUrl}}/realestate/sale?id=10649088
