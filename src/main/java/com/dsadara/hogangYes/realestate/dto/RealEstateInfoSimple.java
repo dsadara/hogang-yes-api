@@ -19,7 +19,7 @@ public class RealEstateInfoSimple {
     @ApiModelProperty(value = "id", example = "1")
     private Integer id;
 
-    @ApiModelProperty(value = "이름", example = "염창강변힐스테이트아파트")
+    @ApiModelProperty(value = "이름", example = "강변힐스테이트")
     private String name;
 
     @ApiModelProperty(value = "법정동 코드", example = "11110")

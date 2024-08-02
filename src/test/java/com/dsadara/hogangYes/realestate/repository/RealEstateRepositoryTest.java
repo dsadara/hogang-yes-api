@@ -27,7 +27,7 @@ public class RealEstateRepositoryTest {
     @DisplayName("성공-findByName()")
     void findByName_Success() {
         //given
-        String name = "강변힐스테이트아파트";
+        String name = "강변힐스테이트";
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
@@ -113,7 +113,7 @@ public class RealEstateRepositoryTest {
     @DisplayName("성공-existByName()")
     void existByName_Success() {
         //given
-        String name = "강변힐스테이트아파트";
+        String name = "강변힐스테이트";
 
         //when
         Boolean isExist = realEstateRepository.existsByName(name);

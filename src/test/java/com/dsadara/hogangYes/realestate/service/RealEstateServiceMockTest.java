@@ -59,7 +59,7 @@ public class RealEstateServiceMockTest {
                 .contractYear(Short.valueOf("2011"))
                 .floor(Short.valueOf("12"))
                 .jeonYongArea("74")
-                .name("강변힐스테이트아파트")
+                .name("강변힐스테이트")
                 .parcelNumber("299")
                 .realEstateType(RealEstateType.APT_TRADE)
                 .build();
@@ -93,7 +93,7 @@ public class RealEstateServiceMockTest {
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
-        Page<RealEstateDto> apartmentDtoPages = realEstateService.getRealEstateByName("강변힐스테이트아파트", pageable);
+        Page<RealEstateDto> apartmentDtoPages = realEstateService.getRealEstateByName("강변힐스테이트", pageable);
 
         //then
         verify(realEstateRepository, times(1)).findByName(anyString(), any(Pageable.class));

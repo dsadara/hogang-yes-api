@@ -33,7 +33,7 @@ public class RealEstateServiceTest {
     @DisplayName("성공-getRealEstateByName()")
     void getRealEstateByName_Success() {
         //given
-        String name = "강변힐스테이트아파트";
+        String name = "강변힐스테이트";
 
         //when
         Pageable pageable = PageRequest.of(0, 5);
@@ -103,13 +103,13 @@ public class RealEstateServiceTest {
     @DisplayName("성공-getRealEstateDetail()")
     void getRealEstateDetail_Success() {
         //given
-        String id = "1";
+        String id = "10649088";
 
         //when
         RealEstateInfo realEstateInfo = realEstateService.getRealEstateDetail(id);
 
         //then
-        assertEquals("강변힐스테이트아파트", realEstateInfo.getName());
+        assertEquals("강변힐스테이트", realEstateInfo.getName());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class RealEstateServiceTest {
     @DisplayName("성공-getRentDetail()")
     void getRentDetail_Success() {
         //given
-        String id = "2";
+        String id = "1234432";
 
         //when
         RentInfo rentInfo = realEstateService.getRentDetail(id);
@@ -143,7 +143,7 @@ public class RealEstateServiceTest {
     @DisplayName("성공-getSaleDetail()")
     void getSaleDetail_Success() {
         //given
-        String id = "1";
+        String id = "10649088";
 
         //when
         SaleInfo saleInfo = realEstateService.getSaleDetail(id);

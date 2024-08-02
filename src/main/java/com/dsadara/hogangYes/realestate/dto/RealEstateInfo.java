@@ -25,7 +25,7 @@ public class RealEstateInfo {
     private Short contractDay;
     @ApiModelProperty(value = "층", example = "12")
     private Short contractMonth;
-    @ApiModelProperty(value = "이름", example = "강변힐스테이트아파트")
+    @ApiModelProperty(value = "이름", example = "강변힐스테이트")
     private Short floor;
     @ApiModelProperty(value = "전용면적", example = "102")
     private String jeonYongArea;
