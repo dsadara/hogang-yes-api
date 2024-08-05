@@ -29,6 +29,17 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: hogang-yes-build
+    key: Hogang-yes.zip
+    bundle_type: zip
+    application: hogang-yes
+    deployment_group: hogang-yes-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 notifications:
   email:
     recipients:
