@@ -14,9 +14,9 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r hogang-yes *
+  - zip -r Hogang-yes *
   - mkdir -p deploy
-  - mv hogang-yes.zip deploy/hogang-yes.zip
+  - mv Hogang-yes.zip deploy/Hogang-yes.zip
 
 deploy:
   - provider: s3
