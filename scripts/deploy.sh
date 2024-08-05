@@ -5,7 +5,7 @@ PROJECT_NAME=hogang-yes
 
 echo "> Build 파일 복사"
 
-cp $REPOSITORY/zip/*.jar $REPOSITORY/
+sudo cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
@@ -29,7 +29,7 @@ echo "> JAR Name: $JAR_NAME"
 
 echo "> $JAR_NAME 에 실행권한 추가"
 
-chmod +x $JAR_NAME
+sudo chmod +x $JAR_NAME
 
 echo "> $JAR_NAME 실행"
 
