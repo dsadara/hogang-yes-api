@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProfileControllerTest {
 
     @Test
-    public void prod_profile이_조회된다() throws Exception {
+    public void prod1_profile이_조회된다() throws Exception {
         // given
-        String expectedProfile = "prod";
+        String expectedProfile = "prod1";
         MockEnvironment env = new MockEnvironment();
         env.addActiveProfile("dev");
         env.addActiveProfile("local");
@@ -26,7 +26,7 @@ class ProfileControllerTest {
     }
 
     @Test
-    public void prod_profile이_없으면_첫_번째가_조회된다() throws Exception {
+    public void prod1_profile이_없으면_첫_번째가_조회된다() throws Exception {
         // given
         String expectedProfile = "dev";
         MockEnvironment env = new MockEnvironment();
