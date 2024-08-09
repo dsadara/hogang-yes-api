@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(RealEstateController.class)
-public class RealEstateControllerTest {
+public class RealEstateControllerMockTest {
 
     @MockBean
     private RealEstateService realEstateService;

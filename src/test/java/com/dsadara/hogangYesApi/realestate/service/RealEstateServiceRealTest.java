@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ActiveProfiles("dev")
 @SpringBootTest
 @Transactional
-public class RealEstateServiceTest {
+public class RealEstateServiceRealTest {
 
     @Autowired
     private RealEstateService realEstateService;
