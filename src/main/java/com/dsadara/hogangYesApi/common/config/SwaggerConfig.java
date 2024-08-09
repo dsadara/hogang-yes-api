@@ -23,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.dsadara.hogangYes"))
+                .apis(RequestHandlerSelectors.basePackage("com.dsadara.hogangYesApi"))
                 .paths(PathSelectors.any())
                 .build()
                 .tags(new Tag(REAL_ESTATE_TAG, "realestate api"));
