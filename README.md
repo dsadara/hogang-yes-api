@@ -1,8 +1,7 @@
 # 호갱예스 API
 
-호갱예스 API는 호갱노노 프로젝트의 API를 담당하는 모듈입니다.   
-[batch-estate-engine](https://github.com/dsadara/batch-estate-engine) 프로젝트에서 생성한 **부동산 실거래 데이터를 API로 제공하는 기능을 담당하고 있습니다.
-**
+[호갱예스 프로젝트](https://github.com/dsadara/hogang-yes)의 API를 담당하는 모듈입니다.   
+[batch-estate-engine](https://github.com/dsadara/batch-estate-engine)에서 생성한 **부동산 실거래 데이터를 API로 제공하는 기능을 담당하고 있습니다.**
 
 ### Backend
 
