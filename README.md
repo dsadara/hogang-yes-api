@@ -1,13 +1,17 @@
 # 호갱예스 API
 
-[호갱예스 프로젝트](https://github.com/dsadara/hogang-yes)의 API를 담당하는 모듈입니다.   
-[batch-estate-engine](https://github.com/dsadara/batch-estate-engine)에서 생성한 **부동산 실거래 데이터를 API로 제공하는 기능을 담당하고 있습니다.**
+부동산 데이터를 조회하는 API 입니다. Spring MVC로 사용자의 HTTP 요청을 처리합니다.
+
+추후 코드의 변경이 많을 수 있다 판단이 들어서 CI/CD를 도입했습니다.   
+Travis CI로 **자동 빌드**를 구현했고, Amazon S3, Amazon CodeDeploy로 **자동 배포**를 구현했습니다.
+
+또한 Ngnix의 리버스 프록시 기능을 사용하여 **무중단 배포**를 구축했고 서비스의 다운타임을 최소화 했습니다.
 
 ### Backend
 
 - **JDK**: 1.8
 - **Spring Boot**: 2.7.7
-    - 주요 기술 스택: Spring Data JPA, Junit5, Spring MVC, Tomcat
+  - 주요 기술 스택: Spring Data JPA, Junit5, Spring MVC, Tomcat
 
 ### Infra
 
