@@ -36,7 +36,7 @@ public class RealEstateController {
                     "3. beopJeongDong (법정동)\n" + "example: 염창동 \n" +
                     "4. parcelNumber (지번) \n" + "example: 299\n" +
                     "5. realEstateType (부동산 타입) \n" + "example: APT_RENT \n")
-    @GetMapping("/realestate")
+    @GetMapping("/real-estate")
     public ResponseEntity<Page<RealEstateInfoSimple>> getRealEstate(
             @Parameter(description = "검색 키", required = true, example = "name")
             @RequestParam String searchKey,
@@ -75,7 +75,7 @@ public class RealEstateController {
             value = "부동산 상세 정보 조회 API",
             notes = "부동산의 식별자인 id를 받아서 부동산의 상세 정보를 조회합니다.\n" +
                     "부동산 검색 후 조회할 때 사용합니다.")
-    @GetMapping("/realestate/detail")
+    @GetMapping("/real-estate/detail")
     public RealEstateInfo getRealEstateDetail(
             @Parameter(description = "id", required = true, example = "1234432")
             @RequestParam String id
@@ -87,7 +87,7 @@ public class RealEstateController {
             value = "부동산 전월세 상세 정보 조회 API",
             notes = "부동산의 식별자인 id를 통해서 전월세 거래의 상세 정보를 조회합니다."
     )
-    @GetMapping("/realestate/rent")
+    @GetMapping("/real-estate/rent")
     public RentInfo getRentDetail(
             @Parameter(description = "id", required = true, example = "1234432")
             @RequestParam String id
@@ -99,7 +99,7 @@ public class RealEstateController {
             value = "부동산 매매 상세 정보 조회 API",
             notes = "부동산의 식별자인 id를 통해서 매매 거래의 상세 정보를 조회합니다."
     )
-    @GetMapping("/realestate/sale")
+    @GetMapping("/real-estate/sale")
     public SaleInfo getSaleDetail(
             @Parameter(description = "id", required = true, example = "10649088")
             @RequestParam String id

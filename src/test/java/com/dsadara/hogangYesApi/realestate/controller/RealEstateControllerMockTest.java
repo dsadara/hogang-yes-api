@@ -61,7 +61,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate?searchKey=name&searchValue=강변힐스테이트"))
+        mockMvc.perform(get("/real-estate?searchKey=name&searchValue=강변힐스테이트"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
@@ -101,7 +101,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate?searchKey=beopJeongDongCode&searchValue=11110"))
+        mockMvc.perform(get("/real-estate?searchKey=beopJeongDongCode&searchValue=11110"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
@@ -147,7 +147,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate?searchKey=beopJeongDong&searchValue=염창동"))
+        mockMvc.perform(get("/real-estate?searchKey=beopJeongDong&searchValue=염창동"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
@@ -185,7 +185,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate?searchKey=parcelNumber&searchValue=299"))
+        mockMvc.perform(get("/real-estate?searchKey=parcelNumber&searchValue=299"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
@@ -217,7 +217,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate?searchKey=realEstateType&searchValue=APT_RENT"))
+        mockMvc.perform(get("/real-estate?searchKey=realEstateType&searchValue=APT_RENT"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].id").value(1))
@@ -248,7 +248,7 @@ public class RealEstateControllerMockTest {
                         .build());
         //when
         //then
-        mockMvc.perform(get("/realestate/detail?id=1"))
+        mockMvc.perform(get("/real-estate/detail?id=1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.constructYear").value("2020"))
                 .andExpect(jsonPath("$.contractYear").value("2021"))
@@ -273,7 +273,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate/detail?id=1"))
+        mockMvc.perform(get("/real-estate/detail?id=1"))
                 .andDo(print())
                 .andExpect(jsonPath("$.errorCode")
                         .value("REAL_ESTATE_NOT_FOUND"))
@@ -300,7 +300,7 @@ public class RealEstateControllerMockTest {
                         .build());
         //when
         //then
-        mockMvc.perform(get("/realestate/rent?id=2"))
+        mockMvc.perform(get("/real-estate/rent?id=2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.requestRenewalRight").value("사용"))
                 .andExpect(jsonPath("$.contractType").value("갱신"))
@@ -322,7 +322,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate/rent?id=2"))
+        mockMvc.perform(get("/real-estate/rent?id=2"))
                 .andDo(print())
                 .andExpect(jsonPath("$.errorCode")
                         .value("RENT_NOT_FOUND"))
@@ -346,7 +346,7 @@ public class RealEstateControllerMockTest {
                         .build());
         //when
         //then
-        mockMvc.perform(get("/realestate/sale?id=1"))
+        mockMvc.perform(get("/real-estate/sale?id=1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.cancelDealDay").value("10.02.01"))
                 .andExpect(jsonPath("$.cancelDealType").value("O"))
@@ -365,7 +365,7 @@ public class RealEstateControllerMockTest {
 
         //when
         //then
-        mockMvc.perform(get("/realestate/sale?id=1"))
+        mockMvc.perform(get("/real-estate/sale?id=1"))
                 .andDo(print())
                 .andExpect(jsonPath("$.errorCode")
                         .value("SALE_NOT_FOUND"))
