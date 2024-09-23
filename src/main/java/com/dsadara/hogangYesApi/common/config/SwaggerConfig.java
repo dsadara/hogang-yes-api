@@ -49,13 +49,13 @@ public class SwaggerConfig {
     @Data
     @ApiModel
     static class MyPagable {
-        @ApiModelProperty(value = "페이지 번호(0~N)")
+        @ApiModelProperty(value = "페이지 번호 (입력 범위: 0 ~ N)")
         private Integer page;
 
-        @ApiModelProperty(value = "페이지 크기", allowableValues = "range[0, 100]")
+        @ApiModelProperty(value = "페이지 크기 (입력 범위: 0 ~ 100)", allowableValues = "range[0, 100]")
         private Integer size;
 
-        @ApiModelProperty(value = "정렬(사용법: 컬럼명)")
+        @ApiModelProperty(value = "정렬 (사용예시: 컬럼명,desc)")
         private List<String> sort;
     }
 }
